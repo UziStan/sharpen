@@ -71,7 +71,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .hello{font-size:clamp(28px,4vw,40px);font-weight:800;letter-spacing:-.015em}
 .hello em{font-style:normal;background:linear-gradient(transparent 62%,color-mix(in srgb,var(--pencil) 55%,transparent) 62%);padding:0 2px}
 .sub{color:var(--muted);margin:6px 0 20px;max-width:60ch}
-.form{display:grid;gap:14px}
+.form{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
 .group{padding:18px 20px}
 .g-label{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
 .g-label h2{font-family:var(--f-body);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
@@ -256,6 +256,116 @@ td.sc{font-family:var(--f-hand);font-size:21px;font-weight:700;color:var(--red);
 .msg{font-size:13px;margin:8px 0 0;color:var(--green)}
 .msg.err{color:var(--red)}
 
+/* game layer */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.snd{border:1px solid var(--line);background:var(--sheet);border-radius:999px;width:38px;height:38px;font-size:17px;line-height:1;display:inline-flex;align-items:center;justify-content:center;flex:none}
+.pet{position:relative;flex:none;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 38%,color-mix(in srgb,var(--kit) 55%,#fff) 0%,var(--kit) 72%);box-shadow:inset 0 -6px 0 rgba(0,0,0,.14),0 6px 16px -8px var(--kit)}
+.pet::after{content:"";position:absolute;inset:auto 18% 9% 18%;height:16%;border-radius:50%;background:repeating-linear-gradient(90deg,rgba(255,255,255,.35) 0 10%,transparent 10% 20%);opacity:.55}
+.pet-a{line-height:1;filter:drop-shadow(0 3px 2px rgba(0,0,0,.18));position:relative;z-index:1}
+.pi{position:absolute;line-height:1;z-index:2;filter:drop-shadow(0 2px 1px rgba(0,0,0,.2))}
+.pi-head{top:-8%;left:50%;transform:translateX(-50%) rotate(-6deg)}
+.pi-face{top:33%;left:50%;transform:translateX(-50%)}
+.pi-neck{bottom:6%;left:50%;transform:translateX(-50%)}
+.pi-hold{bottom:-4%;right:-8%;transform:rotate(10deg)}
+.pet-xl{width:150px;height:150px}.pet-xl .pet-a{font-size:84px}.pet-xl .pi{font-size:44px}.pet-xl .pi-face{font-size:40px}
+.pet-lg{width:118px;height:118px}.pet-lg .pet-a{font-size:66px}.pet-lg .pi{font-size:34px}.pet-lg .pi-face{font-size:31px}
+.pet-md{width:72px;height:72px}.pet-md .pet-a{font-size:40px}.pet-md .pi{font-size:21px}.pet-md .pi-face{font-size:19px}
+.homegrid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:16px;margin-bottom:26px}
+.player{display:flex;gap:22px;align-items:center;padding:22px 24px}
+.pl-main{flex:1;min-width:0}
+.pl-league{margin:0;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pl-name{font-size:clamp(28px,4vw,38px);font-weight:800;letter-spacing:-.01em;margin:2px 0 10px}
+.pl-name span{font-size:.55em;font-weight:700;color:var(--muted)}
+.xpbar{height:12px;border-radius:99px;background:var(--line);overflow:hidden}
+.xpbar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--pencil),var(--pencil-deep));transition:width .6s}
+.pl-next{margin:5px 0 12px;font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.pl-stats{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13.5px;color:var(--muted);margin-bottom:12px}
+.pl-stats b{color:var(--ink);font-variant-numeric:tabular-nums}
+.pl-btns{gap:6px}
+.goals{padding:20px 22px}
+.goals h2{font-family:var(--f-body);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.goal{margin-bottom:14px}
+.goal-top{display:flex;justify-content:space-between;gap:10px;font-size:14px;margin-bottom:6px}
+.goal-top span{font-weight:600;min-width:0}
+.goal-top b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.gbar{height:14px;border-radius:99px;background:var(--line);overflow:hidden;display:flex}
+.gbar i{display:block;height:100%}
+.gbar:not(.stack) i{border-radius:99px}
+.goal-who{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12.5px;color:var(--muted);margin:6px 0 0}
+.goal-who i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.goal-done{margin:6px 0 0;font-weight:700;color:var(--green);font-size:13.5px}
+.sec-h{font-size:24px;font-weight:800;margin:0 0 12px;display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.sec-h span{font-family:var(--f-body);font-size:13px;font-weight:500;color:var(--muted)}
+.modes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:30px}
+.mode{position:relative;display:flex;flex-direction:column;gap:6px;padding:18px 18px 16px;overflow:hidden}
+.mode::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:var(--mc)}
+.m-daily{--mc:#2F6BFF}.m-shoot{--mc:#1F9D55}.m-lives{--mc:#E8A800}.m-cup{--mc:#E5383B}
+.m-ic{font-size:30px;line-height:1}
+.mode h3{font-size:20px;font-weight:800}
+.mode p{margin:0;font-size:13.5px;color:var(--muted)}
+.mode .m-note{font-weight:600;color:var(--ink);font-size:13px}
+.mode .m-done{font-weight:700;color:var(--green);font-size:13px}
+.mode .btn{margin-top:auto;width:100%}
+.m-sel{width:100%;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--sheet);font-size:13.5px}
+.petpick{max-width:760px;margin:0 auto}
+.petpick-in{padding:26px}
+.pp-head{display:flex;gap:22px;align-items:center;margin-bottom:20px}
+.pp-head h1{font-size:clamp(26px,3.6vw,34px);font-weight:800}
+.pp-label{font-family:var(--f-body);font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:18px 0 10px}
+.pp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
+.pp-opt,.pp-kit{position:relative}
+.pp-opt input,.pp-kit input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.pp-opt span{display:flex;flex-direction:column;align-items:center;gap:2px;padding:10px 4px;border:1.5px solid var(--line);border-radius:14px;background:var(--sheet);font-size:12.5px;font-weight:500}
+.pp-opt b{font-size:34px;line-height:1.1;font-weight:400}
+.pp-opt input:checked+span{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);background:var(--paper)}
+.pp-opt input:focus-visible+span,.pp-kit input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
+.pp-kits{display:flex;flex-wrap:wrap;gap:8px}
+.pp-kit span{display:inline-flex;align-items:center;gap:8px;padding:7px 14px 7px 8px;border:1.5px solid var(--line);border-radius:999px;font-size:13.5px;font-weight:500;background:var(--sheet)}
+.pp-kit span::before{content:"";width:22px;height:22px;border-radius:50%;background:var(--kit)}
+.pp-kit input:checked+span{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.shop-head{display:flex;gap:22px;align-items:center;padding:22px 24px}
+.shop-head h1{font-size:32px;font-weight:800}
+.coins{display:inline-block;font-weight:700;font-size:18px;background:color-mix(in srgb,var(--pencil) 22%,transparent);padding:5px 14px;border-radius:999px;font-variant-numeric:tabular-nums}
+.shop{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:16px 12px;text-align:center}
+.item.on{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
+.item-e{font-size:44px;line-height:1.1}
+.item h3{font-family:var(--f-body);font-size:15px;font-weight:600}
+.item p{margin:0}
+.item .btn{margin-top:6px;width:100%}
+.cabinet{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.badge{padding:16px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:4px}
+.badge:not(.won){opacity:.6}
+.badge.won{border-color:color-mix(in srgb,var(--pencil) 60%,var(--line))}
+.badge-e{font-size:40px;line-height:1.1}
+.badge h3{font-family:var(--f-body);font-size:15px;font-weight:700}
+.badge p{margin:0;font-size:12.5px;color:var(--muted)}
+.reward{display:flex;flex-wrap:wrap;gap:18px 22px;align-items:center;padding:20px 24px}
+.rw-main{flex:1;min-width:220px}
+.rw-pts{margin:0 0 4px;font-family:var(--f-display);font-size:30px;font-weight:800;line-height:1.1}
+.rw-pts span{font-family:var(--f-body);font-size:15px;font-weight:600;color:var(--pencil-deep);margin-left:8px}
+.rw-extra{margin:0 0 8px;font-size:13.5px;color:var(--muted)}
+.levelup{margin:4px 0 10px;font-weight:700;color:var(--blue)}
+.rw-badges{display:flex;flex-wrap:wrap;gap:10px;flex-basis:100%}
+.nb{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;padding:10px 14px;border-radius:12px;background:color-mix(in srgb,var(--pencil) 16%,var(--sheet));border:1px solid color-mix(in srgb,var(--pencil) 50%,var(--line))}
+.nb span{grid-row:span 2;font-size:30px}
+.nb small{color:var(--muted)}
+.res-kind{margin:0;font-size:12.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.newbest{margin:0 0 10px;font-weight:700;color:var(--green)}
+.flash{margin-top:16px;font-family:var(--f-display);font-size:30px;font-weight:800;text-align:center;padding:8px;border-radius:12px;animation:pop .35s ease-out}
+.flash.ok{color:var(--green);background:var(--green-soft)}.flash.no{color:var(--red);background:var(--red-soft)}
+@keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+.cards{display:inline-flex;gap:5px;align-items:center}
+.cards i{width:16px;height:22px;border-radius:3px;border:1.5px dashed var(--line);background:transparent}
+.cards i.on{background:#F2C200;border:1.5px solid #C99A00;transform:rotate(-6deg)}
+.board .big-score{font-family:var(--f-display);font-size:48px;font-weight:800;line-height:1;margin:0 0 4px;font-variant-numeric:tabular-nums}
+.track.shot i{background:var(--green)}
+.qcard.k-shootout::before{background:var(--green)}.qcard.k-lives::before{background:#E8A800}.qcard.k-cup::before{background:var(--red)}.qcard.k-daily::before{background:#2F6BFF}
+.say{margin-left:auto}
+.confetti{position:fixed;inset:0;pointer-events:none;z-index:70;width:100%;height:100%}
+.mini-h{font-family:var(--f-body);font-size:14px;font-weight:700;margin:0 0 8px}
+.ph-who{display:flex;gap:14px;align-items:center;min-width:0}
+
 /* auth + parent review */
 .auth{max-width:460px;margin:4vh auto 0}
 .auth .box{padding:28px 26px}
@@ -294,6 +404,8 @@ td .btn-sm{padding:4px 10px}
 .modal .btns{justify-content:flex-end}
 
 @media (max-width:900px){
+  .homegrid{grid-template-columns:minmax(0,1fr)}
+  .modes{grid-template-columns:repeat(2,minmax(0,1fr))}
   .setup{grid-template-columns:minmax(0,1fr)}
   .summary{position:static}
   .qgrid{grid-template-columns:minmax(0,1fr)}
@@ -304,6 +416,12 @@ td .btn-sm{padding:4px 10px}
   .manage{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:600px){
+  .player{flex-direction:column;text-align:center;padding:20px 16px}
+  .pl-stats{justify-content:center}.pl-btns{justify-content:center}
+  .modes{grid-template-columns:minmax(0,1fr)}
+  .pp-head,.shop-head{flex-direction:column;text-align:center}
+  .petpick-in{padding:20px 16px}
+  .snd{width:34px;height:34px}
   .nav button{padding:8px}
   .who label{display:none}
   .acct span{display:none}
@@ -340,12 +458,16 @@ td .btn-sm{padding:4px 10px}
     <button data-act="go-progress" id="nav-progress">Progress</button>
   </nav>
   <div class="who"><label for="who-sel">Student</label><select id="who-sel" aria-label="Student"></select></div>
+  <button class="snd" id="snd" data-act="snd" aria-label="Sound">🔊</button>
   <button class="acct" id="acct" data-act="account" hidden><i class="dot"></i><span id="acct-t">Sign in</span></button>
 </div></header>
 
 <main class="wrap">
   <section id="v-auth" hidden></section>
   <section id="v-session" hidden></section>
+  <section id="v-pet" hidden></section>
+  <section id="v-shop" hidden></section>
+  <section id="v-trophies" hidden></section>
   <section id="v-setup"></section>
   <section id="v-quiz" hidden></section>
   <section id="v-results" hidden></section>
@@ -359,15 +481,7 @@ td .btn-sm{padding:4px 10px}
    Replace null below with the firebaseConfig object from your Firebase project,
    e.g. window.SHARPEN_FIREBASE = { apiKey: "...", authDomain: "...", projectId: "...", ... };
    Leave it as null to run without accounts (progress stays on each device). */
-window.SHARPEN_FIREBASE =  {
-  apiKey: "AIzaSyAthVnm4vGSUTJg2Et3mOH5FKN7rvv5OCA",
-  authDomain: "sharpen-2bc7b.firebaseapp.com",
-  projectId: "sharpen-2bc7b",
-  storageBucket: "sharpen-2bc7b.firebasestorage.app",
-  messagingSenderId: "974345248996",
-  appId: "1:974345248996:web:a626abbc802203a8990cf1"
-};
-
+window.SHARPEN_FIREBASE = null;
 </script>
 <script>
 /* ================= Sharpen question engine ================= */
@@ -390,7 +504,9 @@ const WEEK=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturda
 const ABC='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 function tfmt(m){m=((m%1440)+1440)%1440;const h=Math.floor(m/60),mm=m%60;let h12=h%12;if(h12===0)h12=12;return `${h12}:${String(mm).padStart(2,'0')} ${h<12?'AM':'PM'}`;}
 function dfmt(m){const h=Math.floor(m/60),mm=m%60;return h?(mm?`${h} h ${mm} min`:`${h} h`):`${mm} min`;}
-function twoNames(){const a=pick(NAMES);let b=pick(NAMES);while(b===a)b=pick(NAMES);return [a,b];}
+let PLAYER_NAME=null;function setPlayerName(n){PLAYER_NAME=n&&n!=='Student'?n:null;}
+const who=()=>PLAYER_NAME&&Math.random()<0.4?PLAYER_NAME:pick(NAMES);
+function twoNames(){const a=who();let b=pick(NAMES);while(b===a)b=pick(NAMES);if(a!==PLAYER_NAME&&b===PLAYER_NAME)b=pick(NAMES.filter(x=>x!==a));return [a,b];}
 
 /* option builders */
 function opts(answer,cands,filler){const out=[answer];for(const c of cands){if(out.length>=4)break;if(c!=null&&c!==''&&!out.includes(c))out.push(c);}let g=0;while(out.length<4&&filler&&g++<200){const c=filler();if(c!=null&&c!==''&&!out.includes(c))out.push(c);}return shuffle(out);}
@@ -926,11 +1042,19 @@ QA.word=(g,d)=>{
     {m:6,f:()=>{const w=R(12,20),h=R(3,8),tip=R(5,30);return {q:`${n1} earns ${money(w)} an hour babysitting. Last week ${n1} worked ${h} hours and got a ${money(tip)} tip. How much was earned in total?`,ans:w*h+tip,money:true,wrong:[w*h,(w+tip)*h,w+h+tip],explain:`${money(w)} × ${h} = ${money(w*h)}. Add the tip: ${money(w*h)} + ${money(tip)} = ${money(w*h+tip)}.`};}},
     {m:7,f:()=>{const s=pick([2,4,6]),t=pick([3,8,9,12]);const x=pick([1.5,2,3,0.5]);const ans=r6(x*t/s);if(!Number.isInteger(ans*4))return null;return {q:`A recipe for ${s} people uses ${fmt(x)} cups of flour. How much flour is needed for ${t} people?`,ans,u:'cups',wrong:[r6(x+t-s),r6(x*t),r6(ans+x)],explain:`Flour per person: ${fmt(x)} ÷ ${s} = ${fmt(r6(x/s))} cups. For ${t} people: ${fmt(r6(x/s))} × ${t} = ${fmt(ans)} cups.`};}},
     {m:7,f:()=>{const N=pick([20,25,30,40]),p=pick([20,40,60,80]);const ans=N*p/100;if(!Number.isInteger(ans))return null;return {q:`There are ${N} students in a class. ${p}% of them walk to school. How many students walk?`,ans,wrong:[p,N-ans,ans+2],explain:`${p}% of ${N} = ${N} × ${p/100} = ${ans}.`};}},
+    {m:3,f:()=>{const a=R(1,6),b=R(1,6);return {q:`A football team scored ${a} goals in the first half and ${b} goals in the second half. How many goals did they score in the match?`,ans:a+b,wrong:[a*b,Math.abs(a-b),a+b+1],explain:`${a} + ${b} = ${a+b} goals.`};}},
+    {m:3,f:()=>{const n=R(3,9),k=R(2,9);return {q:`A zoo has ${n} penguins. Each penguin eats ${k} fish a day. How many fish do the penguins eat each day?`,ans:n*k,wrong:[n+k,n*k-k,n*(k+1)],explain:`${n} penguins × ${k} fish = ${n*k} fish.`};}},
+    {m:4,f:()=>{const w=R(2,12),d=R(1,8);return {q:`In a football league, a win is worth 3 points and a draw is worth 1 point. ${n1}'s team has ${w} wins and ${d} draws. How many points do they have?`,ans:3*w+d,wrong:[w+d,3*(w+d),3*w],explain:`Wins: ${w} × 3 = ${3*w}. Draws: ${d} × 1 = ${d}. Total = ${3*w} + ${d} = ${3*w+d} points.`};}},
+    {m:4,f:()=>{const c=R(3,15),sh=R(2,10);return {q:`A farm has ${c} chickens and ${sh} sheep. How many legs are there altogether?`,ans:2*c+4*sh,wrong:[c+sh,4*(c+sh),2*(c+sh)],explain:`Chickens have 2 legs: ${c} × 2 = ${2*c}. Sheep have 4 legs: ${sh} × 4 = ${4*sh}. Total = ${2*c+4*sh} legs.`};}},
+    {m:5,f:()=>{const m=R(2,6);return {q:`A football match lasts 90 minutes. ${n1} watched ${m} full matches this month. How many minutes is that?`,ans:90*m,wrong:[90+m,60*m,90*m-90],explain:`90 × ${m} = ${90*m} minutes (that is ${fmt(90*m/60)} hours).`};}},
+    {m:6,f:()=>{const p=pick([20,25,50]),pc=pick([40,60,80,20]);const w=p*pc/100;return {q:`A team won ${w} out of ${p} matches this season. What percent of its matches did it win?`,ans:pc,u:'%',wrong:[w,100-pc,pc+10],explain:`${w} ÷ ${p} = ${fmt(pc/100)}, and × 100 gives ${pc}%.`};}},
+    {m:6,f:()=>{const cap=pick([20000,30000,40000,50000,60000]),p=pick([50,60,75,80,90]);return {q:`A stadium has ${fmt(cap)} seats. ${p}% of the seats are filled for a big match. How many fans are there?`,ans:cap*p/100,wrong:[cap-p*100,cap*p/1000,cap*(100-p)/100],explain:`${p}% of ${fmt(cap)} = ${fmt(cap)} × ${p/100} = ${fmt(cap*p/100)} fans.`};}},
+    {m:7,f:()=>{const s=pick([60,90,120]),mm=pick([2,4,6,10]);const ans=s*mm/60;return {q:`A cheetah can run at ${s} km/h for a short sprint. How far would it run in ${mm} minutes at that speed?`,ans,u:'km',wrong:[s*mm,s/mm,ans*2],explain:`${mm} minutes is ${mm}/60 of an hour. ${s} × ${mm}/60 = ${fmt(ans)} km.`};}},
     {m:8,f:()=>{const x=R(5,60);const S=3*x+3;return {q:`Three consecutive whole numbers add up to ${S}. What is the smallest of them?`,ans:x,wrong:[x+1,S/3,x-1],explain:`Call them n, n + 1, n + 2. Then 3n + 3 = ${S}, so 3n = ${S-3} and n = ${x}.`};}},
     {m:8,f:()=>{const a=R(8,15),c=R(4,a-2),A=R(2,5),C=R(2,6);const tot=a*A+c*C;return {q:`Adult tickets cost ${money(a)} and child tickets cost ${money(c)}. A group pays ${money(tot)} for ${A} adult tickets and some child tickets. How many child tickets did they buy?`,ans:C,wrong:[C+1,A,Math.floor(tot/c)],explain:`Adults cost ${A} × ${money(a)} = ${money(a*A)}. Left for children: ${money(tot)} − ${money(a*A)} = ${money(c*C)}. ${money(c*C)} ÷ ${money(c)} = ${C} tickets.`};}},
   ];
   const pool=T.filter(t=>t.m<=g&&t.m>=g-3);let t,gg=0;do{t=pick(pool).f();}while(!t&&gg++<60);
-  const f=t.money?money:t.u?(v=>fmt(v)+' '+t.u):fmt;
+  const f=t.money?money:t.u==='%'?(v=>fmt(v)+'%'):t.u?(v=>fmt(v)+' '+t.u):fmt;
   return {q:t.q,...nopts(t.ans,t.wrong,{f,min:t.money?0.01:0}),explain:t.explain,hint:'Underline what you know and what you need to find.'};
 };
 QA.speed=(g,d)=>{
@@ -947,11 +1071,11 @@ QA.speed=(g,d)=>{
 QA.averages=(g,d)=>{
   const k=pick(g<=6?['mean','new']:['needed','new','mean']);
   if(k==='mean'){const n=R(3,5),m=R(60,90);const a=[];for(let i=0;i<n-1;i++)a.push(m+R(-10,10));const last=m*n-a.reduce((s,x)=>s+x,0);if(last>100||last<0)return QA.averages(g,d);a.push(last);
-    return {q:`${pick(NAMES)}'s test scores are ${a.join(', ')}. What is the average score?`,...nopts(m,[m+2,Math.max(...a),m-3]),explain:`Total = ${a.join(' + ')} = ${m*n}. Average = ${m*n} ÷ ${n} = ${m}.`,hint:'Total ÷ number of tests.'};}
+    return {q:`${who()}'s test scores are ${a.join(', ')}. What is the average score?`,...nopts(m,[m+2,Math.max(...a),m-3]),explain:`Total = ${a.join(' + ')} = ${m*n}. Average = ${m*n} ÷ ${n} = ${m}.`,hint:'Total ÷ number of tests.'};}
   if(k==='new'){const n=R(3,6),A=R(9,14);const x=A+(n+1)*R(1,3);const nw=(n*A+x)/(n+1);
     return {q:`The average age of ${n} children is ${A}. A ${x}-year-old joins the group. What is the new average age?`,...nopts(nw,[(A+x)/2%1===0?(A+x)/2:null,A,nw+1]),explain:`Old total = ${n} × ${A} = ${n*A}. New total = ${n*A} + ${x} = ${n*A+x}. New average = ${n*A+x} ÷ ${n+1} = ${nw}.`,hint:'Work with totals, not averages.'};}
   const n=R(3,5),A=R(70,85),B=A+R(1,3);const need=B*(n+1)-n*A;if(need>100)return QA.averages(g,d);
-  return {q:`${pick(NAMES)} has an average of ${A} on ${n} tests. What score is needed on the next test to raise the average to ${B}?`,...nopts(need,[B,B+(B-A),need-n],{max:100}),explain:`Needed total for ${n+1} tests: ${n+1} × ${B} = ${B*(n+1)}. Current total: ${n} × ${A} = ${n*A}. Needed: ${B*(n+1)} − ${n*A} = ${need}.`,hint:'Target total − current total.'};
+  return {q:`${who()} has an average of ${A} on ${n} tests. What score is needed on the next test to raise the average to ${B}?`,...nopts(need,[B,B+(B-A),need-n],{max:100}),explain:`Needed total for ${n+1} tests: ${n+1} × ${B} = ${B*(n+1)}. Current total: ${n} × ${A} = ${n*A}. Needed: ${B*(n+1)} − ${n*A} = ${need}.`,hint:'Target total − current total.'};
 };
 QA.ages=(g,d)=>{
   const [a,b]=twoNames();const k=pick(g<=6?['diff','times']:['diff','times','twice','ago']);
@@ -980,7 +1104,7 @@ QA.ratio_share=(g,d)=>{
 QA.work=(g,d)=>{
   const k=pick(['together','workers','pipes']);
   if(k==='together'){const [a,b,t]=pick([[3,6,2],[4,12,3],[6,12,4],[10,15,6],[12,24,8],[20,30,12],[2,2,1],[4,4,2],[5,20,4],[6,30,5],[8,24,6],[9,18,6],[15,30,10],[12,6,4],[10,40,8]]);
-    return {q:`${pick(NAMES)} can paint a fence in ${a} hours. A friend can paint it in ${b} hours. How long will it take them working together?`,...nopts(t,[(a+b)/2,a+b,Math.min(a,b)-1||t+1],{f:v=>fmt(v)+' h'}),explain:`In one hour they paint 1/${a} + 1/${b} = ${fstr([a+b,a*b],false)} of the fence. So the whole fence takes ${a*b} ÷ ${a+b} = ${t} hours.`,hint:'Add the fractions of the job each does in one hour.'};}
+    return {q:`${who()} can paint a fence in ${a} hours. A friend can paint it in ${b} hours. How long will it take them working together?`,...nopts(t,[(a+b)/2,a+b,Math.min(a,b)-1||t+1],{f:v=>fmt(v)+' h'}),explain:`In one hour they paint 1/${a} + 1/${b} = ${fstr([a+b,a*b],false)} of the fence. So the whole fence takes ${a*b} ÷ ${a+b} = ${t} hours.`,hint:'Add the fractions of the job each does in one hour.'};}
   if(k==='workers'){let w,dd,w2,ans;do{w2=R(2,8);ans=R(3,15);const tot=w2*ans;const ws=range(2,12).filter(x=>x!==w2&&tot%x===0&&tot/x!==ans);w=ws.length?pick(ws):0;dd=w?tot/w:0;}while(!w);
     return {q:`${w} workers can build a wall in ${dd} days. How many days would ${w2} workers take, working at the same rate?`,...nopts(ans,[dd*w2/w%1===0?dd*w2/w:null,dd+(w-w2),ans+1]),explain:`Total work = ${w} × ${dd} = ${w*dd} worker-days. With ${w2} workers: ${w*dd} ÷ ${w2} = ${ans} days.`,hint:'More workers means fewer days.'};}
   const [a,b,t]=pick([[3,6,6],[4,12,6],[6,12,12],[2,3,6],[4,6,12],[5,20,20/3],[10,15,30],[6,10,15],[2,6,3]]);if(!Number.isInteger(t))return QA.work(g,d);
@@ -1174,7 +1298,7 @@ function makeQuestion(subject,topicId,grade,d){
   const t=SUBJECTS[subject].topics.find(t=>t.id===topicId);
   for(let i=0;i<30;i++){
     let o;try{o=t.gen(grade,d);}catch(e){o=null;}
-    if(validQ(o)){o.topic=topicId;o.d=d;if(o.value!=null&&!o.exact&&typeof o.value!=='number')o.value=null;return o;}
+    if(validQ(o)){o.topic=topicId;o.d=d;o.subject=subject;if(o.value!=null&&!o.exact&&typeof o.value!=='number')o.value=null;return o;}
   }
   return null;
 }
@@ -1213,40 +1337,102 @@ const canType=q=>q.exact||typeof q.value==='number';
 'use strict';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const LS='sharpen.v1',LS_SES='sharpen.sessions.v1',LS_LOCAL='sharpen.localOnly',LS_CUR='sharpen.current',LS_IN='sharpen.signedIn';
+const LS='sharpen.v1',LS_SES='sharpen.sessions.v1',LS_LOCAL='sharpen.localOnly',LS_CUR='sharpen.current',LS_IN='sharpen.signedIn',LS_SND='sharpen.sound';
 const DEF={grade:5,subject:'maths',topicsBy:{},mode:'practice',count:10,timer:'standard',timerStyle:'whole',custom:15,difficulty:'standard',answerStyle:'choose'};
 const clone=o=>JSON.parse(JSON.stringify(o));
 const uid=p=>p+Date.now().toString(36)+Math.random().toString(36).slice(2,8);
-const newStudent=name=>({name,history:[],stats:{},days:[],settings:clone(DEF),pin:null,created:Date.now()});
 const lsGet=(k,d)=>{try{const r=localStorage.getItem(k);return r==null?d:JSON.parse(r);}catch(e){return d;}};
 const lsSet=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}};
-const hashPin=p=>{let h=0x811c9dc5;const s='sharpen:'+p;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h.toString(16);};
+const strHash=s=>{let h=0x811c9dc5;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)>>>0;}return h;};
+const hashPin=p=>strHash('sharpen:'+p).toString(16);
+const dkey=x=>x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');
+const today=()=>dkey(new Date());
+const weekStart=(t=Date.now())=>{const d=new Date(t);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()+6)%7));return d.getTime();};
+const weekKey=()=>dkey(new Date(weekStart()));
+const mmss=s=>{s=Math.max(0,Math.round(s));const m=Math.floor(s/60),x=s%60;return m+':'+String(x).padStart(2,'0');};
+const durTxt=s=>{s=Math.round(s);const m=Math.floor(s/60),x=s%60;return m?`${m} min ${x} s`:`${x} s`;};
+const secTxt=ms=>{const s=Math.round((ms||0)/1000);return s>=60?`${Math.floor(s/60)}m ${s%60}s`:`${s}s`;};
+const nf=n=>Number(n||0).toLocaleString('en-US');
+
+/* ---------- game content ---------- */
+const ANIMALS=[['fox','🦊','Fox'],['lion','🦁','Lion'],['tiger','🐯','Tiger'],['panda','🐼','Panda'],['koala','🐨','Koala'],['monkey','🐵','Monkey'],['dog','🐶','Puppy'],['cat','🐱','Cat'],['rabbit','🐰','Bunny'],['penguin','🐧','Penguin'],['owl','🦉','Owl'],['frog','🐸','Frog'],['turtle','🐢','Turtle'],['unicorn','🦄','Unicorn'],['bear','🐻','Bear'],['hamster','🐹','Hamster']];
+const KITS=[['red','#E5383B','Red'],['blue','#2F6BFF','Blue'],['green','#1F9D55','Green'],['gold','#E8A800','Gold'],['purple','#8A4FFF','Purple'],['orange','#FF7A1A','Orange'],['sky','#1FA8E0','Sky'],['pink','#F2559A','Pink']];
+const ITEMS=[{id:'ball',e:'⚽',name:'Football',slot:'hold',cost:50},{id:'cap',e:'🧢',name:'Cap',slot:'head',cost:60},{id:'bow',e:'🎀',name:'Bow',slot:'head',cost:60},{id:'scarf',e:'🧣',name:'Team scarf',slot:'neck',cost:80},{id:'shades',e:'🕶️',name:'Shades',slot:'face',cost:120},{id:'phones',e:'🎧',name:'Headphones',slot:'head',cost:150},{id:'boot',e:'👟',name:'Golden boot',slot:'hold',cost:200},{id:'medal',e:'🏅',name:'Medal',slot:'neck',cost:250},{id:'trophy',e:'🏆',name:'Trophy',slot:'hold',cost:350},{id:'crown',e:'👑',name:'Crown',slot:'head',cost:500}];
+const SLOTS={head:'Head',face:'Face',neck:'Neck',hold:'Holding'};
+const LEAGUES=[[1,'Grassroots'],[5,'Academy'],[10,'Semi-Pro'],[15,'Pro'],[20,'International'],[25,'Legend']];
+const BADGES=[
+ {id:'first',e:'⚽',name:'First Goal',desc:'Get your first answer right'},
+ {id:'hattrick',e:'🎩',name:'Hat-trick',desc:'3 right answers in a row'},
+ {id:'ten',e:'🔟',name:'Perfect Ten',desc:'10 right answers in a row'},
+ {id:'clean',e:'🧤',name:'Clean Sheet',desc:'A perfect score on 10 or more questions'},
+ {id:'matchday',e:'📅',name:'Match Day',desc:'Finish a Match Day challenge'},
+ {id:'week',e:'🔥',name:'Week Warrior',desc:'Practise 7 days in a row'},
+ {id:'month',e:'🌟',name:'Season Ticket',desc:'Practise 30 days in a row'},
+ {id:'c100',e:'💯',name:'Century',desc:'100 right answers in total'},
+ {id:'c500',e:'🚀',name:'500 Club',desc:'500 right answers in total'},
+ {id:'c1000',e:'🏟️',name:'Stadium Hero',desc:'1,000 right answers in total'},
+ {id:'allround',e:'🧭',name:'All-Rounder',desc:'Finish training in Maths, Quantitative and Verbal'},
+ {id:'striker',e:'🥅',name:'Sharp Shooter',desc:'Score 15 or more in a Penalty Shootout'},
+ {id:'survivor',e:'🟨',name:'Cool Head',desc:'Get 20 or more right in Three Cards'},
+ {id:'cup',e:'🏆',name:'Cup Winner',desc:'Win a Cup Final 5 out of 5'},
+ {id:'strong',e:'💪',name:'Topic Star',desc:'Get any topic to Strong'},
+ {id:'comeback',e:'🔁',name:'Comeback',desc:'Fix every mistake when you retry them'},
+ {id:'nohint',e:'🧠',name:'No Hints Needed',desc:'90% or more on 10+ questions with no hints'},
+ {id:'early',e:'🌅',name:'Early Bird',desc:'Practise before 8 a.m.'},
+ {id:'level5',e:'🎓',name:'Academy Graduate',desc:'Reach Level 5'},
+ {id:'level10',e:'🥈',name:'Semi-Pro',desc:'Reach Level 10'},
+];
+const levelOf=xp=>Math.max(1,Math.floor((1+Math.sqrt(1+(xp||0)/12.5))/2));
+const xpAt=L=>50*L*(L-1);
+const leagueOf=L=>{let n=LEAGUES[0][1];for(const [m,name] of LEAGUES)if(L>=m)n=name;return n;};
+const animalOf=st=>ANIMALS.find(a=>a[0]===(st.pet&&st.pet.animal))||ANIMALS[0];
+const kitOf=st=>KITS.find(k=>k[0]===(st.pet&&st.pet.kit))||KITS[3];
+const KINDS={training:'Training',daily:'Match Day',shootout:'Penalty Shootout',lives:'Three Cards',cup:'Cup Final'};
 
 /* ---------- local data ---------- */
+const newStudent=name=>({name,history:[],stats:{},days:[],settings:clone(DEF),pin:null,created:Date.now()});
+function ensure(st){const d={history:[],stats:{},days:[],settings:clone(DEF),pin:null,pet:null,xp:0,coins:0,badges:{},bests:{},freezes:{n:1,wk:''},frozen:[],goal:null,daily:{},cups:{},totalRight:0,owned:[],wearing:{}};for(const k in d)if(st[k]==null)st[k]=d[k];return st;}
 let DB=loadDB();
 let SESSIONS=lsGet(LS_SES,[]);
 function loadDB(){
   let d=lsGet(LS,null);
-  if(d&&d.students&&!d.ver){ // migrate v1 (keyed by name) -> v2 (keyed by id)
-    const out={ver:2,students:{},current:null};
-    for(const [name,st] of Object.entries(d.students)){const id=uid('st_');out.students[id]=Object.assign(newStudent(name),st,{name});if(name===d.current)out.current=id;}
-    d=out;
-  }
+  if(d&&d.students&&!d.ver){const out={ver:2,students:{},current:null};for(const [name,st] of Object.entries(d.students)){const id=uid('st_');out.students[id]=Object.assign(newStudent(name),st,{name});if(name===d.current)out.current=id;}d=out;}
   if(!d||!d.students||!Object.keys(d.students).length){const id=uid('st_');d={ver:2,students:{[id]:newStudent('Student')},current:id};}
   const cur=lsGet(LS_CUR,null);if(cur&&d.students[cur])d.current=cur;
   if(!d.students[d.current])d.current=Object.keys(d.students)[0];
+  d.family=Object.assign({goal:null,parentPin:null},d.family||{});
+  Object.values(d.students).forEach(ensure);
   return d;
 }
 function saveLocal(){lsSet(LS,DB);lsSet(LS_CUR,DB.current);}
 function save(id){saveLocal();if(CLOUD.user)cloudPushStudent(id||DB.current);}
+function saveFamily(){saveLocal();if(CLOUD.user)userRef().set({family:clone(DB.family)},{merge:true}).catch(()=>{});}
 function saveSessionsLocal(){const keep=SESSIONS.filter(s=>!s.synced).concat(SESSIONS.filter(s=>s.synced).slice(-40));const ids=new Set(keep.map(s=>s.id));SESSIONS=SESSIONS.filter(s=>ids.has(s.id)).slice(-80);lsSet(LS_SES,SESSIONS);}
-const ST=()=>DB.students[DB.current];
+const ST=()=>ensure(DB.students[DB.current]);
 const NAME=id=>(DB.students[id||DB.current]||{}).name||'Student';
 const S=()=>{const s=ST();s.settings=Object.assign(clone(DEF),s.settings||{});return s.settings;};
-const today=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');};
-const mmss=s=>{s=Math.max(0,Math.round(s));const m=Math.floor(s/60),x=s%60;return m+':'+String(x).padStart(2,'0');};
-const durTxt=s=>{s=Math.round(s);const m=Math.floor(s/60),x=s%60;return m?`${m} min ${x} s`:`${x} s`;};
-const secTxt=ms=>{const s=Math.round((ms||0)/1000);return s>=60?`${Math.floor(s/60)}m ${s%60}s`:`${s}s`;};
+const ptsWeek=st=>(st.history||[]).filter(h=>h.ts>=weekStart()).reduce((a,h)=>a+(h.pts||0),0);
+function streakDays(st){const set=new Set([...(st.days||[]),...(st.frozen||[])]);let d=new Date();if(!set.has(dkey(d)))d.setDate(d.getDate()-1);let n=0;while(set.has(dkey(d))){n++;d.setDate(d.getDate()-1);}return n;}
+function applyFreezes(st){
+  const wk=weekKey();let changed=false;
+  if(st.freezes.wk!==wk){st.freezes={n:Math.min(2,(st.freezes.n||0)+(st.freezes.wk?1:0)),wk};changed=true;}
+  const set=new Set([...(st.days||[]),...(st.frozen||[])]);if(!set.size)return changed;
+  const gaps=[];const d=new Date();d.setDate(d.getDate()-1);let k=0;
+  while(!set.has(dkey(d))&&k<4){gaps.push(dkey(d));d.setDate(d.getDate()-1);k++;}
+  if(gaps.length&&set.has(dkey(d))&&gaps.length<=st.freezes.n){st.frozen=(st.frozen||[]).concat(gaps).slice(-60);st.freezes.n-=gaps.length;st.freezeUsed=Date.now();changed=true;}
+  return changed;
+}
+function onStudentReady(){const st=ST();setPlayerName(st.name);if(applyFreezes(st))save();}
+
+/* ---------- sound & confetti ---------- */
+const SND={ctx:null,on:lsGet(LS_SND,true)};
+function tone(seq){if(!SND.on)return;try{SND.ctx=SND.ctx||new (window.AudioContext||window.webkitAudioContext)();const c=SND.ctx;if(c.state==='suspended')c.resume();let t=c.currentTime+0.01;for(const [f,d,type,v] of seq){const o=c.createOscillator(),g=c.createGain();o.type=type||'sine';o.frequency.value=f;g.gain.setValueAtTime(v||0.12,t);g.gain.exponentialRampToValueAtTime(0.0001,t+d);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+0.02);t+=d*0.8;}}catch(e){}}
+const sfx={right:()=>tone([[660,.09],[990,.16]]),wrong:()=>tone([[196,.22,'triangle',.1]]),streak:()=>tone([[523,.07],[659,.07],[784,.07],[1047,.16]]),win:()=>tone([[523,.12],[659,.12],[784,.12],[1047,.3],[784,.1],[1047,.4]]),buy:()=>tone([[880,.06,'square',.05],[1320,.12,'square',.05]]),whistle:()=>tone([[2100,.12,'sine',.06],[2100,.35,'sine',.06]])};
+function confetti(){if(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)return;const cv=document.createElement('canvas');cv.className='confetti';document.body.appendChild(cv);const ctx=cv.getContext('2d');const W=cv.width=innerWidth,H=cv.height=innerHeight;const cols=['#F2B705','#E5383B','#2F6BFF','#1F9D55','#F2559A','#8A4FFF','#FFFFFF'];
+  const P=Array.from({length:160},()=>({x:W*(.3+Math.random()*.4),y:H*.3,vx:(Math.random()-.5)*14,vy:-Math.random()*13-4,r:Math.random()*7+5,c:cols[Math.floor(Math.random()*cols.length)],a:Math.random()*6,va:(Math.random()-.5)*.35}));let t=0;
+  (function f(){t++;ctx.clearRect(0,0,W,H);for(const p of P){p.vy+=.33;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.a+=p.va;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.a);ctx.fillStyle=p.c;ctx.fillRect(-p.r/2,-p.r/4,p.r,p.r/2);ctx.restore();}if(t<130)requestAnimationFrame(f);else cv.remove();})();}
+function renderSound(){const b=$('#snd');if(!b)return;b.textContent=SND.on?'🔊':'🔇';b.setAttribute('aria-label',SND.on?'Sound on. Tap to mute':'Sound off. Tap to turn on');b.setAttribute('aria-pressed',String(SND.on));}
+function speak(text){try{if(!window.speechSynthesis)return;speechSynthesis.cancel();const t=String(text).replace(/×/g,' times ').replace(/÷/g,' divided by ').replace(/−/g,' minus ').replace(/□/g,' blank ').replace(/_{2,}/g,' blank ').replace(/√/g,' square root of ').replace(/²/g,' squared ').replace(/³/g,' cubed ').replace(/(\d)\/(\d)/g,'$1 over $2');const u=new SpeechSynthesisUtterance(t);u.rate=0.95;speechSynthesis.speak(u);}catch(e){}}
 
 /* ---------- cloud (Firebase) ---------- */
 const CFG=window.SHARPEN_FIREBASE;
@@ -1258,57 +1444,49 @@ async function initCloud(){
   try{
     await loadScript(FB+'firebase-app-compat.js');
     await Promise.all([loadScript(FB+'firebase-auth-compat.js'),loadScript(FB+'firebase-firestore-compat.js')]);
-    firebase.initializeApp(CFG);
-    CLOUD.auth=firebase.auth();CLOUD.fs=firebase.firestore();
+    firebase.initializeApp(CFG);CLOUD.auth=firebase.auth();CLOUD.fs=firebase.firestore();
     try{await CLOUD.fs.enablePersistence({synchronizeTabs:true});}catch(e){}
     CLOUD.auth.getRedirectResult().catch(e=>{CLOUD.err=authMsg(e);showAuthErr();});
-    CLOUD.ready=true;
+    CLOUD.ready=true;if(VIEW==='auth')renderAuth();
     CLOUD.auth.onAuthStateChanged(u=>{onUser(u);});
   }catch(e){CLOUD.failed=true;CLOUD.err='Could not reach the sign-in service. You can keep practising; progress is saved on this device.';renderAccount();if(VIEW==='auth')renderAuth();}
 }
 const userRef=()=>CLOUD.fs.collection('users').doc(CLOUD.user.uid);
-const forCloud=st=>clone(st);
 async function onUser(u){
   CLOUD.unsub.forEach(f=>{try{f();}catch(e){}});CLOUD.unsub=[];
   CLOUD.user=u||null;CLOUD.sessions=null;
   if(!u){lsSet(LS_IN,false);renderAccount();if(!lsGet(LS_LOCAL,false)&&!(VIEW==='quiz'&&QZ&&!QZ.fin)){show('auth');renderAuth();}return;}
   lsSet(LS_LOCAL,false);lsSet(LS_IN,true);
   try{await bootstrap(u);}catch(e){CLOUD.err='Signed in, but syncing failed: '+(e&&e.message||e);}
-  renderAccount();renderWho();
-  if(VIEW==='auth'||VIEW==='setup'){show('setup');renderSetup();}else if(VIEW==='progress')renderProgress();
+  onStudentReady();renderAccount();renderWho();
+  if(VIEW==='auth'||VIEW==='setup')home();else if(VIEW==='progress')renderProgress();
 }
 async function bootstrap(u){
   const base=userRef();
-  await base.set({email:u.email||null,name:u.displayName||null,lastSeen:Date.now()},{merge:true});
+  const udoc=await base.get();const ud=udoc.exists?udoc.data():{};
+  if(ud.family)DB.family=Object.assign({goal:null,parentPin:null},ud.family);
+  await base.set({email:u.email||null,name:u.displayName||null,lastSeen:Date.now(),family:clone(DB.family)},{merge:true});
   const snap=await base.collection('students').get();
-  const cloud={};snap.forEach(d=>{cloud[d.id]=d.data();});
+  const cloud={};snap.forEach(d=>{cloud[d.id]=ensure(d.data());});
   const ups=[];
-  if(snap.empty){ // first sign-in: upload everything on this device
-    for(const [id,st] of Object.entries(DB.students)){cloud[id]=st;ups.push(base.collection('students').doc(id).set(forCloud(st)));}
-  }else{ // keep cloud; bring across local students that have real work in them
-    for(const [id,st] of Object.entries(DB.students)){if(!cloud[id]&&st.history&&st.history.length){cloud[id]=st;ups.push(base.collection('students').doc(id).set(forCloud(st)));}}
-  }
+  if(snap.empty){for(const [id,st] of Object.entries(DB.students)){cloud[id]=st;ups.push(base.collection('students').doc(id).set(clone(st)));}}
+  else{for(const [id,st] of Object.entries(DB.students)){if(!cloud[id]&&st.history&&st.history.length){cloud[id]=st;ups.push(base.collection('students').doc(id).set(clone(st)));}}}
   DB.students=cloud;
   if(!DB.students[DB.current])DB.current=Object.keys(DB.students)[0];
-  if(!DB.current){const id=uid('st_');DB.students[id]=newStudent('Student');DB.current=id;ups.push(base.collection('students').doc(id).set(forCloud(DB.students[id])));}
+  if(!DB.current){const id=uid('st_');DB.students[id]=ensure(newStudent('Student'));DB.current=id;ups.push(base.collection('students').doc(id).set(clone(DB.students[id])));}
   for(const s of SESSIONS.filter(s=>!s.synced&&DB.students[s.studentId]))ups.push(pushSession(s));
   await Promise.all(ups);saveLocal();
+  try{CLOUD.unsub.push(base.onSnapshot(d=>{const x=d.exists?d.data():{};if(x.family){DB.family=Object.assign({goal:null,parentPin:null},x.family);saveLocal();softRefresh();}},()=>{}));}catch(e){}
   CLOUD.unsub.push(base.collection('students').onSnapshot(qs=>{
-    const next={};qs.forEach(d=>{next[d.id]=d.data();});
+    const next={};qs.forEach(d=>{next[d.id]=ensure(d.data());});
     if(!Object.keys(next).length)return;
-    for(const id of Object.keys(CLOUD.timers))if(DB.students[id])next[id]=DB.students[id]; // keep unsent local edits
-    DB.students=next;if(!DB.students[DB.current])DB.current=Object.keys(DB.students)[0];saveLocal();
-    renderWho();softRefresh();
+    for(const id of Object.keys(CLOUD.timers))if(DB.students[id])next[id]=DB.students[id];
+    DB.students=next;if(!DB.students[DB.current])DB.current=Object.keys(DB.students)[0];saveLocal();renderWho();softRefresh();
   },()=>{}));
-  CLOUD.unsub.push(base.collection('sessions').orderBy('ts','desc').limit(300).onSnapshot(qs=>{
-    CLOUD.sessions=qs.docs.map(d=>Object.assign({id:d.id},d.data()));softRefresh();
-  },()=>{}));
+  CLOUD.unsub.push(base.collection('sessions').orderBy('ts','desc').limit(300).onSnapshot(qs=>{CLOUD.sessions=qs.docs.map(d=>Object.assign({id:d.id},d.data()));softRefresh();},()=>{}));
 }
-function softRefresh(){const a=document.activeElement;const typing=a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA');if(typing)return;if(VIEW==='progress')renderProgress();else if(VIEW==='setup')renderSetup();}
-function cloudPushStudent(id){
-  if(!CLOUD.user||!DB.students[id])return;clearTimeout(CLOUD.timers[id]);
-  CLOUD.timers[id]=setTimeout(()=>{delete CLOUD.timers[id];const st=DB.students[id];if(!st)return;userRef().collection('students').doc(id).set(forCloud(st)).catch(()=>{});},700);
-}
+function softRefresh(){const a=document.activeElement;if(a&&(a.tagName==='INPUT'||a.tagName==='TEXTAREA'))return;if(!$('#modal').hidden)return;if(VIEW==='progress')renderProgress();else if(VIEW==='setup')renderSetup();}
+function cloudPushStudent(id){if(!CLOUD.user||!DB.students[id])return;clearTimeout(CLOUD.timers[id]);CLOUD.timers[id]=setTimeout(()=>{delete CLOUD.timers[id];const st=DB.students[id];if(!st)return;userRef().collection('students').doc(id).set(clone(st)).catch(()=>{});},700);}
 function pushSession(s){const doc=clone(s);delete doc.synced;return userRef().collection('sessions').doc(s.id).set(doc).then(()=>{s.synced=true;saveSessionsLocal();}).catch(()=>{});}
 function authMsg(e){const c=(e&&e.code)||'';const M={
   'auth/invalid-credential':'That email and password do not match an account.','auth/wrong-password':'That password is not right.','auth/user-not-found':'No account uses that email yet. Use "Create account".',
@@ -1325,27 +1503,31 @@ async function signInEmail(create){CLOUD.err='';const em=($('#au-email')||{}).va
   try{create?await CLOUD.auth.createUserWithEmailAndPassword(em.trim(),pw):await CLOUD.auth.signInWithEmailAndPassword(em.trim(),pw);}catch(e){CLOUD.err=authMsg(e);showAuthErr();}}
 async function resetPw(){const em=(($('#au-email')||{}).value||'').trim();if(!em){CLOUD.err='Type your email first, then press "Forgot password".';showAuthErr();return;}
   try{await CLOUD.auth.sendPasswordResetEmail(em);CLOUD.err='';showAuthErr();await ask('Check your email',`A link to reset the password was sent to ${em}.`,{cancel:null});}catch(e){CLOUD.err=authMsg(e);showAuthErr();}}
-async function signOut(){const ok=await ask('Sign out?','This device will stop syncing. Progress already saved stays in your account.',{ok:'Sign out',cancel:'Cancel'});if(!ok)return;
-  await CLOUD.auth.signOut();const id=uid('st_');DB={ver:2,students:{[id]:newStudent('Student')},current:id};SESSIONS=[];saveLocal();lsSet(LS_SES,[]);}
+async function signOut(){if(!await parentOk())return;const ok=await ask('Sign out?','This device will stop syncing. Progress already saved stays in your account.',{ok:'Sign out',cancel:'Cancel'});if(!ok)return;
+  await CLOUD.auth.signOut();const id=uid('st_');DB={ver:2,students:{[id]:ensure(newStudent('Student'))},current:id,family:{goal:null,parentPin:null}};SESSIONS=[];saveLocal();lsSet(LS_SES,[]);}
 
 /* ---------- settings helpers ---------- */
 function availTopics(s){return topicsFor(s.subject,s.grade);}
 function chosenTopics(s){const all=availTopics(s).map(t=>t.id);const k=s.subject+'-'+s.grade;const c=s.topicsBy[k];if(!c)return all;return c.filter(id=>all.includes(id));}
 function perQ(s){const b={relaxed:90,standard:60,speed:30}[s.timer]||60;const f=s.subject==='verbal'?0.6:1;return Math.max(15,Math.round(b*f/5)*5);}
-function limitOf(s){if(s.timer==='off')return {};if(s.timer==='custom')return s.timerStyle==='whole'?{whole:clamp(+s.custom||10,1,240)*60}:{per:clamp(+s.custom||60,5,900)};const p=perQ(s);return s.timerStyle==='whole'?{whole:p*s.count}:{per:p};}
+function limitOf(s){if(s.kind==='shootout')return {whole:60};if(s.kind&&s.kind!=='training')return {};if(s.timer==='off')return {};if(s.timer==='custom')return s.timerStyle==='whole'?{whole:clamp(+s.custom||10,1,240)*60}:{per:clamp(+s.custom||60,5,900)};const p=perQ(s);return s.timerStyle==='whole'?{whole:p*s.count}:{per:p};}
 function timerTxt(s){const L=limitOf(s);if(L.whole)return `${mmss(L.whole)} for the test`;if(L.per)return `${L.per} s per question`;return 'No time limit';}
-const subjName=k=>(SUBJECTS[k]||{name:k}).name;
+const subjName=k=>k==='mixed'?'Mixed subjects':(SUBJECTS[k]||{name:k}).name;
+const tName=(sub,id)=>SUBJECTS[sub]?topicName(sub,id):id;
 const diffName={easy:'Easy',standard:'Standard',challenge:'Challenge',mixed:'Mixed',adaptive:'Adaptive'};
 const typeAllowed=s=>s.subject!=='verbal';
 
 /* ---------- routing ---------- */
 let VIEW='setup';
-function show(v){VIEW=v;for(const k of ['auth','setup','quiz','results','progress','session'])$('#v-'+k).hidden=k!==v;
-  $('#nav-setup').setAttribute('aria-current',['setup','quiz','results'].includes(v)?'page':'false');$('#nav-progress').setAttribute('aria-current',['progress','session'].includes(v)?'page':'false');
-  const authOnly=v==='auth';$('.nav').hidden=authOnly;$('.who').hidden=authOnly;
+const VIEWS=['auth','setup','quiz','results','progress','session','pet','shop','trophies'];
+function show(v){VIEW=v;for(const k of VIEWS)$('#v-'+k).hidden=k!==v;
+  $('#nav-setup').setAttribute('aria-current',['setup','quiz','results','pet','shop','trophies'].includes(v)?'page':'false');$('#nav-progress').setAttribute('aria-current',['progress','session'].includes(v)?'page':'false');
+  $('.nav').hidden=v==='auth';$('.who').hidden=v==='auth'||v==='pet';$('#who-sel').disabled=v==='quiz';
   $('#startbar').hidden=v!=='setup';document.body.classList.toggle('has-startbar',v==='setup');
-  if(v!=='quiz')stopTick();window.scrollTo(0,0);renderAccount();}
-function renderWho(){const sel=$('#who-sel');sel.innerHTML=Object.entries(DB.students).sort((a,b)=>(a[1].created||0)-(b[1].created||0)).map(([id,st])=>`<option value="${esc(id)}" ${id===DB.current?'selected':''}>${esc(st.name)}${st.pin?' 🔒':''}</option>`).join('')+'<option value="__add">+ Add a student…</option>';sel.disabled=VIEW==='quiz';}
+  if(v!=='quiz'){stopTick();try{window.speechSynthesis&&speechSynthesis.cancel();}catch(e){}}
+  window.scrollTo(0,0);renderAccount();}
+function home(){const st=ST();if(!st.pet){show('pet');renderPet(true);return;}show('setup');renderSetup();}
+function renderWho(){const sel=$('#who-sel');sel.innerHTML=Object.entries(DB.students).sort((a,b)=>(a[1].created||0)-(b[1].created||0)).map(([id,st])=>`<option value="${esc(id)}" ${id===DB.current?'selected':''}>${st.pet?animalOf(st)[1]+' ':''}${esc(st.name)}${st.pin?' 🔒':''}</option>`).join('')+'<option value="__add">+ Add a player…</option>';sel.disabled=VIEW==='quiz'&&!!QZ&&!QZ.fin;}
 function renderAccount(){const b=$('#acct');if(!CLOUD.enabled||VIEW==='auth'){b.hidden=true;return;}b.hidden=false;
   if(CLOUD.user){b.classList.remove('off');$('#acct-t').textContent=(CLOUD.user.email||CLOUD.user.displayName||'Account').split('@')[0];b.title='Signed in as '+(CLOUD.user.email||'');}
   else{b.classList.add('off');$('#acct-t').textContent='Sign in';b.title='Sign in to sync progress';}}
@@ -1355,33 +1537,76 @@ function ask(title,body,{ok='OK',cancel='Cancel',input=null,secret=false}={}){re
   const done=v=>{m.hidden=true;$('#modal-yes').onclick=$('#modal-no').onclick=null;inp.onkeydown=null;document.removeEventListener('keydown',esck);res(v);};
   const esck=e=>{if(e.key==='Escape'){e.preventDefault();done(input!==null?null:false);}};document.addEventListener('keydown',esck);
   $('#modal-yes').onclick=()=>done(input!==null?inp.value.trim():true);$('#modal-no').onclick=()=>done(input!==null?null:false);inp.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();done(inp.value.trim());}};});}
-async function addStudent(){const n=await ask('Add a student','Each student gets their own scores and topic progress.',{ok:'Add student',input:''});if(!n)return false;const name=n.slice(0,24);if(Object.values(DB.students).some(s=>s.name.toLowerCase()===name.toLowerCase())){await ask('That name is taken','Choose a different name for the new student.',{cancel:null});return false;}const id=uid('st_');DB.students[id]=newStudent(name);DB.current=id;save(id);return true;}
-async function switchStudent(id){const st=DB.students[id];if(!st)return false;if(st.pin){const p=await ask(`${st.name}'s PIN`,'Enter the PIN to switch to this student.',{ok:'Switch',input:'',secret:true});if(p===null)return false;if(hashPin(p)!==st.pin){await ask('Wrong PIN','That PIN is not right. Ask a parent if you forgot it.',{cancel:null});return false;}}DB.current=id;saveLocal();return true;}
+async function parentOk(){const pin=DB.family.parentPin;if(!pin)return true;const p=await ask('Parent PIN','Enter the parent PIN to change this.',{ok:'Continue',input:'',secret:true});if(p===null)return false;if(hashPin(p)!==pin){await ask('Wrong PIN','That parent PIN is not right.',{cancel:null});return false;}return true;}
+async function addStudent(){const n=await ask('Add a player','Each player gets their own mascot, points and progress.',{ok:'Add player',input:''});if(!n)return false;const name=n.slice(0,24);if(Object.values(DB.students).some(s=>s.name.toLowerCase()===name.toLowerCase())){await ask('That name is taken','Choose a different name for the new player.',{cancel:null});return false;}const id=uid('st_');DB.students[id]=ensure(newStudent(name));DB.current=id;save(id);onStudentReady();return true;}
+async function switchStudent(id){const st=DB.students[id];if(!st)return false;if(st.pin){const p=await ask(`${st.name}'s PIN`,'Enter the PIN to switch to this player.',{ok:'Switch',input:'',secret:true});if(p===null)return false;if(hashPin(p)!==st.pin){await ask('Wrong PIN','That PIN is not right. Ask a parent if you forgot it.',{cancel:null});return false;}}DB.current=id;saveLocal();onStudentReady();return true;}
+
+/* ---------- mascot ---------- */
+function petHTML(st,size){const a=animalOf(st),k=kitOf(st);const w=st.wearing||{};const it=s=>{const i=ITEMS.find(x=>x.id===w[s]);return i?`<span class="pi pi-${s}" aria-hidden="true">${i.e}</span>`:'';};
+  return `<div class="pet pet-${size||'lg'}" style="--kit:${k[1]}" role="img" aria-label="${esc((st.pet&&st.pet.name)||a[2])} the ${a[2]}"><span class="pet-a" aria-hidden="true">${a[1]}</span>${it('head')}${it('face')}${it('neck')}${it('hold')}</div>`;}
+let PETDRAFT=null;
+function renderPet(first){
+  const st=ST();if(!PETDRAFT)PETDRAFT={animal:(st.pet&&st.pet.animal)||'fox',kit:(st.pet&&st.pet.kit)||'blue',name:(st.pet&&st.pet.name)||'',player:st.name==='Student'?'':st.name};
+  const prev=Object.assign({},st,{pet:PETDRAFT});
+  $('#v-pet').innerHTML=`<div class="petpick"><div class="sheet petpick-in">
+    <div class="pp-head">${petHTML(prev,'xl')}<div><h1>${first?'Pick your team mascot':'Change your mascot'}</h1><p class="sub" style="margin:6px 0 0">Your mascot levels up with you. Earn coins to buy it boots, a cap, a crown and more.</p></div></div>
+    ${first?`<div class="field"><label for="pp-player">Your name</label><input id="pp-player" maxlength="24" value="${esc(PETDRAFT.player)}" placeholder="Type your name"></div>`:''}
+    <h2 class="pp-label">Animal</h2><div class="pp-grid" role="radiogroup" aria-label="Animal">${ANIMALS.map(a=>`<label class="pp-opt"><input type="radio" name="pp-animal" value="${a[0]}" ${PETDRAFT.animal===a[0]?'checked':''}><span><b aria-hidden="true">${a[1]}</b>${a[2]}</span></label>`).join('')}</div>
+    <h2 class="pp-label">Team kit</h2><div class="pp-kits" role="radiogroup" aria-label="Team kit colour">${KITS.map(k=>`<label class="pp-kit" style="--kit:${k[1]}"><input type="radio" name="pp-kit" value="${k[0]}" ${PETDRAFT.kit===k[0]?'checked':''}><span>${k[2]}</span></label>`).join('')}</div>
+    <div class="field" style="margin-top:16px"><label for="pp-name">Mascot's name (optional)</label><input id="pp-name" maxlength="16" value="${esc(PETDRAFT.name)}" placeholder="e.g. Rocket"></div>
+    <div class="btns" style="justify-content:flex-end">${first?'':'<button class="btn btn-quiet" data-act="pet-cancel">Cancel</button>'}<button class="btn btn-go btn-lg" data-act="pet-save">${first?"Let's play":'Save mascot'}</button></div></div></div>`;
+}
 
 /* ---------- AUTH SCREEN ---------- */
-function renderAuth(email){
+function renderAuth(){
   const ready=CLOUD.ready;
   $('#v-auth').innerHTML=`<div class="auth"><div class="box sheet"><h1>Sign in to Sharpen</h1><p class="lead">A parent signs in once on each device. Every answer then syncs to your account, so you can review the work from any phone or computer.</p>
     ${CLOUD.err?`<div class="err-box" role="alert">${esc(CLOUD.err)}</div>`:''}
     <button class="btn btn-lg gbtn" data-act="g-signin" ${ready?'':'disabled'}><svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>${ready?'Continue with Google':'Connecting…'}</button>
     <div class="or">or use email</div>
-    <form id="au-form" autocomplete="on"><div class="field"><label for="au-email">Email</label><input id="au-email" type="email" autocomplete="username" value="${esc(email||'')}"></div>
+    <form id="au-form" autocomplete="on"><div class="field"><label for="au-email">Email</label><input id="au-email" type="email" autocomplete="username"></div>
     <div class="field"><label for="au-pass">Password</label><input id="au-pass" type="password" autocomplete="current-password" minlength="6"></div>
     <div class="btns"><button class="btn btn-go" type="submit" ${ready?'':'disabled'}>Sign in</button><button class="btn" type="button" data-act="e-create" ${ready?'':'disabled'}>Create account</button></div></form>
     <div class="foot"><button class="linkish" data-act="e-reset">Forgot password</button><button class="linkish" data-act="local-only">Continue without an account</button></div></div></div>`;
-  const f=$('#au-form');f.addEventListener('submit',e=>{e.preventDefault();signInEmail(false);});
+  $('#au-form').addEventListener('submit',e=>{e.preventDefault();signInEmail(false);});
 }
 
-/* ---------- SETUP ---------- */
+/* ---------- HOME / SETUP ---------- */
 function chipR(name,val,label,checked,extra=''){const id=`${name}-${val}`;return `<label class="chip"><input type="radio" name="${name}" id="${id}" value="${val}" ${checked?'checked':''} ${extra}><span>${label}</span></label>`;}
+let CUPTOPIC=null;
+function playerCard(st){
+  const L=levelOf(st.xp),lo=xpAt(L),hi=xpAt(L+1),pct=Math.round((st.xp-lo)/(hi-lo)*100);const a=animalOf(st);const nb=Object.keys(st.badges||{}).length;const sk=streakDays(st);
+  return `<div class="player sheet">${petHTML(st,'lg')}<div class="pl-main"><p class="pl-league">Level ${L} · ${leagueOf(L)} ${esc(a[2])}</p><h1 class="pl-name">${esc(st.name)}${st.pet&&st.pet.name?` <span>&amp; ${esc(st.pet.name)}</span>`:''}</h1>
+    <div class="xpbar" role="progressbar" aria-label="Points to next level" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div><p class="pl-next">${nf(hi-st.xp)} points to Level ${L+1}</p>
+    <div class="pl-stats"><span class="stat"><b>🪙 ${nf(st.coins)}</b> coins</span><span class="stat"><b>🔥 ${sk}</b> day streak${st.freezes.n?` · 🧊 ${st.freezes.n} freeze${st.freezes.n>1?'s':''}`:''}</span><span class="stat"><b>🏆 ${nb}</b> of ${BADGES.length} trophies</span></div>
+    <div class="btns pl-btns"><button class="btn btn-sm" data-act="open-shop">🛍️ Shop</button><button class="btn btn-sm" data-act="open-trophies">🏆 Trophies</button><button class="btn btn-sm btn-quiet" data-act="edit-pet">Change mascot</button></div></div></div>`;
+}
+function goalsCard(st){
+  const g=st.goal,fam=DB.family.goal;const mine=ptsWeek(st);
+  if(!g&&!fam)return `<div class="goals sheet"><h2>This week's rewards</h2><p class="empty">No reward set yet. A parent can set one on the Progress page, like "500 points = movie night".</p></div>`;
+  let h=`<div class="goals sheet"><h2>This week's rewards</h2>`;
+  if(g){const p=Math.min(100,Math.round(mine/g.pts*100));h+=`<div class="goal"><div class="goal-top"><span>🎯 ${esc(g.reward||'My reward')}</span><b>${nf(mine)} / ${nf(g.pts)}</b></div><div class="gbar"><i style="width:${p}%;background:${kitOf(st)[1]}"></i></div>${mine>=g.pts?'<p class="goal-done">Reward unlocked! Show a parent.</p>':''}</div>`;}
+  if(fam){const studs=Object.values(DB.students);const tot=studs.reduce((a,s)=>a+ptsWeek(s),0);
+    h+=`<div class="goal"><div class="goal-top"><span>🏟️ Family Cup: ${esc(fam.reward||'Family treat')}</span><b>${nf(tot)} / ${nf(fam.pts)}</b></div><div class="gbar stack">${studs.map(s=>{const w=Math.min(100,ptsWeek(s)/fam.pts*100);return w>0?`<i style="width:${w}%;background:${kitOf(s)[1]}" title="${esc(s.name)}: ${nf(ptsWeek(s))}"></i>`:'';}).join('')}</div>
+    <p class="goal-who">${studs.map(s=>`<span><i style="background:${kitOf(s)[1]}"></i>${esc(s.name)} ${nf(ptsWeek(s))}</span>`).join('')}</p>${tot>=fam.pts?'<p class="goal-done">Family Cup won! Everyone helped.</p>':''}</div>`;}
+  return h+`<p class="empty" style="margin-top:6px">Points reset every Monday.</p></div>`;
+}
+function modesCard(st){
+  const s=S();const dd=st.daily[today()];const b=st.bests||{};
+  const ct=availTopics(s);if(!CUPTOPIC||!ct.find(t=>t.id===CUPTOPIC))CUPTOPIC=ct[0]&&ct[0].id;const won=st.cups||{};
+  return `<h2 class="sec-h">Game modes <span>Grade ${s.grade} · ${subjName(s.subject)}</span></h2><div class="modes">
+    <div class="mode sheet m-daily"><span class="m-ic" aria-hidden="true">📅</span><h3>Match Day</h3><p>10 mixed questions, new every day. Keep your streak alive.</p>${dd?`<p class="m-done">Done today: ${dd.right}/${dd.n} ✓</p>`:'<p class="m-note">+25 bonus points</p>'}<button class="btn ${dd?'':'btn-go'}" data-act="mode" data-k="daily">${dd?'Play again for fun':'Play Match Day'}</button></div>
+    <div class="mode sheet m-shoot"><span class="m-ic" aria-hidden="true">🥅</span><h3>Penalty Shootout</h3><p>60 seconds. Score as many as you can. A miss costs 3 seconds.</p><p class="m-note">Your best: ${b.shootout||0}</p><button class="btn" data-act="mode" data-k="shootout">Take penalties</button></div>
+    <div class="mode sheet m-lives"><span class="m-ic" aria-hidden="true">🟨</span><h3>Three Cards</h3><p>Keep going until you get 3 wrong. It gets harder as you go.</p><p class="m-note">Your best: ${b.lives||0}</p><button class="btn" data-act="mode" data-k="lives">Start the match</button></div>
+    <div class="mode sheet m-cup"><span class="m-ic" aria-hidden="true">🏆</span><h3>Cup Final</h3><p>5 hard questions on one topic. Win 5/5 to lift the cup.</p><select id="cup-topic" class="m-sel" aria-label="Cup Final topic">${ct.map(t=>`<option value="${t.id}" ${t.id===CUPTOPIC?'selected':''}>${won[s.subject+':'+t.id]?'🏆 ':''}${esc(t.name)}</option>`).join('')}</select><button class="btn" data-act="mode" data-k="cup">Play the final</button></div>
+  </div>`;
+}
 function renderSetup(){
-  const s=S();const st=ST();const at=availTopics(s);const ch=chosenTopics(s);
-  const focusId=document.activeElement&&document.activeElement.id;
-  const sp=s.mode==='practice';
-  $('#v-setup').innerHTML=`<div class="setup"><div>
-    <h1 class="hello">Ready to sharpen up, <em>${esc(st.name)}</em>?</h1>
-    <p class="sub">Pick a grade, subject and how you want to be scored. Every session makes fresh questions, so you can practise as often as you like.</p>
-    <div class="form">
+  const st=ST();const s=S();const at=availTopics(s);const ch=chosenTopics(s);
+  const focusId=document.activeElement&&document.activeElement.id;const sp=s.mode==='practice';
+  $('#v-setup').innerHTML=`<div class="homegrid">${playerCard(st)}${goalsCard(st)}</div>${modesCard(st)}
+  <h2 class="sec-h" id="training">Training <span>Choose exactly what to practise. Grade and subject here also set the game modes.</span></h2>
+  <div class="setup"><div><div class="form">
       <div class="group sheet"><div class="g-label"><h2>Grade</h2></div><div class="chips grades" role="radiogroup" aria-label="Grade">${[3,4,5,6,7,8].map(g=>chipR('grade',g,g,s.grade===g)).join('')}</div></div>
       <div class="group sheet"><div class="g-label"><h2>Subject</h2></div><div class="cards" role="radiogroup" aria-label="Subject">${Object.keys(SUBJECTS).map(k=>`<label class="card"><input type="radio" name="subject" id="subject-${k}" value="${k}" ${s.subject===k?'checked':''}><span class="c-in"><span class="c-title">${SUBJECTS[k].name}</span><span class="c-desc">${SUBJECTS[k].blurb} · ${topicsFor(k,s.grade).length} topics</span></span></label>`).join('')}</div></div>
       <div class="group sheet topics"><div class="g-label"><h2>Topics</h2><span class="aside">${ch.length} of ${at.length} · <button class="linkish" data-act="topics-all" id="t-all">Select all</button> · <button class="linkish" data-act="topics-none" id="t-none">Clear</button></span></div>
@@ -1394,31 +1619,28 @@ function renderSetup(){
         <div class="chips">${[['off','Off'],['relaxed','Relaxed'],['standard','Standard'],['speed','Speed'],['custom','Custom']].map(([v,l])=>chipR('timer',v,l,s.timer===v)).join('')}</div>
         ${s.timer!=='off'?`<div class="row2"><div class="chips">${chipR('tstyle','whole','Whole test',s.timerStyle==='whole')}${chipR('tstyle','per','Each question',s.timerStyle==='per')}</div>
         ${s.timer==='custom'?`<label class="inline-field" for="custom-in"><input type="number" id="custom-in" min="${s.timerStyle==='whole'?1:5}" max="${s.timerStyle==='whole'?240:900}" value="${esc(s.custom)}" inputmode="numeric"> ${s.timerStyle==='whole'?'minutes in total':'seconds each'}</label>`:`<span class="inline-field">${perQ(s)} s a question${s.subject==='verbal'?' (word questions are quicker)':''}</span>`}</div>`:''}</div>
-      <div class="group sheet"><div class="g-label"><h2>Difficulty</h2><span class="aside">${s.difficulty==='adaptive'?'Gets harder after right answers, easier after mistakes':s.difficulty==='mixed'?'A blend of easy, standard and challenge':''}</span></div>
+      <div class="group sheet"><div class="g-label"><h2>Difficulty</h2><span class="aside">${s.difficulty==='adaptive'?'Gets harder after right answers, easier after mistakes':s.difficulty==='mixed'?'A blend of easy, standard and challenge':'Harder questions earn more points'}</span></div>
         <div class="chips">${['easy','standard','challenge','mixed','adaptive'].map(v=>chipR('difficulty',v,diffName[v],s.difficulty===v,v==='adaptive'&&!sp?'disabled':'')).join('')}</div>${!sp&&s.difficulty==='adaptive'?'<p class="warn">Adaptive works in Practice only. Tests use Standard.</p>':''}</div>
       ${typeAllowed(s)?`<div class="group sheet"><div class="g-label"><h2>Answer style</h2><span class="aside">${s.answerStyle==='type'?'Type the answer when it is a number or fraction':''}</span></div><div class="chips">${chipR('astyle','choose','Multiple choice',s.answerStyle!=='type')}${chipR('astyle','type','Type the answer',s.answerStyle==='type')}</div></div>`:''}
     </div></div>
-    <aside class="summary">
-      <div class="sum-card sheet"><h2>This session</h2><dl class="sum-list">
-        <div><dt>Student</dt><dd>${esc(st.name)}</dd></div>
-        <div><dt>Grade</dt><dd>${s.grade}</dd></div>
-        <div><dt>Subject</dt><dd>${subjName(s.subject)}</dd></div>
+    <aside class="summary"><div class="sum-card sheet"><h2>Training session</h2><dl class="sum-list">
+        <div><dt>Grade</dt><dd>${s.grade}</dd></div><div><dt>Subject</dt><dd>${subjName(s.subject)}</dd></div>
         <div><dt>Topics</dt><dd>${ch.length===at.length?'All':ch.length} of ${at.length}</dd></div>
-        <div><dt>Scoring</dt><dd>${sp?'Practice (instant)':'Test (at the end)'}</dd></div>
-        <div><dt>Questions</dt><dd>${s.count}</dd></div>
-        <div><dt>Timer</dt><dd>${timerTxt(s)}</dd></div>
-        <div><dt>Difficulty</dt><dd>${diffName[!sp&&s.difficulty==='adaptive'?'standard':s.difficulty]}</dd></div></dl>
+        <div><dt>Scoring</dt><dd>${sp?'Practice (instant)':'Test (at the end)'}</dd></div><div><dt>Questions</dt><dd>${s.count}</dd></div>
+        <div><dt>Timer</dt><dd>${timerTxt(s)}</dd></div><div><dt>Difficulty</dt><dd>${diffName[!sp&&s.difficulty==='adaptive'?'standard':s.difficulty]}</dd></div></dl>
         <button class="btn btn-go btn-lg" data-act="start" id="start-main" ${ch.length?'':'disabled'}>Start ${sp?'practice':'test'}</button>
-        <p class="keys">Keys during a session: <kbd>1</kbd>–<kbd>4</kbd> or <kbd>A</kbd>–<kbd>D</kbd> to answer, <kbd>Enter</kbd> for next${sp?', <kbd>H</kbd> for a hint':', <kbd>F</kbd> to flag'}.</p></div>
-      <div class="recent sheet"><h3>Recent sessions</h3>${st.history&&st.history.length?`<ul>${st.history.slice(-4).reverse().map(h=>`<li><span>G${h.grade} ${esc(subjName(h.subject))} · ${h.mode==='test'?'Test':'Practice'}<br><span class="empty">${new Date(h.ts).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · ${h.total} questions</span></span><span class="sc">${h.pct}%</span></li>`).join('')}</ul>`:'<p class="empty">No sessions yet. Scores show up here after the first one.</p>'}</div>
+        <p class="keys">Points: 7 easy · 10 standard · 15 challenge, +5 for every 3 in a row. Keys: <kbd>1</kbd>–<kbd>4</kbd> to answer, <kbd>Enter</kbd> for next.</p></div>
+      <div class="recent sheet"><h3>Recent games</h3>${st.history.length?`<ul>${st.history.slice(-4).reverse().map(h=>`<li><span>${esc(KINDS[h.kind||'training'])} · ${esc(subjName(h.subject))}<br><span class="empty">${new Date(h.ts).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · +${h.pts||0} points</span></span><span class="sc">${h.kind==='shootout'||h.kind==='lives'?h.correct:h.pct+'%'}</span></li>`).join('')}</ul>`:'<p class="empty">No games yet. Your scores show up here.</p>'}</div>
     </aside></div>`;
-  $('#startbar-txt').textContent=`Grade ${s.grade} · ${subjName(s.subject)} · ${s.count} questions · ${timerTxt(s)}`;
+  $('#startbar-txt').textContent=`Training · Grade ${s.grade} · ${subjName(s.subject)} · ${s.count} questions`;
   $('#startbar').querySelector('button').disabled=!ch.length;
   if(focusId){const el=document.getElementById(focusId);if(el&&el!==document.activeElement)el.focus({preventScroll:true});}
 }
 document.addEventListener('change',e=>{
   const t=e.target;
-  if(t.id==='who-sel'){(async()=>{if(t.value==='__add'){await addStudent();}else if(t.value!==DB.current){await switchStudent(t.value);}renderWho();if(VIEW==='progress'||VIEW==='session'){show('progress');renderProgress();}else{show('setup');renderSetup();}})();return;}
+  if(t.id==='who-sel'){(async()=>{if(QZ&&!QZ.fin&&VIEW==='quiz'){renderWho();return;}if(t.value==='__add'){if(await addStudent()){PETDRAFT=null;renderWho();show('pet');renderPet(true);return;}}else if(t.value!==DB.current){await switchStudent(t.value);}PETDRAFT=null;renderWho();if(VIEW==='progress'||VIEW==='session'){show('progress');renderProgress();}else home();})();return;}
+  if(t.id==='cup-topic'){CUPTOPIC=t.value;return;}
+  if(VIEW==='pet'){if(t.name==='pp-animal'){PETDRAFT.animal=t.value;}else if(t.name==='pp-kit'){PETDRAFT.kit=t.value;}else return;PETDRAFT.name=($('#pp-name')||{}).value||'';const pl=$('#pp-player');if(pl)PETDRAFT.player=pl.value;const f=t.name,v=t.value;renderPet(!ST().pet);const el=document.querySelector(`input[name="${f}"][value="${v}"]`);if(el)el.focus();return;}
   if(!$('#v-setup').contains(t))return;
   const s=S();
   if(t.name==='grade')s.grade=+t.value;
@@ -1435,30 +1657,61 @@ document.addEventListener('change',e=>{
   save();renderSetup();
 });
 
+/* ---------- SHOP & TROPHIES ---------- */
+function renderShop(msg){
+  const st=ST();
+  $('#v-shop').innerHTML=`<div class="prog"><div><button class="btn btn-sm btn-quiet" data-act="go-setup">← Back</button></div>
+    <div class="shop-head sheet">${petHTML(st,'xl')}<div><h1>Kit room</h1><p class="sub" style="margin:4px 0 10px">Spend coins on gear for ${esc((st.pet&&st.pet.name)||animalOf(st)[2])}. One item per spot: head, face, neck and holding.</p><span class="coins">🪙 ${nf(st.coins)} coins</span>${msg?`<p class="msg ${msg.err?'err':''}">${esc(msg.t)}</p>`:''}</div></div>
+    <div class="shop">${ITEMS.map(i=>{const own=st.owned.includes(i.id);const on=st.wearing[i.slot]===i.id;return `<div class="item sheet ${on?'on':''}"><span class="item-e" aria-hidden="true">${i.e}</span><h3>${esc(i.name)}</h3><p class="empty">${SLOTS[i.slot]}</p>${own?`<button class="btn btn-sm ${on?'':'btn-go'}" data-act="wear" data-k="${i.id}">${on?'Take off':'Wear'}</button>`:`<button class="btn btn-sm" data-act="buy" data-k="${i.id}" ${st.coins<i.cost?'disabled':''}>🪙 ${i.cost}</button>`}</div>`;}).join('')}</div>
+    <p class="empty">Earn coins with every right answer. Harder questions and streaks earn more.</p></div>`;
+}
+function renderTrophies(){
+  const st=ST();const got=st.badges||{};
+  $('#v-trophies').innerHTML=`<div class="prog"><div><button class="btn btn-sm btn-quiet" data-act="go-setup">← Back</button></div>
+    <div><h1 class="hello" style="font-size:clamp(26px,3.5vw,36px)">${esc(st.name)}'s trophy cabinet</h1><p class="sub">${Object.keys(got).length} of ${BADGES.length} won. Personal bests: Penalty Shootout ${st.bests.shootout||0}, Three Cards ${st.bests.lives||0}.</p></div>
+    <div class="cabinet">${BADGES.map(b=>`<div class="badge sheet ${got[b.id]?'won':''}"><span class="badge-e" aria-hidden="true">${got[b.id]?b.e:'🔒'}</span><h3>${esc(b.name)}</h3><p>${esc(b.desc)}</p>${got[b.id]?`<span class="empty">Won ${new Date(got[b.id]).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</span>`:''}</div>`).join('')}</div></div>`;
+}
+
 /* ---------- QUIZ ---------- */
 let QZ=null,TICK=null;
 function startTick(){stopTick();TICK=setInterval(tick,250);}
 function stopTick(){if(TICK)clearInterval(TICK);TICK=null;}
 function clockIn(){if(QZ&&!QZ.enter)QZ.enter=Date.now();}
 function clockOut(){if(QZ&&QZ.enter){QZ.ans[QZ.i].ms+=Date.now()-QZ.enter;QZ.enter=null;}}
+const blankAns=()=>({sel:null,typed:'',locked:false,correct:null,hint:false,timedOut:false,ms:0});
+const endless=()=>QZ&&(QZ.cfg.kind==='shootout'||QZ.cfg.kind==='lives');
 function beginQuiz(cfg,qs){
-  if(!qs.length)return;
+  qs=qs.filter(Boolean);if(!qs.length)return;cfg.kind=cfg.kind||'training';
   const L=limitOf(Object.assign({},cfg,{count:qs.length}));
-  QZ={cfg,qs,L,ans:qs.map(()=>({sel:null,typed:'',locked:false,correct:null,hint:false,timedOut:false,ms:0})),i:0,t0:Date.now(),endAt:L.whole?Date.now()+L.whole*1000:null,qEnd:L.per?Date.now()+L.per*1000:null,flags:new Set(),streak:0,best:0,d:2,run:0,fin:false,enter:null,student:DB.current};
+  QZ={cfg,qs,L,ans:qs.map(blankAns),i:0,t0:Date.now(),endAt:L.whole?Date.now()+L.whole*1000:null,qEnd:L.per?Date.now()+L.per*1000:null,flags:new Set(),streak:0,best:0,d:2,run:0,fin:false,enter:null,student:DB.current,cards:0,penalty:0};
   renderWho();show('quiz');renderQuiz();clockIn();if(L.whole||L.per)startTick();
+  if(cfg.kind!=='training')sfx.whistle();
 }
 function startFromSettings(){
   const s=S();const topics=chosenTopics(s);if(!topics.length)return;
   const diff=s.mode==='test'&&s.difficulty==='adaptive'?'standard':s.difficulty;
-  const cfg={grade:s.grade,subject:s.subject,mode:s.mode,count:s.count,timer:s.timer,timerStyle:s.timerStyle,custom:s.custom,difficulty:diff,answerStyle:typeAllowed(s)?s.answerStyle:'choose',topics};
+  const cfg={kind:'training',grade:s.grade,subject:s.subject,mode:s.mode,count:s.count,timer:s.timer,timerStyle:s.timerStyle,custom:s.custom,difficulty:diff,answerStyle:typeAllowed(s)?s.answerStyle:'choose',topics};
   beginQuiz(cfg,buildQuiz({subject:cfg.subject,grade:cfg.grade,topics,count:cfg.count,difficulty:diff==='adaptive'?'standard':diff}));
 }
+function seeded(seed){let a=seed>>>0;return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+function withSeed(seed,fn){const o=Math.random;Math.random=seeded(seed);try{return fn();}finally{Math.random=o;}}
+function startMode(kind){
+  const s=S();const g=s.grade;const base={kind,grade:g,mode:'practice',difficulty:'standard',answerStyle:'choose'};
+  if(kind==='daily'){
+    const qs=withSeed(strHash(DB.current+'|'+today()+'|'+g),()=>{let q=[];for(const [sub,n] of [['maths',4],['quant',3],['verbal',3]])q=q.concat(buildQuiz({subject:sub,grade:g,topics:topicsFor(sub,g).map(t=>t.id),count:n,difficulty:'standard'}));return shuffle(q);});
+    beginQuiz(Object.assign(base,{subject:'mixed',count:qs.length,topics:[]}),qs);return;}
+  const topics=availTopics(s).map(t=>t.id);
+  if(kind==='shootout'){beginQuiz(Object.assign(base,{subject:s.subject,count:0,topics}),buildQuiz({subject:s.subject,grade:g,topics,count:3,difficulty:'standard'}));return;}
+  if(kind==='lives'){beginQuiz(Object.assign(base,{subject:s.subject,count:0,topics}),buildQuiz({subject:s.subject,grade:g,topics,count:3,difficulty:'easy'}));return;}
+  if(kind==='cup'){const t=CUPTOPIC||topics[0];beginQuiz(Object.assign(base,{subject:s.subject,count:5,topics:[t],difficulty:'challenge',cupTopic:t}),buildQuiz({subject:s.subject,grade:g,topics:[t],count:5,difficulty:'challenge'}));}
+}
+function addEndlessQ(){const c=QZ.cfg;const right=QZ.ans.filter(a=>a.correct).length;const d=c.kind==='lives'?Math.min(3,1+Math.floor(right/6)):2;let q=null;for(let i=0;i<8&&!q;i++){const c2=makeQuestion(c.subject,pick(c.topics),c.grade,d);if(c2&&!QZ.qs.some(x=>x.q===c2.q))q=c2;}if(!q)q=makeQuestion(c.subject,pick(c.topics),c.grade,d);if(q){QZ.qs.push(q);QZ.ans.push(blankAns());}}
 const isTyping=q=>QZ.cfg.answerStyle==='type'&&canType(q);
 const practice=()=>QZ.cfg.mode==='practice';
 function answered(a){return a.locked||a.sel!=null||(a.typed&&a.typed.trim());}
 function renderQuiz(){
-  const q=QZ.qs[QZ.i],a=QZ.ans[QZ.i],n=QZ.qs.length,c=QZ.cfg;const P=practice();const per=!!QZ.L.per;
-  const done=QZ.ans.filter(answered).length;const typing=isTyping(q);const keys='ABCD';
+  const q=QZ.qs[QZ.i],a=QZ.ans[QZ.i],c=QZ.cfg;const P=practice();const per=!!QZ.L.per;const kind=c.kind;const EL=endless();
+  const n=QZ.qs.length;const done=QZ.ans.filter(answered).length;const typing=isTyping(q);const keys='ABCD';const fast=kind==='shootout';
   let body;
   if(typing){const st=a.locked?(a.correct?'ok':'no'):'';
     body=`<form class="typed ${st}" id="typed-form" autocomplete="off"><input id="typed-in" aria-label="Your answer" value="${esc(a.typed)}" ${a.locked?'disabled':''} placeholder="Type your answer" inputmode="${/[a-z]/i.test(q.answer.replace(/(km|cm|mm|m|kg|g|mL|L|h|min|s|cups)\b/g,''))?'text':'decimal'}">${P&&!a.locked?'<button class="btn btn-go" type="submit">Check</button>':''}<span class="hint-line">Numbers only is fine. Fractions like 3/4 or 1 1/2 work too.</span></form>`;
@@ -1469,131 +1722,197 @@ function renderQuiz(){
       return `<button class="opt ${cls}" data-act="pick" data-k="${k}" id="opt-${k}" ${P&&a.locked?'disabled':''} aria-pressed="${o===a.sel}"><span class="k">${keys[k]}</span><span class="t">${esc(o)}</span>${mk}</button>`;}).join('')}</div>`;
   }
   let fb='';
-  if(P&&a.locked){const head=a.timedOut?"Time's up":a.correct?pick(['Well done!','Nailed it!','Correct!','Spot on!','Yes!']):pick(['Not quite','Good try','Almost']);
+  if(P&&a.locked&&!fast){const head=a.timedOut?"Time's up":a.correct?(QZ.streak>=3&&QZ.streak%3===0?`${QZ.streak} in a row! +5`:pick(['Goal!','Well done!','Nailed it!','Top corner!','Spot on!'])):pick(['Not quite','Saved by the keeper','Good try','Almost']);
     fb=`<div class="fb ${a.correct?'ok':'no'}" role="status"><p class="fb-head">${head}</p>${a.correct?'':`<p class="fb-ans">The answer is ${esc(q.answer)}.</p>`}<p class="fb-why"><b>How to solve it</b>${esc(q.explain)}</p></div>`;}
+  if(fast&&a.locked)fb=`<div class="flash ${a.correct?'ok':'no'}" role="status">${a.correct?'⚽ GOAL!':'🧤 Saved! −3 s'}</div>`;
   const hint=P&&a.hint&&!a.locked?`<div class="hintbox"><b>Hint:</b> ${esc(q.hint||'Read the question again slowly.')}</div>`:'';
-  const last=QZ.i===n-1;let actions;
-  if(P)actions=`${!a.locked&&q.hint?`<button class="btn btn-quiet" data-act="hint" ${a.hint?'disabled':''}>Show a hint</button>`:''}<span class="spacer"></span>${a.locked?`<button class="btn btn-go" data-act="next" id="next-btn">${last?'See my score':'Next question'}</button>`:(typing?'':'<span class="empty">Pick an answer</span>')}`;
+  const last=!EL&&QZ.i===n-1;let actions;
+  if(fast)actions='<span class="empty">Answer fast: tap or press 1–4</span>';
+  else if(P)actions=`${!a.locked&&q.hint?`<button class="btn btn-quiet" data-act="hint" ${a.hint?'disabled':''}>Show a hint</button>`:''}<span class="spacer"></span>${a.locked?`<button class="btn btn-go" data-act="next" id="next-btn">${last||(kind==='lives'&&QZ.cards>=3)?'See my score':'Next question'}</button>`:(typing?'':'<span class="empty">Pick an answer</span>')}`;
   else actions=`${per?'':`<button class="btn" data-act="prev" ${QZ.i===0?'disabled':''}>Back</button>`}<button class="btn btn-quiet" data-act="flag">${QZ.flags.has(QZ.i)?'Unflag':'Flag for review'}</button><span class="spacer"></span>${last?`<button class="btn btn-go" data-act="submit" id="next-btn">Finish test</button>`:`<button class="btn btn-go" data-act="next" id="next-btn">${answered(a)?'Next':'Skip'}</button>`}`;
   const pips=`<span class="pips" title="Difficulty ${q.d} of 3" aria-label="Difficulty ${q.d} of 3">${[1,2,3].map(x=>`<i class="${x<=q.d?'on':''}"></i>`).join('')}</span>`;
   const right=QZ.ans.filter(x=>x.locked&&x.correct).length,checked=QZ.ans.filter(x=>x.locked).length;
-  const side=P?`<div class="side-card sheet"><h3>So far</h3><div class="tally"><div><b class="num">${right}/${checked}</b><span>correct</span></div><div><b class="num">${QZ.streak}</b><span>in a row (best ${QZ.best})</span></div></div>${c.difficulty==='adaptive'?`<p class="empty" style="margin-top:10px">Adaptive level: ${['','Easy','Standard','Challenge'][QZ.d]}</p>`:''}</div>`
-    :`<div class="side-card sheet"><h3>Questions</h3>${per?`<p class="empty">Each question has its own timer, so you go forward only.</p>`:`<div class="navgrid">${QZ.qs.map((_,k)=>`<button data-act="jump" data-k="${k}" class="${answered(QZ.ans[k])?'done':''} ${k===QZ.i?'cur':''} ${QZ.flags.has(k)?'fl':''}" aria-label="Question ${k+1}${answered(QZ.ans[k])?', answered':''}${QZ.flags.has(k)?', flagged':''}">${k+1}</button>`).join('')}</div><div class="legend"><span class="l-done">Answered</span><span class="l-fl">Flagged</span></div>`}<p class="empty" style="margin-top:12px">${done} of ${n} answered</p>${per?'':`<button class="btn btn-sm" style="margin-top:10px;width:100%" data-act="submit">Finish test</button>`}</div>`;
-  $('#v-quiz').innerHTML=`<div class="qbar"><button class="btn btn-sm btn-quiet" data-act="leave">← Leave</button><span class="ctx">${esc(NAME(QZ.student))} · Grade ${c.grade} · ${subjName(c.subject)} · ${P?'Practice':'Test'}</span><div class="track" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="${n}" aria-valuenow="${P?checked:done}"><i style="width:${(P?checked:done)/n*100}%"></i></div>${QZ.L.whole||QZ.L.per?`<span class="timer" id="timer"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 9V6M6 1.5h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span id="timer-t">--:--</span></span>`:''}</div>
-    <div class="qgrid"><article class="qcard sheet"><div class="qmeta"><span class="qn">Question ${QZ.i+1} of ${n}</span><span class="tag">${esc(topicName(c.subject,q.topic))}</span>${pips}${QZ.flags.has(QZ.i)?'<span class="flagged">Flagged</span>':''}</div>
+  const cards=kind==='lives'?`<span class="cards" aria-label="${QZ.cards} of 3 cards">${[0,1,2].map(i=>`<i class="${i<QZ.cards?'on':''}"></i>`).join('')}</span>`:'';
+  let side;
+  if(kind==='shootout')side=`<div class="side-card sheet board"><h3>Scoreboard</h3><p class="big-score">⚽ ${right}</p><p class="empty">${checked-right} saved · best ${ST().bests.shootout||0}</p></div>`;
+  else if(kind==='lives')side=`<div class="side-card sheet board"><h3>Match</h3><p class="big-score">${right}</p><p class="empty">right so far · best ${ST().bests.lives||0}</p>${cards}<p class="empty" style="margin-top:8px">Level: ${['','Easy','Standard','Challenge'][Math.min(3,1+Math.floor(right/6))]}</p></div>`;
+  else if(P)side=`<div class="side-card sheet"><h3>So far</h3><div class="tally"><div><b class="num">${right}/${checked}</b><span>correct</span></div><div><b class="num">${QZ.streak}</b><span>in a row (best ${QZ.best})</span></div></div>${c.difficulty==='adaptive'?`<p class="empty" style="margin-top:10px">Adaptive level: ${['','Easy','Standard','Challenge'][QZ.d]}</p>`:''}</div>`;
+  else side=`<div class="side-card sheet"><h3>Questions</h3>${per?`<p class="empty">Each question has its own timer, so you go forward only.</p>`:`<div class="navgrid">${QZ.qs.map((_,k)=>`<button data-act="jump" data-k="${k}" class="${answered(QZ.ans[k])?'done':''} ${k===QZ.i?'cur':''} ${QZ.flags.has(k)?'fl':''}" aria-label="Question ${k+1}${answered(QZ.ans[k])?', answered':''}${QZ.flags.has(k)?', flagged':''}">${k+1}</button>`).join('')}</div><div class="legend"><span class="l-done">Answered</span><span class="l-fl">Flagged</span></div>`}<p class="empty" style="margin-top:12px">${done} of ${n} answered</p>${per?'':`<button class="btn btn-sm" style="margin-top:10px;width:100%" data-act="submit">Finish test</button>`}</div>`;
+  const label=kind==='cup'?`Cup Final: ${tName(c.subject,c.cupTopic)}`:kind==='training'?`${subjName(c.subject)} · ${P?'Practice':'Test'}`:`${KINDS[kind]}${c.subject&&c.subject!=='mixed'?' · '+subjName(c.subject):''}`;
+  const prog=EL?(kind==='shootout'?(QZ.endAt?Math.max(0,(QZ.endAt-Date.now())/600):100):Math.min(100,right*4)):((P?checked:done)/n*100);
+  const qn=EL?`Question ${QZ.i+1}`:`Question ${QZ.i+1} of ${n}`;
+  const speakBtn=window.speechSynthesis?`<button class="btn btn-sm btn-quiet say" data-act="say" aria-label="Read the question aloud">🔈 Read</button>`:'';
+  $('#v-quiz').innerHTML=`<div class="qbar"><button class="btn btn-sm btn-quiet" data-act="leave">← Leave</button><span class="ctx">${esc(NAME(QZ.student))} · ${esc(label)}</span><div class="track ${kind==='shootout'?'shot':''}" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(prog)}"><i id="trk" style="width:${prog}%"></i></div>${cards}${QZ.L.whole||QZ.L.per?`<span class="timer" id="timer"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 9V6M6 1.5h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span id="timer-t">--:--</span></span>`:''}</div>
+    <div class="qgrid"><article class="qcard sheet ${kind!=='training'?'k-'+kind:''}"><div class="qmeta"><span class="qn">${qn}</span><span class="tag">${esc(tName(q.subject||c.subject,q.topic))}</span>${pips}${QZ.flags.has(QZ.i)?'<span class="flagged">Flagged</span>':''}${speakBtn}</div>
       <h2 class="qtext" id="qtext" tabindex="-1">${esc(q.q)}</h2>${body}${hint}${fb}<div class="qact">${actions}</div></article><aside class="qside">${side}</aside></div>`;
   tick();
   const tf=$('#typed-form');if(tf)tf.addEventListener('submit',ev=>{ev.preventDefault();if(P)lockTyped();else go(1);});
   const ti=$('#typed-in');if(ti)ti.addEventListener('input',()=>{QZ.ans[QZ.i].typed=ti.value;if(!P)refreshNavOnly();});
-  if(P&&a.locked)$('#next-btn')&&$('#next-btn').focus({preventScroll:true});else if(ti&&!a.locked)ti.focus({preventScroll:true});
+  if(P&&a.locked&&!fast)$('#next-btn')&&$('#next-btn').focus({preventScroll:true});else if(ti&&!a.locked)ti.focus({preventScroll:true});
 }
 function refreshNavOnly(){const a=QZ.ans[QZ.i];const b=document.querySelector(`.navgrid button[data-k="${QZ.i}"]`);if(b)b.classList.toggle('done',!!answered(a));const nb=$('#next-btn');if(nb&&nb.dataset.act==='next')nb.textContent=answered(a)?'Next':'Skip';}
 function lockAnswer(correct,timedOut){
-  clockOut();const a=QZ.ans[QZ.i];a.locked=true;a.correct=!!correct;a.timedOut=!!timedOut;
-  if(a.correct){QZ.streak++;QZ.best=Math.max(QZ.best,QZ.streak);}else QZ.streak=0;
+  clockOut();const a=QZ.ans[QZ.i];a.locked=true;a.correct=!!correct;a.timedOut=!!timedOut;const kind=QZ.cfg.kind;
+  if(a.correct){QZ.streak++;QZ.best=Math.max(QZ.best,QZ.streak);if(QZ.streak%3===0)sfx.streak();else sfx.right();}else{QZ.streak=0;sfx.wrong();}
+  if(kind==='lives'&&!a.correct)QZ.cards++;
+  if(kind==='shootout'&&!a.correct&&QZ.endAt){QZ.endAt-=3000;QZ.penalty+=3;}
   if(QZ.cfg.difficulty==='adaptive'){
     if(a.correct){QZ.run=Math.max(0,QZ.run)+1;if(QZ.run>=2&&QZ.d<3){QZ.d++;QZ.run=0;}}else{QZ.run=0;if(QZ.d>1)QZ.d--;}
     const nx=QZ.i+1;if(nx<QZ.qs.length){const nq=makeQuestion(QZ.cfg.subject,QZ.qs[nx].topic,QZ.cfg.grade,QZ.d);if(nq)QZ.qs[nx]=nq;}
   }
   QZ.qEnd=null;renderQuiz();
+  if(kind==='shootout'){const idx=QZ.i;setTimeout(()=>{if(QZ&&!QZ.fin&&QZ.i===idx)go(1);},a.correct?420:900);}
 }
 function lockTyped(){const a=QZ.ans[QZ.i];const v=($('#typed-in')||{}).value||'';a.typed=v;if(!v.trim()){$('#typed-in').focus();return;}lockAnswer(checkTyped(QZ.qs[QZ.i],v),false);}
 function pickOpt(k){const q=QZ.qs[QZ.i],a=QZ.ans[QZ.i];if(a.locked||isTyping(q))return;const o=q.options[k];if(o==null)return;
   if(practice()){a.sel=o;lockAnswer(o===q.answer,false);}else{a.sel=a.sel===o?null:o;renderQuiz();}}
 function moveTo(ni){clockOut();QZ.i=ni;if(QZ.L.per)QZ.qEnd=Date.now()+QZ.L.per*1000;if(!QZ.ans[ni].locked)clockIn();renderQuiz();}
-function go(dir){const n=QZ.qs.length;const ni=QZ.i+dir;
+function go(dir){const ni=QZ.i+dir;
   if(practice()&&dir>0&&!QZ.ans[QZ.i].locked)return;
-  if(ni>=n){if(practice())finish();else confirmSubmit();return;}
+  if(endless()){if(QZ.cfg.kind==='lives'&&QZ.cards>=3){finish();return;}if(ni>=QZ.qs.length)addEndlessQ();if(QZ.qs.length-ni<2)addEndlessQ();if(ni<QZ.qs.length)moveTo(ni);return;}
+  if(ni>=QZ.qs.length){if(practice())finish();else confirmSubmit();return;}
   if(ni<0)return;moveTo(ni);$('#qtext')&&$('#qtext').focus({preventScroll:true});window.scrollTo({top:0});}
 async function confirmSubmit(){const un=QZ.ans.filter(a=>!answered(a)).length;const fl=QZ.flags.size;
   if(un||fl){const ok=await ask('Finish the test?',`${un?`${un} question${un>1?'s are':' is'} not answered yet. `:''}${fl?`${fl} flagged for review.`:''}`,{ok:'Finish and see score',cancel:'Keep working'});if(!ok)return;}
   finish();}
 function tick(){
   if(!QZ||QZ.fin)return;const now=Date.now();const el=$('#timer-t');const box=$('#timer');
-  if(QZ.endAt){const left=(QZ.endAt-now)/1000;if(el)el.textContent=mmss(left);if(box)box.classList.toggle('low',left<=Math.max(10,QZ.L.whole*0.15));if(left<=0){finish(true);return;}}
+  if(QZ.endAt){const left=(QZ.endAt-now)/1000;if(el)el.textContent=mmss(left);if(box)box.classList.toggle('low',left<=Math.max(10,QZ.L.whole*0.15));if(QZ.cfg.kind==='shootout'){const t=$('#trk');if(t)t.style.width=Math.max(0,left/60*100)+'%';}if(left<=0){finish(true);return;}}
   else if(QZ.L.per){const a=QZ.ans[QZ.i];if(a.locked){if(el)el.textContent='—';if(box)box.classList.remove('low');return;}
     if(!QZ.qEnd)QZ.qEnd=now+QZ.L.per*1000;const left=(QZ.qEnd-now)/1000;if(el)el.textContent=mmss(left);if(box)box.classList.toggle('low',left<=Math.max(5,QZ.L.per*0.25));
     if(left<=0){if(practice()){const q=QZ.qs[QZ.i];let ok=false;if(isTyping(q)){const v=($('#typed-in')||{}).value||'';a.typed=v;ok=v.trim()?checkTyped(q,v):false;}lockAnswer(ok,!ok);}else{a.timedOut=!answered(a);go(1);}}}
 }
-async function leave(){const ok=await ask('Leave this session?','Answers so far will not be saved to progress.',{ok:'Leave',cancel:'Keep going'});if(!ok)return false;QZ=null;stopTick();renderWho();show('setup');renderSetup();return true;}
+async function leave(){const ok=await ask('Leave this game?','Answers so far will not be saved and no points are earned.',{ok:'Leave',cancel:'Keep playing'});if(!ok)return false;QZ=null;stopTick();renderWho();home();return true;}
 
-/* ---------- RESULTS ---------- */
+/* ---------- RESULTS & REWARDS ---------- */
 let LAST=null;
+function pointsFor(items,cfg,st){
+  let pts=0,run=0,streakBonus=0;
+  items.forEach(it=>{if(it.correct){let p={1:7,2:10,3:15}[it.d]||10;if(it.hint)p=Math.ceil(p/2);pts+=p;run++;if(run%3===0){pts+=5;streakBonus+=5;}}else run=0;});
+  const extra=[];const n=items.length,right=items.filter(i=>i.correct).length;
+  if(streakBonus)extra.push(['Streak bonus',streakBonus]);
+  if(cfg.kind==='training'&&n>=5&&right===n){pts+=20;extra.push(['Perfect score',20]);}
+  if(cfg.kind==='daily'&&!st.daily[today()]){pts+=25;extra.push(['Match Day',25]);}
+  if(cfg.kind==='cup'&&n&&right===n){pts+=50;extra.push(['Cup won',50]);}
+  return {pts,extra};
+}
+function checkBadges(st,ctx){
+  const won=[];const give=id=>{if(!st.badges[id]){st.badges[id]=Date.now();won.push(id);}};
+  const {items,cfg}=ctx;const n=items.length,right=items.filter(i=>i.correct).length,hints=items.filter(i=>i.hint).length;
+  let run=0,maxRun=0;items.forEach(i=>{run=i.correct?run+1:0;maxRun=Math.max(maxRun,run);});
+  if(st.totalRight>=1)give('first');if(maxRun>=3)give('hattrick');if(maxRun>=10)give('ten');
+  if(n>=10&&right===n)give('clean');if(cfg.kind==='daily'&&n)give('matchday');
+  const sk=streakDays(st);if(sk>=7)give('week');if(sk>=30)give('month');
+  if(st.totalRight>=100)give('c100');if(st.totalRight>=500)give('c500');if(st.totalRight>=1000)give('c1000');
+  const subs=new Set(st.history.filter(h=>(h.kind||'training')==='training').map(h=>h.subject));if(['maths','quant','verbal'].every(x=>subs.has(x)))give('allround');
+  if(cfg.kind==='shootout'&&right>=15)give('striker');if(cfg.kind==='lives'&&right>=20)give('survivor');if(cfg.kind==='cup'&&n&&right===n)give('cup');
+  for(const sub of Object.values(st.stats||{}))for(const r of Object.values(sub))if(r.n>=5&&r.c/r.n>=0.85)give('strong');
+  if(cfg.retry&&n&&right===n)give('comeback');if(n>=10&&right/n>=0.9&&hints===0)give('nohint');
+  if(n&&new Date().getHours()<8)give('early');const L=levelOf(st.xp);if(L>=5)give('level5');if(L>=10)give('level10');
+  return won;
+}
 function finish(timeUp){
   if(!QZ||QZ.fin)return;clockOut();QZ.fin=true;stopTick();
-  const qs=QZ.qs;const by={};let right=0,skipped=0,hints=0;const typedCfg=QZ.cfg;
-  qs.forEach((q,k)=>{const a=QZ.ans[k];
+  const EL=endless();let idxs=QZ.qs.map((q,k)=>k);if(EL)idxs=idxs.filter(k=>QZ.ans[k].locked);
+  const qs=idxs.map(k=>QZ.qs[k]),ans=idxs.map(k=>QZ.ans[k]);
+  const by={};let right=0,skipped=0,hints=0;
+  qs.forEach((q,k)=>{const a=ans[k];
     if(!a.locked){if(isTyping(q))a.correct=a.typed&&a.typed.trim()?checkTyped(q,a.typed):false;else a.correct=a.sel===q.answer;}
-    a.skipped=!a.locked&&!answered(a);
-    if(a.correct)right++;if(a.skipped)skipped++;if(a.hint)hints++;
-    const b=by[q.topic]||(by[q.topic]={c:0,n:0,att:0});b.n++;if(a.correct)b.c++;if(!a.skipped)b.att++;});
-  const secs=Math.round((Date.now()-QZ.t0)/1000);const pct=Math.round(right/qs.length*100);
-  const sid=uid('se_');const stId=QZ.student;const st=DB.students[stId]||ST();
-  const h={sid,ts:Date.now(),grade:QZ.cfg.grade,subject:QZ.cfg.subject,mode:QZ.cfg.mode,difficulty:QZ.cfg.difficulty,total:qs.length,correct:right,pct,secs,skipped,hints};
-  st.history=st.history||[];st.history.push(h);if(st.history.length>300)st.history=st.history.slice(-300);
-  st.stats=st.stats||{};const sub=st.stats[QZ.cfg.subject]||(st.stats[QZ.cfg.subject]={});
-  for(const [tid,b] of Object.entries(by)){if(!b.att)continue;const r=sub[tid]||(sub[tid]={c:0,n:0});r.c+=qs.filter((q,k)=>q.topic===tid&&!QZ.ans[k].skipped&&QZ.ans[k].correct).length;r.n+=b.att;r.last=Date.now();}
-  st.days=st.days||[];const d=today();if(!st.days.includes(d)){st.days.push(d);if(st.days.length>400)st.days=st.days.slice(-400);}
-  const ses=Object.assign({id:sid,studentId:stId,studentName:st.name,timeUp:!!timeUp,answerStyle:QZ.cfg.answerStyle,topics:QZ.cfg.topics},h,{items:qs.map((q,k)=>{const a=QZ.ans[k];const typed=isTyping(q);return {q:q.q,topic:q.topic,d:q.d,answer:q.answer,options:typed?null:q.options,given:a.skipped?null:(typed?(a.typed||'').trim():a.sel),correct:!!a.correct,skipped:!!a.skipped,timedOut:!!a.timedOut,hint:!!a.hint,flagged:QZ.flags.has(k),ms:Math.round(a.ms),explain:q.explain};}),synced:false});
-  SESSIONS.push(ses);saveSessionsLocal();save(stId);if(CLOUD.user)pushSession(ses);
-  LAST={cfg:QZ.cfg,qs,ans:QZ.ans,by,right,skipped,hints,secs,pct,timeUp,flags:QZ.flags};
+    a.skipped=!a.locked&&!answered(a);if(a.correct)right++;if(a.skipped)skipped++;if(a.hint)hints++;
+    const key=(q.subject||QZ.cfg.subject)+'|'+q.topic;const b=by[key]||(by[key]={c:0,n:0,att:0});b.n++;if(a.correct)b.c++;if(!a.skipped)b.att++;});
+  const total=qs.length;const secs=Math.round((Date.now()-QZ.t0)/1000);const pct=total?Math.round(right/total*100):0;
+  const stId=QZ.student;const st=ensure(DB.students[stId]||ST());const cfg=QZ.cfg;
+  const items=qs.map((q,k)=>{const a=ans[k];const typed=isTyping(q);return {q:q.q,subject:q.subject||cfg.subject,topic:q.topic,d:q.d,answer:q.answer,options:typed?null:q.options,given:a.skipped?null:(typed?(a.typed||'').trim():a.sel),correct:!!a.correct,skipped:!!a.skipped,timedOut:!!a.timedOut,hint:!!a.hint,flagged:QZ.flags.has(idxs[k]),ms:Math.round(a.ms),explain:q.explain};});
+  const lvBefore=levelOf(st.xp);const {pts,extra}=pointsFor(items,cfg,st);
+  st.xp+=pts;st.coins+=pts;st.totalRight+=right;
+  let newBest=false;if(cfg.kind==='shootout'||cfg.kind==='lives'){if(right>(st.bests[cfg.kind]||0)){st.bests[cfg.kind]=right;newBest=true;}}
+  if(cfg.kind==='daily'&&total&&!st.daily[today()]){st.daily[today()]={right,n:total};const ks=Object.keys(st.daily).sort();while(ks.length>60)delete st.daily[ks.shift()];}
+  if(cfg.kind==='cup'&&total&&right===total)st.cups[cfg.subject+':'+cfg.cupTopic]=Date.now();
+  const sid=uid('se_');
+  const h={sid,kind:cfg.kind,ts:Date.now(),grade:cfg.grade,subject:cfg.subject,mode:cfg.mode,difficulty:cfg.difficulty,total,correct:right,pct,secs,skipped,hints,pts};
+  if(total){st.history.push(h);if(st.history.length>300)st.history=st.history.slice(-300);}
+  for(const [key,b] of Object.entries(by)){if(!b.att)continue;const [sub,tid]=key.split('|');const so=st.stats[sub]||(st.stats[sub]={});const r=so[tid]||(so[tid]={c:0,n:0});r.c+=items.filter(i=>i.subject===sub&&i.topic===tid&&!i.skipped&&i.correct).length;r.n+=b.att;r.last=Date.now();}
+  const d=today();if(total&&!st.days.includes(d)){st.days.push(d);if(st.days.length>400)st.days=st.days.slice(-400);}
+  const badges=checkBadges(st,{items,cfg});const lvAfter=levelOf(st.xp);
+  const ses=Object.assign({id:sid,studentId:stId,studentName:st.name,timeUp:!!timeUp,answerStyle:cfg.answerStyle,topics:cfg.topics,cupTopic:cfg.cupTopic||null},h,{items,synced:false});
+  if(total){SESSIONS.push(ses);saveSessionsLocal();}save(stId);if(CLOUD.user&&total)pushSession(ses);
+  LAST={cfg,qs,ans,by,right,skipped,hints,secs,pct,timeUp,total,pts,extra,badges,lvBefore,lvAfter,newBest,stId};
   renderWho();show('results');renderResults('all');
+  const big=badges.length||lvAfter>lvBefore||(total>=5&&right===total)||newBest;
+  if(big){setTimeout(()=>{confetti();sfx.win();},250);}else if(cfg.kind!=='training')sfx.whistle();
 }
-function verdict(p){return p>=90?'Outstanding!':p>=75?'Great work!':p>=50?'Good effort. Keep going!':"Keep practising. You've got this.";}
-const scoreMark=(r,n)=>`<div class="score" aria-label="Score ${r} out of ${n}"><svg viewBox="0 0 220 150" aria-hidden="true"><path d="M44 112 C 8 82, 22 30, 92 18 C 160 8, 214 40, 204 84 C 194 128, 118 142, 70 128 C 40 120, 26 96, 40 70"/></svg><span class="score-n">${r}<small>/${n}</small></span></div>`;
+function verdict(R_){const k=R_.cfg.kind,p=R_.pct;
+  if(k==='shootout')return R_.right>=15?'What a striker!':R_.right>=8?'Great shooting!':'Keep practising those penalties!';
+  if(k==='lives')return R_.right>=20?'Unstoppable!':R_.right>=10?'Brilliant run!':'Good game! Go again?';
+  if(k==='cup')return R_.right===R_.total?'You lifted the cup!':R_.right>=4?'So close to the cup!':'Train up and try the final again.';
+  return p>=90?'Outstanding!':p>=75?'Great work!':p>=50?'Good effort. Keep going!':"Keep practising. You've got this.";}
+const scoreMark=(r,n)=>`<div class="score" aria-label="Score ${r}${n!=null?' out of '+n:''}"><svg viewBox="0 0 220 150" aria-hidden="true"><path d="M44 112 C 8 82, 22 30, 92 18 C 160 8, 214 40, 204 84 C 194 128, 118 142, 70 128 C 40 120, 26 96, 40 70"/></svg><span class="score-n">${r}${n!=null?`<small>/${n}</small>`:''}</span></div>`;
 function renderResults(filter){
-  const R_=LAST;const n=R_.qs.length;const wrong=n-R_.right-R_.skipped;
-  const topics=Object.entries(R_.by).map(([id,b])=>({id,...b,p:Math.round(b.c/b.n*100)})).sort((a,b)=>a.p-b.p);
-  const weak=topics.filter(t=>t.p<70).map(t=>t.id);
+  const R_=LAST;const n=R_.total;const wrong=n-R_.right-R_.skipped;const st=DB.students[R_.stId]||ST();const kind=R_.cfg.kind;const EL=kind==='shootout'||kind==='lives';
+  const topics=Object.entries(R_.by).map(([key,b])=>{const [sub,id]=key.split('|');return {sub,id,...b,p:Math.round(b.c/b.n*100)};}).sort((a,b)=>a.p-b.p);
+  const weak=topics.filter(t=>t.p<70);
   const mistakes=R_.qs.map((q,k)=>k).filter(k=>!R_.ans[k].correct);
   const items=R_.qs.map((q,k)=>({q,a:R_.ans[k],k})).filter(x=>filter==='all'||!x.a.correct);
   const yours=(q,a)=>a.skipped?'Not answered':(R_.cfg.answerStyle==='type'&&canType(q))?(a.typed||'—'):(a.sel||'—');
+  const L=levelOf(st.xp),lo=xpAt(L),hi=xpAt(L+1),pct=Math.round((st.xp-lo)/(hi-lo)*100);
+  const meta=EL?`${R_.right} right · ${wrong} wrong · ${durTxt(R_.secs)}`:`${R_.pct}% · ${durTxt(R_.secs)} · Grade ${R_.cfg.grade} ${esc(subjName(R_.cfg.subject))}`;
   $('#v-results').innerHTML=`<div class="res">
-    <div class="res-hero sheet">${scoreMark(R_.right,n)}
-      <div><p class="res-msg">${R_.timeUp?"Time's up! ":''}${verdict(R_.pct)}</p><p class="res-meta">${R_.pct}% · ${durTxt(R_.secs)} · Grade ${R_.cfg.grade} ${esc(subjName(R_.cfg.subject))} · ${R_.cfg.mode==='test'?'Test':'Practice'}${CLOUD.user?' · Saved to your account':''}</p>
+    <div class="res-hero sheet">${EL?scoreMark(R_.right,null):scoreMark(R_.right,n)}
+      <div><p class="res-kind">${esc(KINDS[kind])}${kind==='cup'?': '+esc(tName(R_.cfg.subject,R_.cfg.cupTopic)):''}</p><p class="res-msg">${R_.timeUp&&kind!=='shootout'?"Time's up! ":''}${verdict(R_)}</p><p class="res-meta">${meta}${CLOUD.user?' · Saved':''}</p>
+      ${R_.newBest?'<p class="newbest">🎉 New personal best!</p>':''}
       <div class="res-stats"><span class="pill g">${R_.right} correct</span><span class="pill r">${wrong} wrong</span>${R_.skipped?`<span class="pill">${R_.skipped} not answered</span>`:''}${R_.hints?`<span class="pill">${R_.hints} hint${R_.hints>1?'s':''} used</span>`:''}</div>
-      <div class="res-actions">${mistakes.length?`<button class="btn btn-go" data-act="retry">Retry my ${mistakes.length} mistake${mistakes.length>1?'s':''}</button>`:''}${weak.length?`<button class="btn" data-act="weak">Practise weak topics</button>`:''}<button class="btn" data-act="again">New questions, same settings</button><button class="btn btn-quiet" data-act="go-setup">Change settings</button></div></div></div>
-    <div class="block sheet"><h2>By topic</h2><p class="note">${weak.length?`Focus next on: ${weak.map(id=>esc(topicName(R_.cfg.subject,id))).join(', ')}.`:'No weak spots in this session.'}</p>${topics.map(t=>`<div class="trow"><span>${esc(topicName(R_.cfg.subject,t.id))}</span><span class="bar"><i class="${t.p>=80?'hi':t.p>=60?'mid':'lo'}" style="width:${Math.max(3,t.p)}%"></i></span><span class="v">${t.c}/${t.n}</span></div>`).join('')}</div>
-    <div class="block sheet" id="review"><h2>Review answers</h2><p class="note">Every question with the correct answer and how to solve it.</p>
+      <div class="res-actions">${mistakes.length&&!EL?`<button class="btn btn-go" data-act="retry">Retry my ${mistakes.length} mistake${mistakes.length>1?'s':''}</button>`:''}${weak.length&&kind==='training'?`<button class="btn" data-act="weak">Practise weak topics</button>`:''}<button class="btn ${mistakes.length&&!EL?'':'btn-go'}" data-act="again">${EL||kind==='cup'?'Play again':kind==='daily'?'Play again for fun':'New questions, same settings'}</button><button class="btn btn-quiet" data-act="go-setup">Home</button></div></div></div>
+    <div class="reward sheet">${petHTML(st,'md')}<div class="rw-main"><p class="rw-pts">+${R_.pts} points <span>🪙 +${R_.pts} coins</span></p>${R_.extra.length?`<p class="rw-extra">${R_.extra.map(([l,v])=>`${esc(l)} +${v}`).join(' · ')}</p>`:''}
+      ${R_.lvAfter>R_.lvBefore?`<p class="levelup">⬆️ Level up! ${esc(st.name)} is now Level ${R_.lvAfter}: ${leagueOf(R_.lvAfter)} ${esc(animalOf(st)[2])}</p>`:''}
+      <div class="xpbar"><i style="width:${pct}%"></i></div><p class="pl-next">Level ${L} · ${nf(hi-st.xp)} points to Level ${L+1}</p></div>
+      ${R_.badges.length?`<div class="rw-badges">${R_.badges.map(id=>{const b=BADGES.find(x=>x.id===id);return `<div class="nb"><span aria-hidden="true">${b.e}</span><b>New trophy: ${esc(b.name)}</b><small>${esc(b.desc)}</small></div>`;}).join('')}</div>`:''}</div>
+    ${topics.length?`<div class="block sheet"><h2>By topic</h2><p class="note">${weak.length?`Focus next on: ${weak.map(t=>esc(tName(t.sub,t.id))).join(', ')}.`:'No weak spots this time.'}</p>${topics.map(t=>`<div class="trow"><span>${esc(tName(t.sub,t.id))}</span><span class="bar"><i class="${t.p>=80?'hi':t.p>=60?'mid':'lo'}" style="width:${Math.max(3,t.p)}%"></i></span><span class="v">${t.c}/${t.n}</span></div>`).join('')}</div>`:''}
+    ${n?`<div class="block sheet" id="review"><h2>Review answers</h2><p class="note">Every question with the correct answer and how to solve it.</p>
       <div class="filters tabs" role="tablist"><button role="tab" aria-selected="${filter==='all'}" data-act="rf" data-f="all">All (${n})</button><button role="tab" aria-selected="${filter!=='all'}" data-act="rf" data-f="wrong">Mistakes (${mistakes.length})</button></div>
-      ${items.length?items.map(({q,a,k})=>`<div class="rv"><span class="rv-n ${a.correct?'ok':'no'}">${a.correct?'✓':'✗'}</span><div><p class="rv-t">Question ${k+1} · ${esc(topicName(R_.cfg.subject,q.topic))}</p><p class="rv-q">${esc(q.q)}</p><div class="rv-a"><span>Your answer: <span class="yours ${a.correct?'good':'bad'}">${esc(yours(q,a))}</span></span>${a.correct?'':`<span class="corr">Correct: ${esc(q.answer)}</span>`}</div><p class="rv-e">${esc(q.explain)}</p></div></div>`).join(''):'<p class="empty">No mistakes to review. Every answer was right.</p>'}</div></div>`;
+      ${items.length?items.map(({q,a,k})=>`<div class="rv"><span class="rv-n ${a.correct?'ok':'no'}">${a.correct?'✓':'✗'}</span><div><p class="rv-t">Question ${k+1} · ${esc(tName(q.subject||R_.cfg.subject,q.topic))}</p><p class="rv-q">${esc(q.q)}</p><div class="rv-a"><span>Your answer: <span class="yours ${a.correct?'good':'bad'}">${esc(yours(q,a))}</span></span>${a.correct?'':`<span class="corr">Correct: ${esc(q.answer)}</span>`}</div><p class="rv-e">${esc(q.explain)}</p></div></div>`).join(''):'<p class="empty">No mistakes to review. Every answer was right.</p>'}</div>`:''}</div>`;
 }
-function retryMistakes(){const R_=LAST;const qs=R_.qs.filter((q,k)=>!R_.ans[k].correct).map(q=>Object.assign({},q,{options:shuffle(q.options)}));beginQuiz(Object.assign({},R_.cfg,{count:qs.length}),qs);}
-function practiseWeak(){const R_=LAST;const weak=Object.entries(R_.by).filter(([id,b])=>b.c/b.n<0.7).map(([id])=>id);const cfg=Object.assign({},R_.cfg,{topics:weak});beginQuiz(cfg,buildQuiz({subject:cfg.subject,grade:cfg.grade,topics:weak,count:cfg.count,difficulty:cfg.difficulty==='adaptive'?'standard':cfg.difficulty}));}
-function sameAgain(){const cfg=Object.assign({},LAST.cfg);beginQuiz(cfg,buildQuiz({subject:cfg.subject,grade:cfg.grade,topics:cfg.topics,count:cfg.count,difficulty:cfg.difficulty==='adaptive'?'standard':cfg.difficulty}));}
+function retryMistakes(){const R_=LAST;const qs=R_.qs.filter((q,k)=>!R_.ans[k].correct).map(q=>Object.assign({},q,{options:shuffle(q.options)}));const sub=R_.cfg.subject==='mixed'?(qs[0].subject||'maths'):R_.cfg.subject;beginQuiz(Object.assign({},R_.cfg,{kind:'training',mode:'practice',timer:'off',count:qs.length,retry:true,subject:sub,topics:[...new Set(qs.map(q=>q.topic))]}),qs);}
+function practiseWeak(){const R_=LAST;const weak=Object.entries(R_.by).filter(([k,b])=>b.c/b.n<0.7).map(([k])=>k.split('|')[1]);const cfg=Object.assign({},R_.cfg,{topics:weak,retry:false});beginQuiz(cfg,buildQuiz({subject:cfg.subject,grade:cfg.grade,topics:weak,count:cfg.count,difficulty:cfg.difficulty==='adaptive'?'standard':cfg.difficulty}));}
+function sameAgain(){const cfg=Object.assign({},LAST.cfg,{retry:false});if(cfg.kind!=='training'){if(cfg.kind==='cup')CUPTOPIC=cfg.cupTopic;startMode(cfg.kind);return;}beginQuiz(cfg,buildQuiz({subject:cfg.subject,grade:cfg.grade,topics:cfg.topics,count:cfg.count,difficulty:cfg.difficulty==='adaptive'?'standard':cfg.difficulty}));}
 
 /* ---------- PROGRESS (parent view) ---------- */
 let PTAB='maths',SFILT='all';
 function allSessions(){const loc=SESSIONS.slice();if(!CLOUD.user||!CLOUD.sessions)return loc;const m=new Map(CLOUD.sessions.map(s=>[s.id,s]));for(const s of loc)if(!m.has(s.id))m.set(s.id,s);return [...m.values()];}
 const sessionFor=sid=>allSessions().find(s=>s.id===sid);
-function streakDays(days){const set=new Set(days||[]);let d=new Date();const key=x=>x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');if(!set.has(key(d)))d.setDate(d.getDate()-1);let n=0;while(set.has(key(d))){n++;d.setDate(d.getDate()-1);}return n;}
 function statusOf(c,n){if(n<5)return ['st-new','Getting started'];const p=c/n;return p>=0.85?['st-strong','Strong']:p>=0.65?['st-build','Building']:['st-weak','Needs work'];}
 function syncLine(){if(!CLOUD.enabled)return `<p class="sync off"><i class="dot"></i>Saved in this browser only. Accounts are not set up for this copy of Sharpen.</p>`;
   if(CLOUD.user)return `<p class="sync"><i class="dot"></i>Synced to ${esc(CLOUD.user.email||'your account')}. Open Sharpen on any device and sign in to see this.</p>`;
   return `<p class="sync off"><i class="dot"></i>Saved on this device only. <button class="linkish" data-act="account">Sign in to sync</button></p>`;}
 function renderProgress(msg){
-  const st=ST();const H=st.history||[];const qs=H.reduce((s,h)=>s+h.total,0);const avg=H.length?Math.round(H.reduce((s,h)=>s+h.pct,0)/H.length):0;
+  const st=ST();const H=st.history||[];const avg=H.length?Math.round(H.reduce((s,h)=>s+h.pct,0)/H.length):0;
   const stats=(st.stats||{})[PTAB]||{};const rows=SUBJECTS[PTAB].topics.filter(t=>stats[t.id]).map(t=>({t,...stats[t.id]})).sort((a,b)=>a.c/a.n-b.c/b.n);
   const sesMap=new Map(allSessions().map(s=>[s.id,s]));
-  const hist=H.slice().reverse().filter(h=>SFILT==='all'||h.subject===SFILT).slice(0,40);
-  const week=H.filter(h=>Date.now()-h.ts<7*864e5);const weekQ=week.reduce((s,h)=>s+h.total,0);const weekMin=Math.round(week.reduce((s,h)=>s+h.secs,0)/60);
+  const hist=H.slice().reverse().filter(h=>SFILT==='all'||h.subject===SFILT||(SFILT==='games'&&h.kind&&h.kind!=='training')).slice(0,40);
+  const week=H.filter(h=>h.ts>=weekStart());const weekQ=week.reduce((s,h)=>s+h.total,0);const weekMin=Math.round(week.reduce((s,h)=>s+h.secs,0)/60);
   const backup=CLOUD.user?'':(()=>{try{return btoa(unescape(encodeURIComponent(JSON.stringify(DB))));}catch(e){return '';}})();
+  const g=st.goal||{},fg=DB.family.goal||{};
   $('#v-progress').innerHTML=`<div class="prog">
-    <div class="prog-head"><div><h1>${esc(st.name)}'s progress</h1>${syncLine()}</div><button class="btn btn-go" data-act="go-setup">Start a session</button></div>
-    <div class="tiles"><div class="tile sheet"><b>${H.length}</b><span>sessions completed</span></div><div class="tile sheet"><b>${H.length?avg+'%':'–'}</b><span>average score</span></div><div class="tile sheet"><b>${weekQ}</b><span>questions this week · ${weekMin} min</span></div><div class="tile sheet"><b>${streakDays(st.days)}</b><span>day streak</span></div></div>
+    <div class="prog-head"><div class="ph-who">${st.pet?petHTML(st,'md'):''}<div><h1>${esc(st.name)}'s progress</h1>${syncLine()}</div></div><button class="btn btn-go" data-act="go-setup">Play</button></div>
+    <div class="tiles"><div class="tile sheet"><b>Lv ${levelOf(st.xp)}</b><span>${leagueOf(levelOf(st.xp))} · ${nf(st.xp)} points</span></div><div class="tile sheet"><b>${H.length?avg+'%':'–'}</b><span>average score · ${H.length} games</span></div><div class="tile sheet"><b>${weekQ}</b><span>questions this week · ${weekMin} min</span></div><div class="tile sheet"><b>${streakDays(st)}</b><span>day streak${st.freezeUsed&&Date.now()-st.freezeUsed<7*864e5?' · freeze used':''}</span></div></div>
     <div class="block sheet"><h2>Sessions</h2><p class="note">Open any session to see each question, ${esc(st.name)}'s answer, the correct answer and how long it took.</p>
-      <div class="tabs" role="tablist"><button role="tab" aria-selected="${SFILT==='all'}" data-act="sfilt" data-k="all">All subjects</button>${Object.keys(SUBJECTS).map(k=>`<button role="tab" aria-selected="${SFILT===k}" data-act="sfilt" data-k="${k}">${SUBJECTS[k].name}</button>`).join('')}</div>
-      ${hist.length?`<div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Subject</th><th>Grade</th><th>Scoring</th><th>Score</th><th>Time</th><th></th></tr></thead><tbody>${hist.map(h=>{const has=h.sid&&sesMap.has(h.sid);return `<tr><td>${new Date(h.ts).toLocaleString(undefined,{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})}</td><td>${esc(subjName(h.subject))}</td><td>${h.grade}</td><td>${h.mode==='test'?'Test':'Practice'} · ${diffName[h.difficulty]||'Standard'}</td><td class="sc">${h.correct}/${h.total}</td><td>${durTxt(h.secs)}</td><td>${has?`<button class="btn btn-sm" data-act="open-ses" data-k="${esc(h.sid)}">Review</button>`:`<span class="empty" title="${h.sid?'Details are on the device that ran it and will appear once it syncs':'Older session without saved answers'}">${h.sid?'Syncing…':'No details'}</span>`}</td></tr>`;}).join('')}</tbody></table></div>`:`<p class="empty">No ${SFILT==='all'?'':esc(subjName(SFILT)).toLowerCase()+' '}sessions yet.</p>`}</div>
+      <div class="tabs" role="tablist"><button role="tab" aria-selected="${SFILT==='all'}" data-act="sfilt" data-k="all">All</button>${Object.keys(SUBJECTS).map(k=>`<button role="tab" aria-selected="${SFILT===k}" data-act="sfilt" data-k="${k}">${SUBJECTS[k].name}</button>`).join('')}<button role="tab" aria-selected="${SFILT==='games'}" data-act="sfilt" data-k="games">Game modes</button></div>
+      ${hist.length?`<div class="tbl-wrap"><table><thead><tr><th>Date</th><th>Game</th><th>Subject</th><th>Grade</th><th>Score</th><th>Points</th><th>Time</th><th></th></tr></thead><tbody>${hist.map(h=>{const has=h.sid&&sesMap.has(h.sid);return `<tr><td>${new Date(h.ts).toLocaleString(undefined,{weekday:'short',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'})}</td><td>${esc(KINDS[h.kind||'training'])}${(h.kind||'training')==='training'?` · ${h.mode==='test'?'Test':'Practice'}`:''}</td><td>${esc(subjName(h.subject))}</td><td>${h.grade}</td><td class="sc">${h.correct}/${h.total}</td><td>${h.pts!=null?'+'+h.pts:'–'}</td><td>${durTxt(h.secs)}</td><td>${has?`<button class="btn btn-sm" data-act="open-ses" data-k="${esc(h.sid)}">Review</button>`:`<span class="empty" title="${h.sid?'Details will appear once the device that ran it syncs':'Older session without saved answers'}">${h.sid?'Syncing…':'No details'}</span>`}</td></tr>`;}).join('')}</tbody></table></div>`:`<p class="empty">No sessions here yet.</p>`}</div>
     <div class="block sheet"><h2>Topic strengths</h2><p class="note">Weakest topics first. A topic needs at least 5 answers before it gets a rating.</p>
       <div class="tabs" role="tablist">${Object.keys(SUBJECTS).map(k=>`<button role="tab" aria-selected="${PTAB===k}" data-act="ptab" data-k="${k}">${SUBJECTS[k].name}</button>`).join('')}</div>
-      ${rows.length?rows.map(r=>{const p=Math.round(r.c/r.n*100);const [cls,lab]=statusOf(r.c,r.n);return `<div class="mrow"><span>${esc(r.t.name)}</span><span class="bar"><i class="${p>=85?'hi':p>=65?'mid':'lo'}" style="width:${Math.max(3,p)}%"></i></span><span class="v">${p}% of ${r.n}</span><span><span class="status ${cls}">${lab}</span></span></div>`;}).join(''):`<p class="empty">No ${SUBJECTS[PTAB].name.toLowerCase()} answers yet. Finish a session and each topic shows up here with its accuracy.</p>`}</div>
-    <div class="manage"><div class="block sheet"><h2>Students</h2><p class="note">Each child has their own progress. A PIN stops siblings switching into each other's profile.</p>
+      ${rows.length?rows.map(r=>{const p=Math.round(r.c/r.n*100);const [cls,lab]=statusOf(r.c,r.n);return `<div class="mrow"><span>${esc(r.t.name)}</span><span class="bar"><i class="${p>=85?'hi':p>=65?'mid':'lo'}" style="width:${Math.max(3,p)}%"></i></span><span class="v">${p}% of ${r.n}</span><span><span class="status ${cls}">${lab}</span></span></div>`;}).join(''):`<p class="empty">No ${SUBJECTS[PTAB].name.toLowerCase()} answers yet.</p>`}</div>
+    <div class="block sheet"><h2>Weekly rewards</h2><p class="note">Points reset every Monday. Rewards show on each child's home screen with a progress bar.${DB.family.parentPin?' Changes need the parent PIN.':''}</p>
+      <div class="manage"><div><h3 class="mini-h">${esc(st.name)}'s own goal</h3><div class="pin-row"><div class="field" style="flex:0 0 120px"><label for="g-pts">Points</label><input id="g-pts" type="number" min="50" step="50" value="${esc(g.pts||'')}" placeholder="500" inputmode="numeric"></div><div class="field" style="flex:1 1 180px"><label for="g-rw">Reward</label><input id="g-rw" maxlength="40" value="${esc(g.reward||'')}" placeholder="Movie night"></div></div><p class="empty">This week: ${nf(ptsWeek(st))} points.</p></div>
+      <div><h3 class="mini-h">Family Cup (everyone together)</h3><div class="pin-row"><div class="field" style="flex:0 0 120px"><label for="f-pts">Points</label><input id="f-pts" type="number" min="100" step="100" value="${esc(fg.pts||'')}" placeholder="2000" inputmode="numeric"></div><div class="field" style="flex:1 1 180px"><label for="f-rw">Reward</label><input id="f-rw" maxlength="40" value="${esc(fg.reward||'')}" placeholder="Pizza Friday"></div></div><p class="empty">This week together: ${nf(Object.values(DB.students).reduce((a,s)=>a+ptsWeek(s),0))} points.</p></div></div>
+      <div class="btns"><button class="btn btn-sm btn-go" data-act="save-goals">Save rewards</button><button class="btn btn-sm btn-quiet" data-act="clear-goals">Remove rewards</button></div>
+      <p class="empty" style="margin-top:10px">A typical 10-question session earns about 100 points.</p></div>
+    <div class="manage"><div class="block sheet"><h2>Players</h2><p class="note">A player PIN stops siblings switching into each other's profile. The parent PIN protects rewards and deleting.</p>
         <div class="field"><label for="rename-in">Name</label><input id="rename-in" maxlength="24" value="${esc(st.name)}"></div>
-        <div class="btns" style="margin-bottom:16px"><button class="btn btn-sm" data-act="rename">Save name</button><button class="btn btn-sm" data-act="add-student">Add a student</button></div>
-        <div class="pin-row"><div class="field"><label for="pin-in">${st.pin?'New PIN':'Set a PIN'} (4–8 digits)</label><input id="pin-in" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div><button class="btn btn-sm" data-act="set-pin">${st.pin?'Change PIN':'Set PIN'}</button>${st.pin?'<button class="btn btn-sm btn-quiet" data-act="clear-pin">Remove PIN</button>':''}</div>
+        <div class="btns" style="margin-bottom:16px"><button class="btn btn-sm" data-act="rename">Save name</button><button class="btn btn-sm" data-act="add-student">Add a player</button><button class="btn btn-sm" data-act="edit-pet">Change mascot</button></div>
+        <div class="pin-row"><div class="field"><label for="pin-in">${st.pin?'New player PIN':'Player PIN'} (4–8 digits)</label><input id="pin-in" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div><button class="btn btn-sm" data-act="set-pin">${st.pin?'Change':'Set'}</button>${st.pin?'<button class="btn btn-sm btn-quiet" data-act="clear-pin">Remove</button>':''}</div>
+        <div class="pin-row" style="margin-top:12px"><div class="field"><label for="ppin-in">${DB.family.parentPin?'New parent PIN':'Parent PIN'} (4–8 digits)</label><input id="ppin-in" type="password" inputmode="numeric" maxlength="8" autocomplete="new-password"></div><button class="btn btn-sm" data-act="set-ppin">${DB.family.parentPin?'Change':'Set'}</button>${DB.family.parentPin?'<button class="btn btn-sm btn-quiet" data-act="clear-ppin">Remove</button>':''}</div>
         <div class="btns" style="margin-top:16px"><button class="btn btn-sm btn-danger" data-act="clear-student">Clear ${esc(st.name)}'s history</button>${Object.keys(DB.students).length>1?`<button class="btn btn-sm btn-danger" data-act="del-student">Remove ${esc(st.name)}</button>`:''}</div></div>
-      <div class="block sheet">${CLOUD.user?`<h2>Account</h2><p class="note">Signed in as ${esc(CLOUD.user.email||CLOUD.user.displayName||'')}. Sign in with the same account on the tablet and on your phone, and both stay in step.</p><div class="btns"><button class="btn btn-sm" data-act="sign-out">Sign out on this device</button></div>`
-        :`<h2>Move to another device</h2><p class="note">${CLOUD.enabled?'Signing in is the easy way. Without an account, copy this code and paste it into Sharpen on the other device.':'Copy this code, then paste it into Sharpen on the other device to bring all students across.'}</p>
+      <div class="block sheet">${CLOUD.user?`<h2>Account</h2><p class="note">Signed in as ${esc(CLOUD.user.email||CLOUD.user.displayName||'')}. Sign in with the same account on each device and they stay in step.</p><div class="btns"><button class="btn btn-sm" data-act="sign-out">Sign out on this device</button></div>`
+        :`<h2>Move to another device</h2><p class="note">${CLOUD.enabled?'Signing in is the easy way. Without an account, copy this code and paste it into Sharpen on the other device.':'Copy this code, then paste it into Sharpen on the other device to bring all players across.'}</p>
         <div class="field"><label for="bk-out">Backup code</label><textarea id="bk-out" readonly>${backup}</textarea></div><div class="btns" style="margin-bottom:14px"><button class="btn btn-sm" data-act="copy-bk">Copy code</button></div>
         <div class="field"><label for="bk-in">Restore from a code</label><textarea id="bk-in" placeholder="Paste a backup code here"></textarea></div><div class="btns"><button class="btn btn-sm" data-act="restore">Restore</button></div>`}
         ${msg?`<p class="msg ${msg.err?'err':''}">${esc(msg.t)}</p>`:''}</div></div>
@@ -1601,20 +1920,18 @@ function renderProgress(msg){
 }
 function renderSession(sid,filter){
   const s=sessionFor(sid);if(!s){show('progress');renderProgress({t:'That session could not be found.',err:true});return;}
-  const items=s.items||[];const n=items.length;const ms=items.map(i=>i.ms||0);const avg=n?ms.reduce((a,b)=>a+b,0)/n:0;
-  const slowCut=Math.max(avg*1.75,20000);
+  const items=s.items||[];const n=items.length;const avg=n?items.reduce((a,i)=>a+(i.ms||0),0)/n:0;const slowCut=Math.max(avg*1.75,20000);
   const list=items.map((it,k)=>({it,k})).filter(({it})=>filter==='all'||(filter==='wrong'&&!it.correct)||(filter==='slow'&&(it.ms||0)>=slowCut)||(filter==='hint'&&it.hint));
   const nWrong=items.filter(i=>!i.correct).length,nSlow=items.filter(i=>(i.ms||0)>=slowCut).length,nHint=items.filter(i=>i.hint).length;
-  const by={};items.forEach(i=>{const b=by[i.topic]||(by[i.topic]={c:0,n:0});b.n++;if(i.correct)b.c++;});
-  $('#v-session').innerHTML=`<div class="prog">
-    <div><button class="btn btn-sm btn-quiet" data-act="go-progress">← Back to progress</button></div>
-    <div class="ses-head sheet">${scoreMark(s.correct,s.total)}<div><p class="res-msg" style="font-size:26px">${esc(s.studentName||NAME(s.studentId))} · ${esc(subjName(s.subject))}</p>
-      <p class="res-meta">${new Date(s.ts).toLocaleString(undefined,{weekday:'long',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'})} · Grade ${s.grade} · ${s.mode==='test'?'Test':'Practice'} · ${diffName[s.difficulty]||'Standard'}${s.timeUp?' · Ran out of time':''}</p>
-      <div class="res-stats"><span class="pill g">${s.correct} correct</span><span class="pill r">${s.total-s.correct-(s.skipped||0)} wrong</span>${s.skipped?`<span class="pill">${s.skipped} not answered</span>`:''}<span class="pill">${durTxt(s.secs)} total</span><span class="pill">${secTxt(avg)} per question on average</span>${nHint?`<span class="pill">${nHint} hint${nHint>1?'s':''}</span>`:''}</div>
-      <div>${Object.entries(by).sort((a,b)=>a[1].c/a[1].n-b[1].c/b[1].n).map(([t,b])=>`<span class="tag" style="display:inline-block;margin:0 6px 6px 0">${esc(topicName(s.subject,t))}: ${b.c}/${b.n}</span>`).join('')}</div></div></div>
+  const by={};items.forEach(i=>{const k=(i.subject||s.subject)+'|'+i.topic;const b=by[k]||(by[k]={c:0,n:0});b.n++;if(i.correct)b.c++;});
+  $('#v-session').innerHTML=`<div class="prog"><div><button class="btn btn-sm btn-quiet" data-act="go-progress">← Back to progress</button></div>
+    <div class="ses-head sheet">${scoreMark(s.correct,s.total)}<div><p class="res-msg" style="font-size:26px">${esc(s.studentName||NAME(s.studentId))} · ${esc(KINDS[s.kind||'training'])}</p>
+      <p class="res-meta">${new Date(s.ts).toLocaleString(undefined,{weekday:'long',month:'long',day:'numeric',hour:'numeric',minute:'2-digit'})} · ${esc(subjName(s.subject))} · Grade ${s.grade}${(s.kind||'training')==='training'?` · ${s.mode==='test'?'Test':'Practice'} · ${diffName[s.difficulty]||'Standard'}`:''}${s.timeUp&&s.kind!=='shootout'?' · Ran out of time':''}</p>
+      <div class="res-stats"><span class="pill g">${s.correct} correct</span><span class="pill r">${s.total-s.correct-(s.skipped||0)} wrong</span>${s.skipped?`<span class="pill">${s.skipped} not answered</span>`:''}<span class="pill">${durTxt(s.secs)} total</span><span class="pill">${secTxt(avg)} per question</span>${s.pts!=null?`<span class="pill">+${s.pts} points</span>`:''}${nHint?`<span class="pill">${nHint} hint${nHint>1?'s':''}</span>`:''}</div>
+      <div>${Object.entries(by).sort((a,b)=>a[1].c/a[1].n-b[1].c/b[1].n).map(([k,b])=>{const [sub,t]=k.split('|');return `<span class="tag" style="display:inline-block;margin:0 6px 6px 0">${esc(tName(sub,t))}: ${b.c}/${b.n}</span>`;}).join('')}</div></div></div>
     <div class="block sheet"><h2>Every question</h2><p class="note">Time is how long ${esc(s.studentName||'they')} spent on each question. Slow ones are marked so you can see where they got stuck.</p>
       <div class="filters tabs" role="tablist"><button role="tab" aria-selected="${filter==='all'}" data-act="sf" data-f="all" data-k="${esc(sid)}">All (${n})</button><button role="tab" aria-selected="${filter==='wrong'}" data-act="sf" data-f="wrong" data-k="${esc(sid)}">Mistakes (${nWrong})</button><button role="tab" aria-selected="${filter==='slow'}" data-act="sf" data-f="slow" data-k="${esc(sid)}">Slow (${nSlow})</button>${nHint?`<button role="tab" aria-selected="${filter==='hint'}" data-act="sf" data-f="hint" data-k="${esc(sid)}">Used a hint (${nHint})</button>`:''}</div>
-      ${list.length?list.map(({it,k})=>`<div class="rv"><span class="rv-n ${it.correct?'ok':'no'}">${it.correct?'✓':'✗'}</span><div><p class="rv-t">Question ${k+1} · ${esc(topicName(s.subject,it.topic))} · <span class="tm ${(it.ms||0)>=slowCut?'slow':''}">${secTxt(it.ms)}</span>${it.hint?' <span class="tm h">hint</span>':''}${it.flagged?' <span class="tm">flagged</span>':''}</p><p class="rv-q">${esc(it.q)}</p>
+      ${list.length?list.map(({it,k})=>`<div class="rv"><span class="rv-n ${it.correct?'ok':'no'}">${it.correct?'✓':'✗'}</span><div><p class="rv-t">Question ${k+1} · ${esc(tName(it.subject||s.subject,it.topic))} · <span class="tm ${(it.ms||0)>=slowCut?'slow':''}">${secTxt(it.ms)}</span>${it.hint?' <span class="tm h">hint</span>':''}${it.flagged?' <span class="tm">flagged</span>':''}</p><p class="rv-q">${esc(it.q)}</p>
         <div class="rv-a"><span>Answered: <span class="yours ${it.correct?'good':'bad'}">${it.skipped?(it.timedOut?'Ran out of time':'Not answered'):esc(it.given||'—')}</span></span>${it.correct?'':`<span class="corr">Correct: ${esc(it.answer)}</span>`}</div>${it.options&&!it.correct?`<p class="rv-t">Choices: ${it.options.map(esc).join(' · ')}</p>`:''}<p class="rv-e">${esc(it.explain)}</p></div></div>`).join(''):'<p class="empty">Nothing in this filter.</p>'}</div></div>`;
 }
 
@@ -1622,14 +1939,25 @@ function renderSession(sid,filter){
 document.addEventListener('click',async e=>{
   const b=e.target.closest('[data-act]');if(!b)return;const act=b.dataset.act;
   switch(act){
-    case 'go-setup': if(VIEW==='auth')return; if(VIEW==='quiz'&&QZ&&!QZ.fin){leave();return;} show('setup');renderSetup();break;
+    case 'go-setup': if(VIEW==='auth')return; if(VIEW==='quiz'&&QZ&&!QZ.fin){leave();return;} home();break;
     case 'go-progress': if(VIEW==='quiz'&&QZ&&!QZ.fin){if(!await leave())return;} show('progress');renderProgress();break;
-    case 'account': if(!CLOUD.enabled)return; if(CLOUD.user){if(VIEW==='quiz'&&QZ&&!QZ.fin)return;show('progress');renderProgress();document.querySelector('[data-act=sign-out]')&&document.querySelector('[data-act=sign-out]').scrollIntoView({block:'center'});}else{if(VIEW==='quiz'&&QZ&&!QZ.fin&&!await leave())return;CLOUD.err=CLOUD.failed?CLOUD.err:'';show('auth');renderAuth();}break;
+    case 'snd': SND.on=!SND.on;lsSet(LS_SND,SND.on);renderSound();if(SND.on)sfx.right();break;
+    case 'account': if(!CLOUD.enabled)return; if(CLOUD.user){if(VIEW==='quiz'&&QZ&&!QZ.fin)return;show('progress');renderProgress();const so=document.querySelector('[data-act=sign-out]');if(so)so.scrollIntoView({block:'center'});}else{if(VIEW==='quiz'&&QZ&&!QZ.fin&&!await leave())return;CLOUD.err=CLOUD.failed?CLOUD.err:'';show('auth');renderAuth();}break;
     case 'g-signin': signInGoogle();break;
     case 'e-create': signInEmail(true);break;
     case 'e-reset': resetPw();break;
-    case 'local-only': lsSet(LS_LOCAL,true);show('setup');renderSetup();renderWho();break;
+    case 'local-only': lsSet(LS_LOCAL,true);renderWho();home();break;
     case 'sign-out': signOut();break;
+    case 'edit-pet': PETDRAFT=null;show('pet');renderPet(false);break;
+    case 'pet-cancel': PETDRAFT=null;home();break;
+    case 'pet-save':{const st=ST();const first=!st.pet;PETDRAFT.name=(($('#pp-name')||{}).value||'').trim().slice(0,16);const pl=$('#pp-player');if(pl){const v=pl.value.trim().slice(0,24);if(!v){pl.focus();pl.setAttribute('aria-invalid','true');pl.placeholder='Type your name first';return;}if(Object.entries(DB.students).some(([id,s])=>id!==DB.current&&s.name.toLowerCase()===v.toLowerCase())){await ask('That name is taken','Another player already uses that name.',{cancel:null});return;}st.name=v;}
+      st.pet={animal:PETDRAFT.animal,kit:PETDRAFT.kit,name:PETDRAFT.name};PETDRAFT=null;save();setPlayerName(st.name);renderWho();home();if(first){confetti();sfx.win();}break;}
+    case 'open-shop': show('shop');renderShop();break;
+    case 'open-trophies': show('trophies');renderTrophies();break;
+    case 'buy':{const st=ST();const it=ITEMS.find(i=>i.id===b.dataset.k);if(!it||st.owned.includes(it.id))return;if(st.coins<it.cost){renderShop({t:`You need ${it.cost-st.coins} more coins.`,err:true});return;}st.coins-=it.cost;st.owned.push(it.id);st.wearing[it.slot]=it.id;save();sfx.buy();renderShop({t:`${it.name} bought and equipped!`});break;}
+    case 'wear':{const st=ST();const it=ITEMS.find(i=>i.id===b.dataset.k);if(!it)return;st.wearing[it.slot]=st.wearing[it.slot]===it.id?null:it.id;save();renderShop();break;}
+    case 'mode': startMode(b.dataset.k);break;
+    case 'say': if(QZ){const q=QZ.qs[QZ.i];speak(q.q+'. '+(isTyping(q)?'':q.options.map((o,i)=>'ABCD'[i]+', '+o).join('. ')));}break;
     case 'topics-all':{const s=S();s.topicsBy[s.subject+'-'+s.grade]=availTopics(s).map(t=>t.id);save();renderSetup();break;}
     case 'topics-none':{const s=S();s.topicsBy[s.subject+'-'+s.grade]=[];save();renderSetup();break;}
     case 'start': startFromSettings();break;
@@ -1649,17 +1977,22 @@ document.addEventListener('click',async e=>{
     case 'sfilt': SFILT=b.dataset.k;renderProgress();break;
     case 'open-ses': show('session');renderSession(b.dataset.k,'all');break;
     case 'sf': renderSession(b.dataset.k,b.dataset.f);break;
-    case 'add-student': if(await addStudent()){renderWho();renderProgress();}break;
-    case 'rename':{const v=($('#rename-in').value||'').trim().slice(0,24);const st=ST();if(!v||v===st.name)return;if(Object.entries(DB.students).some(([id,s])=>id!==DB.current&&s.name.toLowerCase()===v.toLowerCase())){renderProgress({t:'That name is already used.',err:true});return;}st.name=v;save();renderWho();renderProgress({t:'Name saved.'});break;}
-    case 'set-pin':{const v=($('#pin-in').value||'').trim();if(!/^\d{4,8}$/.test(v)){renderProgress({t:'Use 4 to 8 digits for the PIN.',err:true});return;}ST().pin=hashPin(v);save();renderWho();renderProgress({t:`PIN set. It is needed to switch into ${NAME()} on any device.`});break;}
-    case 'clear-pin':{const st=ST();const p=await ask('Remove the PIN?',`Enter ${st.name}'s current PIN to remove it.`,{ok:'Remove PIN',input:'',secret:true});if(p===null)return;if(hashPin(p)!==st.pin){renderProgress({t:'That PIN is not right.',err:true});return;}st.pin=null;save();renderWho();renderProgress({t:'PIN removed.'});break;}
-    case 'clear-student':{const st=ST();const ok=await ask(`Clear ${st.name}'s history?`,'All scores and topic progress for this student will be deleted.',{ok:'Clear history',cancel:'Cancel'});if(!ok)return;st.history=[];st.stats={};st.days=[];SESSIONS=SESSIONS.filter(s=>s.studentId!==DB.current);saveSessionsLocal();
+    case 'add-student': if(await addStudent()){renderWho();PETDRAFT=null;show('pet');renderPet(true);}break;
+    case 'save-goals':{const gp=Math.round(+$('#g-pts').value||0),gr=$('#g-rw').value.trim(),fp=Math.round(+$('#f-pts').value||0),fr=$('#f-rw').value.trim();if(!await parentOk())return;const st=ST();st.goal=gp>0?{pts:gp,reward:gr}:null;DB.family.goal=fp>0?{pts:fp,reward:fr}:null;save();saveFamily();renderProgress({t:'Rewards saved. They show on the home screen.'});break;}
+    case 'clear-goals':{if(!await parentOk())return;ST().goal=null;DB.family.goal=null;save();saveFamily();renderProgress({t:'Rewards removed.'});break;}
+    case 'rename':{const v=($('#rename-in').value||'').trim().slice(0,24);const st=ST();if(!v||v===st.name)return;if(Object.entries(DB.students).some(([id,s])=>id!==DB.current&&s.name.toLowerCase()===v.toLowerCase())){renderProgress({t:'That name is already used.',err:true});return;}st.name=v;setPlayerName(v);save();renderWho();renderProgress({t:'Name saved.'});break;}
+    case 'set-pin':{const v=($('#pin-in').value||'').trim();if(!/^\d{4,8}$/.test(v)){renderProgress({t:'Use 4 to 8 digits for the PIN.',err:true});return;}ST().pin=hashPin(v);save();renderWho();renderProgress({t:`Player PIN set for ${NAME()}.`});break;}
+    case 'clear-pin':{const st=ST();const p=await ask('Remove the PIN?',`Enter ${st.name}'s current PIN, or the parent PIN.`,{ok:'Remove PIN',input:'',secret:true});if(p===null)return;if(hashPin(p)!==st.pin&&hashPin(p)!==DB.family.parentPin){renderProgress({t:'That PIN is not right.',err:true});return;}st.pin=null;save();renderWho();renderProgress({t:'PIN removed.'});break;}
+    case 'set-ppin':{const v=($('#ppin-in').value||'').trim();if(!/^\d{4,8}$/.test(v)){renderProgress({t:'Use 4 to 8 digits for the parent PIN.',err:true});return;}if(!await parentOk())return;DB.family.parentPin=hashPin(v);saveFamily();renderProgress({t:'Parent PIN set.'});break;}
+    case 'clear-ppin':{if(!await parentOk())return;DB.family.parentPin=null;saveFamily();renderProgress({t:'Parent PIN removed.'});break;}
+    case 'clear-student':{if(!await parentOk())return;const st=ST();const ok=await ask(`Clear ${st.name}'s history?`,'All scores, points, coins, trophies and topic progress for this player will be deleted.',{ok:'Clear history',cancel:'Cancel'});if(!ok)return;
+      Object.assign(st,{history:[],stats:{},days:[],xp:0,coins:0,badges:{},bests:{},frozen:[],daily:{},cups:{},totalRight:0,owned:[],wearing:{}});SESSIONS=SESSIONS.filter(s=>s.studentId!==DB.current);saveSessionsLocal();
       if(CLOUD.user){userRef().collection('sessions').where('studentId','==',DB.current).get().then(qs=>qs.forEach(d=>d.ref.delete())).catch(()=>{});}save();renderProgress({t:'History cleared.'});break;}
-    case 'del-student':{const st=ST();const ok=await ask(`Remove ${st.name}?`,'This deletes the student and all of their progress.',{ok:'Remove student',cancel:'Cancel'});if(!ok)return;const id=DB.current;delete DB.students[id];DB.current=Object.keys(DB.students)[0];SESSIONS=SESSIONS.filter(s=>s.studentId!==id);saveSessionsLocal();saveLocal();
+    case 'del-student':{if(!await parentOk())return;const st=ST();const ok=await ask(`Remove ${st.name}?`,'This deletes the player and all of their progress.',{ok:'Remove player',cancel:'Cancel'});if(!ok)return;const id=DB.current;delete DB.students[id];DB.current=Object.keys(DB.students)[0];SESSIONS=SESSIONS.filter(s=>s.studentId!==id);saveSessionsLocal();saveLocal();onStudentReady();
       if(CLOUD.user){clearTimeout(CLOUD.timers[id]);delete CLOUD.timers[id];userRef().collection('students').doc(id).delete().catch(()=>{});userRef().collection('sessions').where('studentId','==',id).get().then(qs=>qs.forEach(d=>d.ref.delete())).catch(()=>{});}renderWho();renderProgress();break;}
     case 'copy-bk':{const ta=$('#bk-out');try{await navigator.clipboard.writeText(ta.value);renderProgress({t:'Backup code copied.'});}catch(err){ta.focus();ta.select();const m=document.createElement('p');m.className='msg';m.textContent='Copy is blocked here. The code is selected, so press Ctrl+C or ⌘C.';ta.parentNode.after(m);}break;}
     case 'restore':{const raw=($('#bk-in').value||'').trim();if(!raw)return;let d;try{d=JSON.parse(decodeURIComponent(escape(atob(raw))));}catch(err){d=null;}if(!d||!d.students||!Object.keys(d.students).length){renderProgress({t:'That code could not be read. Copy the whole code and try again.',err:true});return;}
-      const ok=await ask('Replace data on this device?',`This loads ${Object.keys(d.students).length} student${Object.keys(d.students).length>1?'s':''} from the code and replaces what is saved here.`,{ok:'Restore',cancel:'Cancel'});if(!ok)return;lsSet(LS,d);DB=loadDB();saveLocal();renderWho();renderProgress({t:'Progress restored.'});break;}
+      if(!await parentOk())return;const ok=await ask('Replace data on this device?',`This loads ${Object.keys(d.students).length} player${Object.keys(d.students).length>1?'s':''} from the code and replaces what is saved here.`,{ok:'Restore',cancel:'Cancel'});if(!ok)return;lsSet(LS,d);DB=loadDB();saveLocal();onStudentReady();renderWho();renderProgress({t:'Progress restored.'});break;}
   }
 });
 document.addEventListener('keydown',e=>{
@@ -1668,15 +2001,16 @@ document.addEventListener('keydown',e=>{
   if(e.metaKey||e.ctrlKey||e.altKey)return;
   const k=e.key.toLowerCase();const idx='1234'.indexOf(k)>=0?'1234'.indexOf(k):'abcd'.indexOf(k);
   if(idx>=0&&k.length===1){e.preventDefault();pickOpt(idx);return;}
-  if(k==='enter'&&e.target.tagName!=='BUTTON'){e.preventDefault();if(practice()){if(QZ.ans[QZ.i].locked)go(1);}else{QZ.i===QZ.qs.length-1?confirmSubmit():go(1);}return;}
-  if(k==='h'&&practice()&&!QZ.ans[QZ.i].locked){QZ.ans[QZ.i].hint=true;renderQuiz();return;}
+  if(k==='enter'&&e.target.tagName!=='BUTTON'){e.preventDefault();if(QZ.cfg.kind==='shootout')return;if(practice()){if(QZ.ans[QZ.i].locked)go(1);}else{QZ.i===QZ.qs.length-1?confirmSubmit():go(1);}return;}
+  if(k==='h'&&practice()&&QZ.cfg.kind!=='shootout'&&!QZ.ans[QZ.i].locked){QZ.ans[QZ.i].hint=true;renderQuiz();return;}
   if(k==='f'&&!practice()){QZ.flags.has(QZ.i)?QZ.flags.delete(QZ.i):QZ.flags.add(QZ.i);renderQuiz();return;}
   if(k==='arrowright'&&!practice()&&!QZ.L.per)go(1);if(k==='arrowleft'&&!practice()&&!QZ.L.per)go(-1);
 });
 document.addEventListener('visibilitychange',()=>{if(!QZ||QZ.fin||VIEW!=='quiz')return;if(document.hidden)clockOut();else if(!QZ.ans[QZ.i].locked)clockIn();});
+window.__sharpen={get DB(){return DB;},get QZ(){return QZ;}};
 
-saveLocal();renderWho();
-if(CLOUD.enabled&&!lsGet(LS_LOCAL,false)&&!lsGet(LS_IN,false)){show('auth');renderAuth();}else{show('setup');renderSetup();}
+saveLocal();onStudentReady();renderWho();renderSound();
+if(CLOUD.enabled&&!lsGet(LS_LOCAL,false)&&!lsGet(LS_IN,false)){show('auth');renderAuth();}else home();
 initCloud();
 })();
 
