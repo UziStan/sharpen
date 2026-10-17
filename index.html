@@ -355,9 +355,9 @@ td.sc{font-family:var(--f-hand);font-size:21px;font-weight:700;color:var(--red);
 .flash{margin-top:16px;font-family:var(--f-display);font-size:30px;font-weight:800;text-align:center;padding:8px;border-radius:12px;animation:pop .35s ease-out}
 .flash.ok{color:var(--green);background:var(--green-soft)}.flash.no{color:var(--red);background:var(--red-soft)}
 @keyframes pop{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
-.cards{display:inline-flex;gap:5px;align-items:center}
-.cards i{width:16px;height:22px;border-radius:3px;border:1.5px dashed var(--line);background:transparent}
-.cards i.on{background:#F2C200;border:1.5px solid #C99A00;transform:rotate(-6deg)}
+.ycards{display:inline-flex;gap:5px;align-items:center}
+.ycards i{width:16px;height:22px;border-radius:3px;border:1.5px dashed var(--line);background:transparent}
+.ycards i.on{background:#F2C200;border:1.5px solid #C99A00;transform:rotate(-6deg)}
 .board .big-score{font-family:var(--f-display);font-size:48px;font-weight:800;line-height:1;margin:0 0 4px;font-variant-numeric:tabular-nums}
 .track.shot i{background:var(--green)}
 .qcard.k-shootout::before{background:var(--green)}.qcard.k-lives::before{background:#E8A800}.qcard.k-cup::before{background:var(--red)}.qcard.k-daily::before{background:#2F6BFF}
@@ -365,6 +365,35 @@ td.sc{font-family:var(--f-hand);font-size:21px;font-weight:700;color:var(--red);
 .confetti{position:fixed;inset:0;pointer-events:none;z-index:70;width:100%;height:100%}
 .mini-h{font-family:var(--f-body);font-size:14px;font-weight:700;margin:0 0 8px}
 .ph-who{display:flex;gap:14px;align-items:center;min-width:0}
+
+/* passages, code, mini-game */
+.passage{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:2px 0 16px;max-height:340px;overflow:auto;font-size:16px;line-height:1.65}
+.passage p{margin:0;max-width:68ch}
+.passage .p-title{font-family:var(--f-display);font-weight:700;font-size:19px;margin-bottom:6px}
+.code{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:15px;line-height:1.55;background:#1E2430;color:#E8F0FF;border-radius:12px;padding:14px 18px;margin:0 0 18px;overflow-x:auto;white-space:pre;tab-size:4}
+.code.sm{font-size:13px;padding:10px 14px;margin:4px 0 8px}
+.rv-pt{color:var(--muted);font-weight:500}
+.kick{display:flex;align-items:center;gap:14px;padding:14px 18px;margin-bottom:24px;border-color:color-mix(in srgb,var(--green) 40%,var(--line))}
+.kick.earned{background:color-mix(in srgb,var(--green) 10%,var(--sheet));margin-bottom:0}
+.kick-ic{font-size:30px;line-height:1}
+.kick-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.kick-sub{font-size:13px;color:var(--muted)}
+.kpips{display:inline-flex;gap:3px;vertical-align:middle;margin-left:4px}
+.kpips i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--green)}
+.kpips i.on{background:var(--green)}
+.game{max-width:560px;margin:0 auto}
+.g-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.g-stat{font-weight:600;font-variant-numeric:tabular-nums}
+.g-bar .timer{margin-left:auto}
+.pitch-wrap{position:relative;border-radius:16px;overflow:hidden;box-shadow:var(--shadow);background:#3E9B4F}
+#pitch{display:block;width:100%;height:auto;aspect-ratio:400/480;touch-action:manipulation;cursor:crosshair}
+.g-over{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(10,30,15,.55);padding:16px}
+.g-card{background:var(--sheet);border-radius:16px;padding:22px;text-align:center;width:min(340px,100%)}
+.g-big{font-family:var(--f-display);font-size:44px;font-weight:800;margin:0;line-height:1.1}
+.g-card p{margin:4px 0 10px}
+.g-help{color:var(--muted);font-size:13.5px;text-align:center}
+.chk{display:flex;gap:8px;align-items:center;font-size:14px;flex:1 1 260px}
+.chk input{width:18px;height:18px;accent-color:var(--green)}
 
 /* auth + parent review */
 .auth{max-width:460px;margin:4vh auto 0}
@@ -416,6 +445,8 @@ td .btn-sm{padding:4px 10px}
   .manage{grid-template-columns:minmax(0,1fr)}
 }
 @media (max-width:600px){
+  .kick{flex-wrap:wrap}.kick .btn{width:100%}
+  .passage{font-size:15px;padding:12px 14px}
   .player{flex-direction:column;text-align:center;padding:20px 16px}
   .pl-stats{justify-content:center}.pl-btns{justify-content:center}
   .modes{grid-template-columns:minmax(0,1fr)}
@@ -468,6 +499,7 @@ td .btn-sm{padding:4px 10px}
   <section id="v-pet" hidden></section>
   <section id="v-shop" hidden></section>
   <section id="v-trophies" hidden></section>
+  <section id="v-game" hidden></section>
   <section id="v-setup"></section>
   <section id="v-quiz" hidden></section>
   <section id="v-results" hidden></section>
@@ -1230,6 +1262,320 @@ V.letter_pos=(g,d)=>{
   const n=R(4,12);const ans=ABC[26-n];return {q:`What is the ${ord(n)} letter from the end of the alphabet?`,answer:ans,options:opts(ans,[ABC[n-1],ABC[25-n],ABC[27-n]]),explain:`The ${ord(n)} from the end is letter 26 − ${n} + 1 = ${27-n}, which is ${ans}.`,hint:'Z is the 1st from the end.'};
 };
 
+/* =============== FRENCH =============== */
+const FR_UNITS=['zéro','un','deux','trois','quatre','cinq','six','sept','huit','neuf','dix','onze','douze','treize','quatorze','quinze','seize','dix-sept','dix-huit','dix-neuf'];
+const FR_TENS={20:'vingt',30:'trente',40:'quarante',50:'cinquante',60:'soixante'};
+function frNum(n){
+  if(n<20)return FR_UNITS[n];if(n===100)return 'cent';
+  if(n<70){const t=Math.floor(n/10)*10,u=n%10;if(u===0)return FR_TENS[t];if(u===1)return FR_TENS[t]+' et un';return FR_TENS[t]+'-'+FR_UNITS[u];}
+  if(n<80){const r=n-60;if(r===11)return 'soixante et onze';return 'soixante-'+FR_UNITS[r];}
+  if(n===80)return 'quatre-vingts';
+  return 'quatre-vingt-'+FR_UNITS[n-80];
+}
+/* word|english|gender(m,f,mp,fp or -) ; band = first band the category appears in */
+const FR_CATS={
+ colours:{b:0,name:'colours',w:['rouge|red|-','bleu|blue|-','vert|green|-','jaune|yellow|-','noir|black|-','blanc|white|-','orange|orange|-','rose|pink|-','violet|purple|-','gris|grey|-','marron|brown|-']},
+ animals:{b:0,name:'animals',w:['chien|dog|m','chat|cat|m','cheval|horse|m','oiseau|bird|m','poisson|fish|m','vache|cow|f','cochon|pig|m','mouton|sheep|m','lapin|rabbit|m','souris|mouse|f','ours|bear|m','singe|monkey|m','grenouille|frog|f','tortue|turtle|f','renard|fox|m','loup|wolf|m','canard|duck|m','poule|hen|f','abeille|bee|f','papillon|butterfly|m','serpent|snake|m','baleine|whale|f','requin|shark|m','hibou|owl|m']},
+ family:{b:0,name:'family',w:['mère|mother|f','père|father|m','sœur|sister|f','frère|brother|m','grand-mère|grandmother|f','grand-père|grandfather|m','oncle|uncle|m','tante|aunt|f','fils|son|m','bébé|baby|m']},
+ body:{b:0,name:'the body',w:['tête|head|f','main|hand|f','pied|foot|m','bras|arm|m','jambe|leg|f','œil|eye|m','nez|nose|m','bouche|mouth|f','oreille|ear|f','dent|tooth|f','cheveux|hair|mp','dos|back|m','cœur|heart|m','doigt|finger|m','genou|knee|m']},
+ food:{b:0,name:'food',w:['pain|bread|m','lait|milk|m','eau|water|f','fromage|cheese|m','pomme|apple|f','œuf|egg|m','poulet|chicken|m','riz|rice|m','beurre|butter|m','sucre|sugar|m','gâteau|cake|m','jus|juice|m','viande|meat|f','fraise|strawberry|f','banane|banana|f','carotte|carrot|f','soupe|soup|f']},
+ school:{b:0,name:'school',w:['livre|book|m','crayon|pencil|m','stylo|pen|m','cahier|notebook|m','règle|ruler|f','gomme|eraser|f','sac à dos|backpack|m','chaise|chair|f','école|school|f','ciseaux|scissors|mp','ordinateur|computer|m','professeur|teacher|m']},
+ days:{b:0,name:'days of the week',w:['lundi|Monday|-','mardi|Tuesday|-','mercredi|Wednesday|-','jeudi|Thursday|-','vendredi|Friday|-','samedi|Saturday|-','dimanche|Sunday|-']},
+ months:{b:1,name:'months',w:['janvier|January|-','février|February|-','mars|March|-','avril|April|-','mai|May|-','juin|June|-','juillet|July|-','août|August|-','septembre|September|-','octobre|October|-','novembre|November|-','décembre|December|-']},
+ nature:{b:1,name:'weather and nature',w:['soleil|sun|m','pluie|rain|f','neige|snow|f','vent|wind|m','nuage|cloud|m','arbre|tree|m','fleur|flower|f','mer|sea|f','montagne|mountain|f','lune|moon|f','étoile|star|f','ciel|sky|m']},
+ home:{b:1,name:'the home',w:['maison|house|f','porte|door|f','fenêtre|window|f','lit|bed|m','cuisine|kitchen|f','chambre|bedroom|f','salle de bain|bathroom|f','jardin|garden|m']},
+ sport:{b:1,name:'sport',w:['ballon|ball|m','but|goal|m','équipe|team|f','joueur|player|m','gardien de but|goalkeeper|m','gagner|to win|-','perdre|to lose|-','courir|to run|-','sauter|to jump|-','jouer|to play|-','nager|to swim|-']},
+ adjectives:{b:1,name:'describing words',w:['grand|big|-','petit|small|-','content|happy|-','triste|sad|-','rapide|fast|-','lent|slow|-','nouveau|new|-','vieux|old|-','facile|easy|-','difficile|difficult|-','chaud|hot|-','froid|cold|-']},
+};
+const FR_PHRASES=[
+ ['bonjour','hello',0],['au revoir','goodbye',0],['merci','thank you',0],["s'il vous plaît",'please',0],['oui','yes',0],['non','no',0],['bonne nuit','good night',0],['comment ça va ?','how are you?',0],["je m'appelle…",'my name is…',0],["j'ai dix ans",'I am ten years old',0],['excusez-moi','excuse me',0],['à bientôt','see you soon',0],['bon anniversaire','happy birthday',0],
+ ['quelle heure est-il ?','what time is it?',1],['de rien',"you're welcome",1],['bonne chance','good luck',1],['je ne sais pas',"I don't know",1],["j'aime le football",'I like football',1],['il fait froid','it is cold',1],['il fait chaud','it is hot',1],['il pleut','it is raining',1],["je voudrais de l'eau",'I would like some water',2],['où est la bibliothèque ?','where is the library?',2],['je suis désolé','I am sorry',2],['à quelle heure ?','at what time?',2],["qu'est-ce que c'est ?",'what is it?',2],
+];
+const FR_VERBS={
+ 'être':{en:'to be',b:1,f:{je:'suis',tu:'es',il:'est',elle:'est',nous:'sommes',vous:'êtes',ils:'sont'},s:{je:'Je ___ content.',tu:'Tu ___ grand.',il:'Il ___ rapide.',elle:'Elle ___ gentille.',nous:'Nous ___ amis.',vous:'Vous ___ prêts.',ils:"Ils ___ à l'école."}},
+ 'avoir':{en:'to have',b:1,f:{tu:'as',il:'a',elle:'a',nous:'avons',vous:'avez',ils:'ont'},s:{tu:'Tu ___ un chien.',il:'Il ___ un ballon.',elle:'Elle ___ deux frères.',nous:'Nous ___ un chat.',vous:'Vous ___ faim.',ils:'Ils ___ dix ans.'}},
+ 'aller':{en:'to go',b:2,f:{je:'vais',tu:'vas',il:'va',elle:'va',nous:'allons',vous:'allez',ils:'vont'},s:{je:"Je ___ à l'école.",tu:'Tu ___ au parc.',il:'Il ___ au match.',elle:'Elle ___ à la plage.',nous:'Nous ___ au cinéma.',vous:'Vous ___ en ville.',ils:'Ils ___ au stade.'}},
+ 'parler':{en:'to speak',b:2,f:{je:'parle',tu:'parles',il:'parle',elle:'parle',nous:'parlons',vous:'parlez',ils:'parlent'},s:{je:'Je ___ français.',tu:'Tu ___ anglais.',il:'Il ___ vite.',elle:'Elle ___ à son amie.',nous:'Nous ___ ensemble.',vous:'Vous ___ bien.',ils:'Ils ___ au téléphone.'}},
+ 'jouer':{en:'to play',b:2,f:{je:'joue',tu:'joues',il:'joue',elle:'joue',nous:'jouons',vous:'jouez',ils:'jouent'},s:{je:'Je ___ au football.',tu:'Tu ___ dehors.',il:'Il ___ avec son chien.',elle:'Elle ___ du piano.',nous:'Nous ___ au parc.',vous:'Vous ___ aux cartes.',ils:'Ils ___ ensemble.'}},
+};
+const frParse=s=>{const [fr,en,g]=s.split('|');return {fr,en,g};};
+const VOWEL=/^[aeiouyéèêàâîôûœ]/i;
+function frArt(w){if(w.g==='mp'||w.g==='fp')return 'les '+w.fr;if(w.g==='m'||w.g==='f'){if(VOWEL.test(w.fr))return "l'"+w.fr;return (w.g==='m'?'le ':'la ')+w.fr;}return w.fr;}
+function enArt(w){return (w.g&&w.g!=='-'&&!w.en.startsWith('to '))?'the '+w.en:w.en;}
+function frCatsFor(band){return Object.values(FR_CATS).filter(c=>c.b<=band);}
+const FR={};
+FR.vocab=(g,d)=>{
+  const band=bandFor(g,d);const cat=pick(frCatsFor(band));const ws=cat.w.map(frParse);const w=pick(ws);const others=shuffle(ws.filter(x=>x!==w));
+  if(Math.random()<0.5){const ans=enArt(w);return {q:`What does "${frArt(w)}" mean in English?`,answer:ans,options:opts(ans,others.slice(0,3).map(enArt)),explain:`"${frArt(w)}" means "${ans}". (Topic: ${cat.name}.)`,hint:'Say the French word out loud. Does it sound like an English word?'};}
+  const ans=frArt(w);return {q:`How do you say "${enArt(w)}" in French?`,answer:ans,options:opts(ans,others.slice(0,3).map(frArt)),explain:`"${enArt(w)}" in French is "${ans}". (Topic: ${cat.name}.)`,hint:`Think of the ${cat.name} words you know.`};
+};
+FR.numbers=(g,d)=>{
+  const band=bandFor(g,d);const hi=band===0?20:band===1?69:100;const n=R(band===0?0:11,hi);
+  const near=[n+1,n-1,n+10,n-10,n+2,n-2,n-20,(n>=70&&n<80)?n-10:n+20].filter(x=>x>=0&&x<=100&&x!==n);
+  if(Math.random()<0.5){const ans=frNum(n);return {q:`How do you write ${n} in French?`,answer:ans,options:opts(ans,shuffle(near).map(frNum)),explain:`${n} is "${ans}".${n>=70&&n<80?' In French, 70–79 are counted as 60 + 10 to 19 (soixante-dix = 60 + 10).':n>=80?' In French, 80 is "four twenties" (quatre-vingts), and 90–99 are 80 + 10 to 19.':''}`,hint:n>=70?'For 70 and up, French adds onto 60 or 80.':'Split it into tens and ones.'};}
+  const ans=String(n);return {q:`What number is "${frNum(n)}"?`,answer:ans,value:n,options:opts(ans,shuffle(near).map(String)),explain:`"${frNum(n)}" is ${n}.`,hint:'Break the French word into parts.'};
+};
+FR.phrases=(g,d)=>{
+  const band=bandFor(g,d);const pool=FR_PHRASES.filter(p=>p[2]<=band);const p=pick(pool);const others=shuffle(pool.filter(x=>x!==p));
+  if(Math.random()<0.5){return {q:`What does "${p[0]}" mean?`,answer:p[1],options:opts(p[1],others.slice(0,3).map(x=>x[1])),explain:`"${p[0]}" means "${p[1]}".`,hint:'Picture when you would say this.'};}
+  return {q:`How do you say "${p[1]}" in French?`,answer:p[0],options:opts(p[0],others.slice(0,3).map(x=>x[0])),explain:`"${p[1]}" in French is "${p[0]}".`,hint:'Think about greetings and polite words.'};
+};
+FR.grammar=(g,d)=>{
+  const band=Math.max(1,bandFor(g,d));
+  if(Math.random()<0.4){const nouns=[];for(const c of frCatsFor(band))for(const s of c.w){const w=frParse(s);if((w.g==='m'||w.g==='f')&&!VOWEL.test(w.fr)&&w.fr!=='hibou')nouns.push(w);}
+    const w=pick(nouns);const ans=w.g==='m'?'le':'la';
+    return {q:`Which word goes before "${w.fr}" (${w.en})?`,answer:ans,options:opts(ans,['le','la','les',"l'"]),explain:`"${w.fr}" is ${w.g==='m'?'masculine, so it takes "le"':'feminine, so it takes "la"'}: ${ans} ${w.fr}.`,hint:'Le is for masculine words and la is for feminine words.'};}
+  const vs=Object.entries(FR_VERBS).filter(([k,v])=>v.b<=band);const [inf,v]=pick(vs);const subj=pick(Object.keys(v.s));const ans=v.f[subj];
+  const forms=[...new Set(Object.values(v.f))].filter(x=>x!==ans);
+  return {q:`Choose the correct form of "${inf}" (${v.en}): ${v.s[subj]}`,answer:ans,options:opts(ans,shuffle(forms)),explain:`With "${subj}", ${inf} becomes "${ans}": ${v.s[subj].replace('___',ans)}`,hint:`Who is the sentence about? Match the verb to "${subj}".`};
+};
+
+/* =============== SCIENCE (topic|q|answer|d1;d2;d3|why) =============== */
+const SCI=[[
+`life|Which of these is a mammal?|dog|frog;snake;goldfish|Mammals have hair or fur and feed their babies milk. Dogs are mammals.`,
+`life|What do plants need to make their own food?|sunlight|darkness;sand;salt|Plants use sunlight, water and air to make food in their leaves.`,
+`life|What does a caterpillar turn into?|a butterfly|a beetle;a spider;a worm|A caterpillar makes a chrysalis and changes into a butterfly. This change is called metamorphosis.`,
+`life|Which animal is a herbivore (eats only plants)?|rabbit|wolf;shark;eagle|Herbivores eat only plants. Rabbits eat grass and vegetables.`,
+`life|How does a fish get oxygen?|through its gills, from the water|through its nose, from the air;from its food;from the sand|Fish use gills to take oxygen out of the water.`,
+`life|Which part of a plant takes in water from the soil?|the roots|the petals;the leaves;the flowers|Roots grow down into the soil and soak up water and minerals.`,
+`life|Which animal hatches from an egg?|chicken|cow;horse;dog|Birds like chickens hatch from eggs. Cows, horses and dogs are born live.`,
+`life|What is a habitat?|the natural home of a plant or animal|a type of food;a baby animal;a kind of weather|A habitat gives a living thing the food, water and shelter it needs.`,
+`body|Which organ pumps blood around your body?|the heart|the lungs;the stomach;the brain|The heart is a muscle that pumps blood through your blood vessels.`,
+`body|What do your lungs do?|help you breathe|digest food;pump blood;help you think|Your lungs take in oxygen from the air and get rid of carbon dioxide.`,
+`body|How many senses do people usually talk about?|five|three;seven;ten|The five senses are sight, hearing, smell, taste and touch.`,
+`body|What protects your brain?|your skull|your ribs;your teeth;your hair|The skull is a hard bone case around the brain.`,
+`body|Which foods help build strong bones?|milk and cheese|candy;chips;pop|Milk and cheese have calcium, which helps build strong bones and teeth.`,
+`space|What is the Sun?|a star|a planet;a moon;a comet|The Sun is a star: a huge ball of hot, glowing gas.`,
+`space|Which planet do we live on?|Earth|Mars;Venus;Jupiter|We live on Earth, the third planet from the Sun.`,
+`space|What causes day and night?|Earth spinning|the Moon moving;clouds covering the Sun;the Sun switching off|Earth spins once about every 24 hours, so each side faces the Sun and then faces away.`,
+`space|About how long does Earth take to travel around the Sun?|one year|one day;one week;one month|Earth goes around the Sun about once every 365 days.`,
+`space|What does the Moon travel around?|Earth|Mars;Venus;Jupiter|The Moon orbits Earth about once a month.`,
+`matter|Which of these is a liquid?|water|ice;steam;a rock|Liquids flow and take the shape of their container. Ice is a solid and steam is a gas.`,
+`matter|What happens to ice when it is heated?|it melts into water|it turns into rock;it gets colder;it turns into sand|Heat makes ice melt, changing from a solid into a liquid.`,
+`matter|What are the three states of matter?|solid, liquid and gas|hot, warm and cold;big, medium and small;metal, wood and plastic|Matter can be a solid, a liquid or a gas.`,
+`matter|Which material lets light pass through clearly?|glass|wood;metal;cardboard|Glass is transparent, so light passes through it.`,
+`matter|Which object would a magnet pick up?|an iron nail|a plastic spoon;a wooden block;a rubber band|Magnets attract iron and steel.`,
+`forces|What force pulls things down toward the ground?|gravity|magnetism;friction;wind|Gravity pulls objects toward Earth.`,
+`forces|A push or a pull is called a…|force|motion;sound;mass|Any push or pull is a force.`,
+`forces|Which surface has the most friction?|sandpaper|ice;glass;a polished floor|Rough surfaces like sandpaper have more friction, so things slide less.`,
+`forces|What do we use to measure temperature?|a thermometer|a ruler;a scale;a clock|A thermometer measures how hot or cold something is.`,
+`earth|What do we call rain, snow or hail falling from clouds?|precipitation|evaporation;condensation;erosion|Rain, snow and hail are all precipitation.`,
+`earth|What happens when water evaporates?|it turns into water vapour, a gas|it freezes;it turns into salt;it turns into rock|Evaporation is when liquid water turns into a gas.`,
+`earth|Which season comes after winter?|spring|summer;autumn;winter again|The seasons go winter, spring, summer, autumn (fall).`,
+`earth|What is a very large body of salt water called?|an ocean|a pond;a river;a puddle|Oceans are huge bodies of salt water, like the Atlantic Ocean.`,
+],[
+`life|What is it called when plants make food using sunlight?|photosynthesis|respiration;digestion;evaporation|In photosynthesis, plants use sunlight, water and carbon dioxide to make sugar and oxygen.`,
+`life|In a food chain, what is a producer?|a living thing that makes its own food, like a plant|an animal that eats plants;an animal that eats meat;a rock that holds water|Producers, such as plants, make their own food from sunlight.`,
+`life|What is a decomposer?|a living thing that breaks down dead plants and animals|an animal that hunts;a plant that makes seeds;a type of rock|Decomposers like fungi and bacteria break down dead matter and return nutrients to the soil.`,
+`life|Which animal is a vertebrate (has a backbone)?|frog|worm;jellyfish;snail|Vertebrates have a backbone. Frogs do; worms, jellyfish and snails do not.`,
+`life|What is camouflage?|colours or patterns that help an animal blend in|a type of food;an animal's home;a loud warning call|Camouflage helps animals hide from predators or sneak up on prey.`,
+`life|Which gas do plants give off that animals need to breathe?|oxygen|carbon dioxide;helium;smoke|Plants release oxygen during photosynthesis.`,
+`life|What is an adaptation?|a feature that helps a living thing survive where it lives|a change in the weather;a type of habitat;a kind of fossil|Thick fur on a polar bear is an adaptation to the cold.`,
+`body|What carries oxygen around your body?|red blood cells|white blood cells;bones;nerves|Red blood cells carry oxygen from the lungs to the rest of the body.`,
+`body|Which body system fights germs?|the immune system|the skeletal system;the digestive system;the muscular system|White blood cells in the immune system fight germs.`,
+`body|Where does most digestion of food happen?|the small intestine|the heart;the lungs;the skull|Most food is broken down and absorbed in the small intestine.`,
+`body|What attaches muscles to bones?|tendons|veins;nerves;hair|Tendons are strong cords that attach muscles to bones.`,
+`body|How many bones does an adult human usually have?|206|50;106;500|An adult skeleton usually has 206 bones.`,
+`space|Which planet is closest to the Sun?|Mercury|Venus;Earth;Mars|Mercury is the closest planet to the Sun.`,
+`space|Which is the largest planet in our solar system?|Jupiter|Saturn;Earth;Neptune|Jupiter is the biggest planet. More than 1,000 Earths could fit inside it.`,
+`space|Why does Earth have seasons?|Earth's axis is tilted|Earth gets closer to the Sun each day;the Moon blocks the Sun;the Sun gets hotter and colder|Because Earth is tilted, each half gets more direct sunlight for part of the year.`,
+`space|What is a light-year?|the distance light travels in one year|the time Earth takes to orbit the Sun;a very bright year;the age of a star|A light-year is a distance: about 9.5 trillion kilometres.`,
+`space|Which planet is known as the Red Planet?|Mars|Jupiter;Venus;Mercury|Mars looks red because of iron-rich dust on its surface.`,
+`space|Where does moonlight come from?|sunlight reflecting off the Moon|light made by the Moon;light from Earth's cities;fire on the Moon|The Moon does not make its own light. It reflects sunlight.`,
+`matter|At what temperature does water boil at sea level?|100 °C|0 °C;50 °C;212 °C|Water boils at 100 degrees Celsius at sea level. (212 is the Fahrenheit number.)`,
+`matter|At what temperature does water freeze?|0 °C|100 °C;32 °C;−20 °C|Water freezes at 0 °C. (32 is the Fahrenheit number.)`,
+`matter|Stirring salt into water until it disappears makes a…|solution|solid;gas;magnet|When salt dissolves in water, it makes a solution.`,
+`matter|Which is a good conductor of electricity?|copper|rubber;plastic;wood|Metals like copper let electricity flow easily. That is why wires are made of copper.`,
+`matter|What is condensation?|a gas cooling and turning into a liquid|a liquid turning into a gas;a solid melting;ice getting colder|Water drops on the outside of a cold glass come from condensation.`,
+`forces|What does a bulb need in a circuit to light up?|a complete loop with a battery|a broken wire;only a bulb;a magnet|Electricity flows only around a closed, complete circuit.`,
+`forces|Which simple machine is a seesaw?|a lever|a pulley;a wheel and axle;a screw|A seesaw is a lever that turns around a fixed point called a fulcrum.`,
+`forces|What is sound made of?|vibrations|light;electricity;magnets|Sound is made by vibrations that travel through air, water or solids.`,
+`forces|What kind of energy does a moving car have?|kinetic energy|light energy;sound energy only;no energy|Moving objects have kinetic energy.`,
+`forces|What is friction?|a force that slows things when surfaces rub together|a force that pulls things up;a type of magnet;a kind of light|Friction acts where surfaces rub and slows things down.`,
+`earth|What are the three main types of rock?|igneous, sedimentary and metamorphic|hard, soft and medium;sand, clay and soil;lava, ice and salt|Igneous rock forms from cooled magma, sedimentary from layers, and metamorphic from heat and pressure.`,
+`earth|What is erosion?|wind, water or ice wearing away rock and soil|rocks melting;new rock forming from lava;plants growing on rocks|Erosion moves bits of rock and soil from one place to another.`,
+`earth|Which is a renewable energy source?|wind|coal;oil;natural gas|Wind will not run out, so it is renewable. Coal, oil and gas are fossil fuels.`,
+`earth|Which layer of Earth do we live on?|the crust|the core;the mantle;the magma|The crust is Earth's thin outer layer.`,
+`earth|What drives the water cycle?|heat from the Sun|the Moon;wind only;fish swimming|The Sun's heat makes water evaporate, which starts the cycle of clouds and rain.`,
+],[
+`life|What is the basic unit of all living things?|the cell|the atom;the organ;the tissue|All living things are made of cells.`,
+`life|Which part of a cell holds its DNA?|the nucleus|the cell wall;the cytoplasm;the vacuole|The nucleus holds DNA and controls the cell's activities.`,
+`life|Which structure is found in plant cells but not animal cells?|the cell wall|the nucleus;the cell membrane;the cytoplasm|Plant cells have a rigid cell wall and chloroplasts; animal cells do not.`,
+`life|What do chloroplasts do?|carry out photosynthesis|store DNA;digest food;help the cell move|Chloroplasts contain chlorophyll, which captures sunlight to make food.`,
+`life|What is biodiversity?|the variety of living things in an area|the number of rocks in an area;the amount of rainfall;the size of one animal|More biodiversity usually means a healthier ecosystem.`,
+`life|A relationship where both living things benefit is called…|mutualism|parasitism;predation;competition|Bees and flowers show mutualism: bees get nectar, and flowers get pollinated.`,
+`life|What do vaccines help the body do?|recognise and fight a germ|grow taller;digest food faster;see in the dark|Vaccines train the immune system to recognise a germ.`,
+`body|Which blood vessels carry blood away from the heart?|arteries|veins;capillaries;nerves|Arteries carry blood away from the heart; veins bring it back.`,
+`body|What is the main job of the kidneys?|filtering waste from the blood|pumping blood;storing food;making sound|Kidneys filter waste from the blood and make urine.`,
+`body|Which organ controls the nervous system?|the brain|the liver;the stomach;the lungs|The brain, with the spinal cord, controls the nervous system.`,
+`body|Where does oxygen pass into the blood in the lungs?|tiny air sacs called alveoli|the windpipe;the nose;the heart|Oxygen passes into the blood through the alveoli.`,
+`space|What keeps the planets in orbit around the Sun?|gravity|magnetism;friction;wind|The Sun's gravity pulls on the planets and keeps them in orbit.`,
+`space|What is a galaxy?|a huge group of stars, gas and dust|a single planet;a type of moon;a comet's tail|We live in the Milky Way galaxy.`,
+`space|What causes a solar eclipse?|the Moon passing between Earth and the Sun|Earth passing between the Sun and the Moon;clouds covering the Sun;the Sun cooling down|In a solar eclipse, the Moon blocks the Sun's light.`,
+`space|What mainly causes ocean tides?|the Moon's gravity|wind;earthquakes;the Sun's light|The Moon's gravity pulls on the oceans, making tides.`,
+`space|Which of these is a dwarf planet?|Pluto|Mars;Jupiter;Neptune|Pluto was reclassified as a dwarf planet in 2006.`,
+`matter|What is the chemical formula for water?|H₂O|CO₂;O₂;NaCl|Water is two hydrogen atoms joined to one oxygen atom.`,
+`matter|Which of these is a chemical change?|burning wood|ice melting;breaking glass;cutting paper|Burning makes new substances, so it is a chemical change. The others only change shape or state.`,
+`matter|What is density?|how much mass is packed into a space|how hot something is;how fast something moves;how loud something is|Density = mass ÷ volume. Things denser than water sink.`,
+`matter|What does a pH of 7 mean?|neutral|very acidic;very basic;boiling|pH 7 is neutral, like pure water. Lower is acidic and higher is basic.`,
+`matter|Which particles are in the nucleus of an atom?|protons and neutrons|electrons only;molecules;cells|Protons and neutrons are in the nucleus; electrons move around it.`,
+`forces|What is the unit of force?|the newton|the metre;the watt;the litre|Force is measured in newtons (N), named after Isaac Newton.`,
+`forces|"An object at rest stays at rest unless a force acts on it" is Newton's…|first law|second law;third law;law of gravity|This is Newton's first law, also called the law of inertia.`,
+`forces|"For every action there is an equal and opposite reaction" is Newton's…|third law|first law;second law;law of energy|A rocket pushes gas down, and the gas pushes the rocket up.`,
+`forces|How do you work out speed?|distance ÷ time|mass × volume;force ÷ area;time ÷ distance|Speed = distance ÷ time, for example kilometres per hour.`,
+`forces|What kind of energy is stored in food and batteries?|chemical energy|kinetic energy;sound energy;light energy|Food and batteries store chemical energy.`,
+`earth|What causes most earthquakes?|tectonic plates moving|the Moon's light;strong winds;heavy rain|Earth's crust is broken into plates that move and grind against each other.`,
+`earth|What is the greenhouse effect?|gases in the atmosphere trapping heat|plants growing in greenhouses;the ozone layer making rain;oceans freezing|Gases like carbon dioxide trap heat and warm the planet.`,
+`earth|What is a fossil?|the preserved remains or traces of a living thing in rock|a type of crystal;cooled lava;a new kind of rock|Fossils form when remains are buried in sediment that hardens into rock.`,
+`earth|What is the layer of gases around Earth called?|the atmosphere|the crust;the mantle;the core|The atmosphere holds the air we breathe and protects us from harmful rays.`,
+]];
+function sciGen(topic){return (g,d)=>{let band=bandFor(g,d);let pool=SCI[band].filter(s=>s.startsWith(topic+'|'));if(!pool.length)pool=SCI.flat().filter(s=>s.startsWith(topic+'|'));const [,q,a,ds,why]=pick(pool).split('|');return {q,answer:a,options:opts(a,ds.split(';')),explain:why,hint:'Cross out the answers you know are wrong first.'};};}
+const SC={life:sciGen('life'),body:sciGen('body'),space:sciGen('space'),matter:sciGen('matter'),forces:sciGen('forces'),earth:sciGen('earth')};
+
+/* =============== READING =============== */
+const PASSAGES=[
+{b:0,k:'fiction',t:'The Lost Ball',x:`Maya kicked the red ball too hard. It flew over the fence and into Mr. Lee's garden. Maya felt her cheeks get hot. She was scared Mr. Lee would be angry, because his tomato plants were his favourite thing. She knocked on his door and said, "I'm sorry. My ball landed in your garden." Mr. Lee smiled. "Thank you for telling me the truth," he said. He handed her the ball and a small tomato. "Next time, aim for the goal, not my garden!" Maya laughed and promised she would.`,
+ qs:[`Where did Maya's ball land?|in Mr. Lee's garden|in the goal;on the roof;in the street|The story says the ball flew over the fence into Mr. Lee's garden.`,`Why did Maya's cheeks get hot?|she felt worried and embarrassed|she was sick;the sun was hot;she ran very fast|Her cheeks got hot because she was scared Mr. Lee would be angry.`,`What did Mr. Lee thank Maya for?|telling the truth|kicking hard;picking tomatoes;fixing the fence|He said, "Thank you for telling me the truth."`,`What is the lesson of this story?|being honest is the right thing to do|never play football;gardens are dangerous;always hide your mistakes|Maya was honest, and it turned out well.`]},
+{b:0,k:'nonfiction',t:'Penguins',x:`Penguins are birds, but they cannot fly. Instead, they are amazing swimmers. Their wings work like flippers, pushing them through the water. Most penguins live in the southern half of the world, and some live in Antarctica, one of the coldest places on Earth. Thick feathers and a layer of fat keep them warm. Penguins eat fish, squid and tiny shrimp called krill. Emperor penguins are the largest kind. The father keeps the egg warm on his feet for about two months while the mother goes to find food.`,
+ qs:[`What do penguins use their wings for?|swimming|flying;digging;building nests|The passage says their wings work like flippers in the water.`,`What keeps penguins warm?|thick feathers and a layer of fat|fires;sunshine all year;warm water|The passage says feathers and fat keep them warm.`,`Who keeps the emperor penguin egg warm?|the father|the mother;the grandparents;nobody|The father keeps the egg on his feet while the mother finds food.`,`What are krill?|tiny shrimp|large fish;a kind of ice;baby penguins|The passage calls krill "tiny shrimp".`]},
+{b:0,k:'fiction',t:"Leo's First Goal",x:`Leo had played for the Hawks for six weeks and had never scored a goal. At practice he always rushed his kicks. Coach Ana told him, "Slow down. Look at the corner of the net before you shoot." On Saturday, the score was tied 1–1 with one minute left. The ball rolled to Leo. His heart pounded, but he remembered the coach's words. He took a breath, looked at the bottom corner and kicked. The goalkeeper dived, but the ball slipped past her fingers. The Hawks won 2–1, and Leo's team lifted him onto their shoulders.`,
+ qs:[`What was Leo's problem at the start?|he had never scored a goal|he had no team;he hurt his leg;he lost his boots|He had not scored in six weeks.`,`What advice did Coach Ana give?|slow down and look at the corner before shooting|kick as hard as you can;always pass the ball;close your eyes|She told him to slow down and look at the corner of the net.`,`What was the final score?|2–1 to the Hawks|1–1;3–1 to the Hawks;2–1 to the other team|The Hawks won 2–1.`,`How did Leo most likely feel at the end?|proud and happy|bored;angry;sleepy|His team lifted him onto their shoulders after his winning goal.`]},
+{b:0,k:'nonfiction',t:'Why Leaves Change Colour',x:`In autumn, the leaves on many trees turn yellow, orange and red. All summer, leaves are green because they are full of chlorophyll. Chlorophyll helps the tree use sunlight to make food. When the days get shorter and colder, the tree stops making chlorophyll. As the green fades, other colours that were hiding in the leaf start to show. Soon the leaves dry up and fall. The tree rests through the winter and grows new green leaves in spring.`,
+ qs:[`Why are leaves green in summer?|they are full of chlorophyll|they are painted;they are wet;they are cold|The passage says chlorophyll makes leaves green.`,`What happens when the days get shorter and colder?|the tree stops making chlorophyll|the tree grows faster;the leaves turn blue;the tree makes more chlorophyll|That is when the tree stops making chlorophyll.`,`Where do the yellow and orange colours come from?|they were in the leaf all along, hidden by the green|the rain paints them;the sun burns them;birds bring them|The passage says the colours "were hiding in the leaf".`,`What does the tree do in winter?|it rests|it grows new leaves;it makes chlorophyll;it flowers|The tree rests in winter and grows new leaves in spring.`]},
+{b:1,k:'fiction',t:'The Science Fair',x:`Priya had spent three weeks building a model volcano for the science fair. The night before, her little brother bumped the table, and the volcano crashed to the floor. Priya stared at the broken pieces. She wanted to cry, but there was no time to start over. Then she noticed something: the crack showed the layers inside, like a real mountain cut in half. She glued the pieces onto a board and labelled each layer: crust, magma chamber, vent. At the fair, a judge stopped at her table. "I have never seen a volcano shown from the inside," she said. Priya won second place, and she even thanked her brother.`,
+ qs:[`What happened to Priya's volcano?|it fell and broke|it erupted;it was stolen;it won first place|Her brother bumped the table and it crashed to the floor.`,`What gave Priya her new idea?|the crack showed the layers inside|her teacher told her;she read a book;the judge suggested it|She noticed the crack showed the layers, like a mountain cut in half.`,`Which word best describes Priya in this story?|creative|careless;lazy;rude|She turned a problem into a new idea.`,`Why did Priya thank her brother?|the accident led to her winning idea|he built the volcano;he was a judge;he cleaned up the mess|Without the accident, she would not have made the inside view.`]},
+{b:1,k:'nonfiction',t:'Busy Bees',x:`Honeybees live in large groups called colonies. A single hive can hold tens of thousands of bees, but only one of them is the queen. The queen lays eggs, sometimes more than a thousand in a day. Worker bees, which are all female, do almost everything else: they clean the hive, feed the young, guard the entrance and collect nectar and pollen from flowers. When a worker finds a good patch of flowers, she returns to the hive and performs a "waggle dance." The direction and length of the dance tell the other bees where the flowers are. As bees travel from flower to flower, they carry pollen, which helps plants make seeds. Many of the fruits and vegetables people eat depend on this pollination.`,
+ qs:[`What is the main idea of the passage?|honeybees work together in colonies and help plants grow|bees are dangerous insects;queens do all the work in a hive;bees only eat honey|The passage describes how a colony works and how bees pollinate plants.`,`What is the waggle dance for?|telling other bees where flowers are|scaring away enemies;waking the queen;keeping the hive warm|The dance's direction and length show where the flowers are.`,`Who are the worker bees?|female bees that do most of the jobs|male bees that lay eggs;baby bees;bees from other hives|The passage says workers are all female and do almost everything.`,`In this passage, "pollination" means…|carrying pollen between flowers so plants can make seeds|making honey;building a hive;a type of dance|Pollen carried from flower to flower helps plants make seeds.`]},
+{b:1,k:'fiction',t:'Snow Day',x:`When Jonah looked out the window, the whole street had disappeared under snow. School was cancelled! He pulled on his boots and ran outside, but Mrs. Patel next door was struggling to shovel her driveway. She was eighty years old and moved slowly. Jonah thought about the snow fort he had planned to build. Then he grabbed a second shovel. It took them two hours. When they finished, Mrs. Patel invited him in for hot chocolate and showed him photos of a huge storm from long ago, when the snow had reached her windows. By the time Jonah went home, it was too dark to build a fort, but he didn't mind at all.`,
+ qs:[`Why was school cancelled?|there was a big snowstorm|it was a holiday;the teacher was sick;it was Saturday|The street was buried under snow.`,`What choice did Jonah make?|he helped Mrs. Patel instead of building his fort|he built his fort first;he stayed inside;he asked his parents to shovel|He grabbed a second shovel to help her.`,`What does "struggling" mean in this story?|having a hard time|singing;racing;resting|Mrs. Patel found shovelling hard because she moved slowly.`,`Why didn't Jonah mind missing his fort?|he enjoyed helping and spending time with Mrs. Patel|he didn't like snow;he was too tired;he forgot about it|He had a good time helping and hearing her stories.`]},
+{b:1,k:'nonfiction',t:'Before Coins',x:`Long ago, before coins and paper money, people traded goods directly. A farmer with extra wheat might swap it for a pair of shoes. This is called bartering. But bartering had problems. What if the shoemaker didn't want wheat? People began using items that everyone valued, such as shells, salt or beads, as money. Later, metal coins were made because they were small, strong and easy to carry. Today, many people pay with cards or phones, and the money moves electronically. Even so, the idea is the same: money is something people agree has value.`,
+ qs:[`What is bartering?|trading goods directly without money|saving money in a bank;paying with a card;making coins|A farmer swapping wheat for shoes is bartering.`,`What was one problem with bartering?|the other person might not want what you have|it was too fast;coins were too heavy;everyone had too much money|"What if the shoemaker didn't want wheat?"`,`Why were metal coins useful?|they were small, strong and easy to carry|they could be eaten;they were free;they were very large|The passage lists these reasons.`,`What does the author say has stayed the same?|money is something people agree has value|people still trade wheat;coins are still made of shells;cards are the oldest money|The last sentence says the idea is the same.`]},
+{b:2,k:'fiction',t:"The Captain's Choice",x:`The final whistle was ten minutes away when Zara, the team captain, saw that Nia was limping. Nia was the team's fastest player, and without her the Lions would probably lose the championship. Nia saw Zara looking and shook her head. "I'm fine," she mouthed, but she winced with every step. Zara hesitated. Winning the cup had been the team's goal all season. Yet she remembered what her coach always said: a captain looks after the players before the scoreboard. Zara signalled to the bench. As Nia limped off, the crowd went quiet. The Lions lost 2–1, but in the locker room, Nia's mother found Zara and thanked her. The doctor said that playing on could have turned a small sprain into a serious injury.`,
+ qs:[`What decision did Zara face?|whether to keep an injured teammate playing in order to win|whether to quit the team;whether to take a penalty;whether to change teams|She had to choose between winning and Nia's health.`,`What does "winced" suggest about Nia?|she was in pain|she was happy;she was confused;she was bored|Wincing is a reaction to pain.`,`Which theme fits the story best?|people matter more than winning|winning is everything;captains should score the most goals;never listen to coaches|Zara put Nia's health ahead of the cup.`,`How was Zara's decision shown to be right?|the doctor said playing on could have caused a serious injury|the Lions won;Nia scored a goal;the coach was angry|The doctor's words show the decision protected Nia.`]},
+{b:2,k:'nonfiction',t:'Plastic in the Ocean',x:`Every year, millions of tonnes of plastic end up in the world's oceans. Much of it comes from land: litter washes into rivers, which carry it to the sea. Plastic does not rot like food or wood. Instead, sunlight and waves break it into smaller and smaller pieces called microplastics. Sea turtles can mistake plastic bags for jellyfish, and seabirds may feed bits of plastic to their chicks. Scientists have even found microplastics in deep-sea creatures. Solutions include using fewer single-use items, recycling properly and organising clean-ups. Some inventors are designing floating barriers that collect plastic, but most experts agree that the most effective solution is stopping plastic from reaching the water in the first place.`,
+ qs:[`According to the passage, how does much plastic reach the ocean?|litter washes into rivers that flow to the sea|ships dump all of it;it rains from clouds;fish carry it|The passage says litter washes into rivers which carry it to the sea.`,`What are microplastics?|tiny pieces of plastic broken down by sunlight and waves|a kind of jellyfish;new plastic bags;plastic that rots|They form when plastic breaks into smaller pieces.`,`Why might a sea turtle eat a plastic bag?|it looks like a jellyfish|it tastes sweet;turtles collect plastic;it is warm|Turtles can mistake bags for jellyfish.`,`What do most experts think is the best solution?|stopping plastic from reaching the water|building more barriers;moving the turtles;making stronger plastic|The last sentence says this.`]},
+{b:2,k:'nonfiction',t:'Counting the Thunder',x:`During a thunderstorm, you see lightning before you hear thunder, even though they happen at the same moment. That is because light travels much faster than sound. Light reaches you almost instantly, while sound moves through air at about 340 metres per second. You can use this to estimate how far away a storm is. Count the seconds between the flash and the rumble, then divide by three. The answer is roughly the distance in kilometres. If the gap is getting shorter, the storm is moving closer. Safety experts say that if you can hear thunder at all, you are close enough to be struck, so it is time to go indoors.`,
+ qs:[`Why do we see lightning before we hear thunder?|light travels much faster than sound|thunder happens later;our eyes work better than our ears;sound travels faster than light|The passage explains that light is much faster.`,`If you count 9 seconds between the flash and the thunder, about how far away is the storm?|3 km|9 km;27 km;1 km|9 ÷ 3 = 3 kilometres.`,`What does a shrinking gap between flash and thunder tell you?|the storm is getting closer|the storm is ending;the storm is moving away;the lightning is getting weaker|A shorter gap means a shorter distance.`,`What is the purpose of the last sentence?|to give safety advice|to tell a funny story;to describe a rainbow;to explain how clouds form|It tells readers when to go indoors.`]},
+{b:2,k:'fiction',t:'The Debate',x:`Amir had prepared for the class debate for a week, and he was sure his team would win. His argument was that schools should have longer lunch breaks, and he had pages of reasons. But when Grace from the other team spoke, she raised a point he had not considered: a longer lunch would mean finishing school later, and many students took the bus. Amir felt his confidence slip. Instead of ignoring her point, he listened carefully. When it was his turn, he suggested a compromise: a slightly longer lunch with a shorter morning recess, so the day would end at the same time. The teacher smiled. Neither team won outright, but the class voted to send Amir and Grace's combined idea to the principal.`,
+ qs:[`What was Amir's argument?|schools should have longer lunch breaks|schools should end earlier;buses should be free;recess should be longer|He argued for longer lunch breaks.`,`What point did Grace raise?|a longer lunch would make the school day end later|lunch food was unhealthy;students don't like lunch;the principal disagreed|She said finishing later would affect students who took the bus.`,`What does "compromise" mean in this story?|a solution where each side gives a little|a complete win;an argument;a punishment|Amir's plan balanced both concerns.`,`What lesson does Amir learn?|listening to others can lead to better ideas|always ignore the other side;debates are a waste of time;preparing doesn't matter|Listening to Grace helped him find a better solution.`]},
+];
+function readGen(kind){return (g,d)=>{const band=bandFor(g,d);let pool=PASSAGES.filter(p=>p.k===kind&&p.b===band);if(!pool.length)pool=PASSAGES.filter(p=>p.k===kind);const p=pick(pool);const [q,a,ds,why]=pick(p.qs).split('|');return {q,answer:a,options:opts(a,ds.split(';')),explain:why,hint:'Find the sentence in the passage that answers the question.',passage:{t:p.t,x:p.x}};};}
+const RD={fiction:readGen('fiction'),nonfiction:readGen('nonfiction')};
+
+/* =============== MONEY (Canadian) =============== */
+const COINS=[['toonie',200],['loonie',100],['quarter',25],['dime',10],['nickel',5]];
+const cents=c=>money(c/100);
+const MO={};
+MO.coins=(g,d)=>{
+  const use=g<=3?COINS.slice(1):COINS;let parts=[],tot=0;
+  for(const [n,v] of shuffle(use).slice(0,R(2,d===1?2:4))){const k=R(1,4);parts.push([n,v,k]);tot+=v*k;}
+  parts.sort((a,b)=>b[1]-a[1]);
+  const desc=parts.map(([n,v,k])=>`${k} ${n}${k>1?'s':''}`).join(', ').replace(/, ([^,]*)$/,' and $1');
+  return {q:`You have ${desc}. How much money is that?`,...nopts(tot/100,[(tot+25)/100,(tot-10)/100,(tot+100)/100,(tot-5)/100],{f:money,min:0.05}),explain:`Toonie = $2, loonie = $1, quarter = 25¢, dime = 10¢, nickel = 5¢. ${parts.map(([n,v,k])=>`${k} × ${cents(v)} = ${cents(v*k)}`).join('; ')}. Total: ${cents(tot)}.`,hint:'Add the biggest coins first.'};
+};
+MO.change=(g,d)=>{
+  const n=g<=3?1:R(1,3);const items=[];let tot=0;for(let i=0;i<n;i++){const c=R(g<=3?2:5,g<=3?18:40)*25+(g<=3?0:pick([0,0,5,10,15,20]));items.push(c);tot+=c;}
+  const bill=[500,1000,2000,5000,10000].find(b=>b>tot);const ch=bill-tot;
+  return {q:`${n===1?`A snack costs ${cents(items[0])}`:`You buy items costing ${items.map(cents).join(', ').replace(/, ([^,]*)$/,' and $1')}`}. You pay with a ${cents(bill)} bill. How much change do you get?`,...nopts(ch/100,[(ch+100)/100,(ch-100)/100,tot/100,(ch+50)/100],{f:money,min:0.05}),explain:`${n>1?`Total: ${items.map(cents).join(' + ')} = ${cents(tot)}. `:''}Change = ${cents(bill)} − ${cents(tot)} = ${cents(ch)}. Tip: count up from ${cents(tot)} to ${cents(bill)}.`,hint:'Count up from the price to the bill.'};
+};
+MO.cashround=(g,d)=>{
+  const c=R(101,1999);if(c%5===0)return MO.cashround(g,d);const last=c%10;
+  const r=last<=2?c-last:last<=4?c-last+5:last<=7?c-last+5:c-last+10;
+  const ans=cents(r);return {q:`Canada has no pennies, so cash totals are rounded to the nearest 5¢. If you pay ${cents(c)} in cash, what do you pay?`,answer:ans,value:r/100,options:opts(ans,[cents(r-5),cents(r+5),cents(c),cents(r-10)]),explain:`Look at the last digit: ${last}. Endings 1–2 round down to 0, 3–4 round up to 5, 6–7 round down to 5, 8–9 round up to the next 10. So ${cents(c)} → ${ans}.`,hint:'Which is closer: the 0 or the 5?'};
+};
+MO.bestbuy=(g,d)=>{
+  const item=pick(['granola bars','juice boxes','pencils','stickers','apples','yogurt cups']);
+  let packs=[];let gg=0;while(packs.length<3&&gg++<50){const n=pick([2,3,4,5,6,8,10,12]);const u=R(30,120)*(g>=6?1:5);const p=n*u;if(packs.some(x=>x.n===n||Math.abs(x.p/x.n-u)<3))continue;packs.push({n,p});}
+  const best=packs.slice().sort((a,b)=>a.p/a.n-b.p/b.n)[0];const lab=k=>`Pack ${'ABC'[k]}`;const ans=lab(packs.indexOf(best));
+  return {q:`Which pack of ${item} is the best value? ${packs.map((x,k)=>`${lab(k)}: ${x.n} for ${cents(x.p)}`).join(' · ')}`,answer:ans,options:[lab(0),lab(1),lab(2),'They are all the same value'],explain:`Find the price of one in each pack: ${packs.map((x,k)=>`${lab(k)}: ${cents(x.p)} ÷ ${x.n} = ${cents(x.p/x.n)}`).join('; ')}. The lowest price per item is ${ans}.`,hint:'Work out the price of ONE item in each pack.'};
+};
+MO.saving=(g,d)=>{
+  const k=pick(g<=5?['weeks','left']:['weeks','left','earn']);
+  if(k==='weeks'){const per=R(3,15),price=R(4,25)*5,have=R(0,Math.floor(price/2));const need=price-have;const w=Math.ceil(need/per);
+    return {q:`A football costs ${money(price)}. You have ${money(have)} and save ${money(per)} each week. How many weeks until you can buy it?`,...nopts(w,[Math.floor(need/per)||w+1,Math.ceil(price/per),w+1]),explain:`You still need ${money(price)} − ${money(have)} = ${money(need)}. ${money(need)} ÷ ${money(per)} = ${fmt(Math.round(need/per*100)/100)}, so you need ${w} week${w>1?'s':''}${need%per?` (round up, because ${w-1} week${w-1===1?'':'s'} is not quite enough)`:''}.`,hint:'First find how much more you need.'};}
+  if(k==='left'){const allow=R(10,30),sp=[R(2,6),R(1,5),R(2,7)];const left=allow-sp.reduce((a,b)=>a+b,0);if(left<0)return MO.saving(g,d);
+    return {q:`You get ${money(allow)} allowance. You spend ${money(sp[0])} on a snack, ${money(sp[1])} on a comic and ${money(sp[2])} on a game card. How much is left to save?`,...nopts(left,[allow-sp[0],left+sp[2],sp.reduce((a,b)=>a+b,0)],{f:money}),explain:`Spent: ${sp.map(money).join(' + ')} = ${money(sp.reduce((a,b)=>a+b,0))}. Left: ${money(allow)} − ${money(sp.reduce((a,b)=>a+b,0))} = ${money(left)}.`,hint:'Add up the spending, then subtract.'};}
+  const base=R(5,15),chore=R(2,5),n=R(2,6);const tot=base+chore*n;
+  return {q:`You get ${money(base)} a week, plus ${money(chore)} for each extra chore. This week you did ${n} chores. How much did you earn?`,...nopts(tot,[base+chore,(base+chore)*n,chore*n],{f:money}),explain:`Chores: ${n} × ${money(chore)} = ${money(chore*n)}. Total: ${money(base)} + ${money(chore*n)} = ${money(tot)}.`,hint:'Multiply the chores first.'};
+};
+MO.percent=(g,d)=>{
+  const k=pick(g===6?['tax','sale']:['tax','sale','interest','compound']);
+  if(k==='tax'){const p=pick([20,40,60,80,100,120]),t=pick([5,10,15]);const tot=p*(1+t/100);return {q:`A game costs ${money(p)}. A ${t}% sales tax is added. What is the total?`,...nopts(tot,[p*t/100,p+t,p*(1-t/100)],{f:money}),explain:`Tax: ${t}% of ${money(p)} = ${money(p*t/100)}. Total: ${money(p)} + ${money(p*t/100)} = ${money(tot)}.`,hint:`Find ${t}% first. 10% is the price ÷ 10.`};}
+  if(k==='sale'){const p=pick([40,60,80,120,150,200]),t=pick([20,25,30,40,50]);const s=p*(1-t/100);return {q:`Football boots cost ${money(p)}. They are ${t}% off. What is the sale price?`,...nopts(s,[p*t/100,p-t,p*(1+t/100)],{f:money}),explain:`${t}% of ${money(p)} = ${money(p*t/100)}. Sale price: ${money(p)} − ${money(p*t/100)} = ${money(s)}.`,hint:'Find the discount, then subtract it.'};}
+  if(k==='interest'){const P=pick([100,200,300,500,1000]),r=pick([2,3,4,5]);const tot=P*(1+r/100);return {q:`You put ${money(P)} in a savings account that pays ${r}% interest per year. How much is in the account after one year?`,...nopts(tot,[P*r/100,P+r,P*(1+2*r/100)],{f:money}),explain:`Interest: ${r}% of ${money(P)} = ${money(P*r/100)}. Total: ${money(P)} + ${money(P*r/100)} = ${money(tot)}.`,hint:'Interest is a percentage of the money saved.'};}
+  const P=pick([100,200,500,1000]),r=10;const y1=P*1.1,y2=Math.round(y1*1.1*100)/100;return {q:`${money(P)} earns 10% interest each year, and the interest stays in the account (compound interest). How much is there after 2 years?`,...nopts(y2,[P*1.2,y1,P*0.2],{f:money}),explain:`Year 1: ${money(P)} + 10% = ${money(y1)}. Year 2: ${money(y1)} + 10% = ${money(y2)}. Compound interest grows faster than ${money(P*1.2)} because you earn interest on the interest.`,hint:'Work out one year at a time.'};
+};
+const MONEY_WORDS=[[
+`Which of these is a need?|food|a video game;candy;a toy car|A need is something you must have to live, like food, water, clothing and shelter.`,
+`Which of these is a want?|a new video game|water;a warm coat in winter;a place to live|A want is nice to have, but you can live without it.`,
+`What is a budget?|a plan for how to spend and save money|a type of coin;a bank building;a shopping bag|A budget helps you plan your money.`,
+`Where can you keep money safe and earn interest?|a savings account at a bank|under your bed;in your pocket;in a library book|Banks keep money safe and pay interest on savings.`,
+`What is the $2 coin called in Canada?|a toonie|a loonie;a quarter;a dime|The $2 coin is the toonie. The $1 coin is the loonie, named after the loon on it.`,
+`What is the 25¢ coin called?|a quarter|a dime;a nickel;a loonie|A quarter is worth 25¢, a quarter of a dollar.`,
+`What is the 10¢ coin called?|a dime|a nickel;a quarter;a loonie|The dime is worth 10¢.`,
+`What is the 5¢ coin called?|a nickel|a dime;a quarter;a toonie|The nickel is worth 5¢.`],[
+`What is income?|money you receive, for example from a job|money you spend;money you owe;a kind of coin|Income is money coming in.`,
+`What is an expense?|money you spend on something|money you earn;money in a piggy bank;a bank account|Expenses are money going out.`,
+`What is interest on savings?|extra money the bank pays you for keeping money there|a fee for buying candy;money you lend a friend;a type of coin|Banks pay interest, so your savings grow.`,
+`Why is it smart to compare prices before you buy?|you can get the best value for your money|prices are always the same;it makes things cost more;stores require it|Comparing helps you spend less for the same thing.`,
+`What is a donation?|money or items given to help others|money you borrow;a store discount;a bank fee|Donating means giving to a cause or to people in need.`,
+`What is the difference between a debit card and a credit card?|debit uses your own money; credit is borrowed money you must pay back|they are exactly the same;credit uses your own money;debit is borrowed money|Debit takes money straight from your account. Credit is a loan.`],[
+`What is debt?|money you owe and must pay back|money you saved;money you earned;a savings account|Debt is borrowed money that must be repaid, often with interest.`,
+`What usually happens if you don't pay a credit card bill in full?|you are charged interest|you get a bonus;nothing happens;you earn rewards|Unpaid balances grow because of interest.`,
+`Why do people invest money?|to try to make it grow over time|to lose it quickly;to avoid banks;to pay more tax|Investing can grow money, but there is risk.`,
+`What is an emergency fund?|savings kept for unexpected costs|money for toys;a loan from a friend;a gift card|It helps when something surprising happens, like a repair.`,
+`What does "pay yourself first" mean?|save some money as soon as you get paid|spend it all first;buy yourself a gift;pay your bills last|Saving first makes it a habit.`,
+`What is tax?|money people pay to the government for public services|a bank reward;a store discount;a type of coin|Taxes help pay for schools, roads and hospitals.`]];
+MO.words=(g,d)=>{const [q,a,ds,why]=pick(MONEY_WORDS[bandFor(g,d)]).split('|');return {q,answer:a,options:opts(a,ds.split(';')),explain:why,hint:'Think about what the word means in everyday life.'};};
+
+/* =============== CODING & LOGIC =============== */
+const CD={};
+const SYM=['🔴','🔵','🟢','🟡','⭐','🔺','🟪','⚽'];
+CD.patterns=(g,d)=>{
+  const grow=g>=5&&Math.random()<0.45;
+  if(grow){const s=pick(SYM),t=pick(SYM.filter(x=>x!==s));const start=R(1,2);const terms=[0,1,2,3].map(i=>s.repeat(start+i)+t);const ans=s.repeat(start+4)+t;
+    return {q:`What comes next? ${terms.join('  ·  ')}  ·  ?`,answer:ans,options:opts(ans,[s.repeat(start+3)+t,s.repeat(start+5)+t,s.repeat(start+4)+t+t,t+s.repeat(start+4)]),explain:`Each step adds one more ${s} before the ${t}. Step 5 has ${start+4} × ${s}.`,hint:`Count the ${s} in each step.`};}
+  const L=g<=3?R(2,3):R(3,4);const unit=shuffle(SYM).slice(0,L>3?3:L);if(L===4)unit.push(unit[0]);
+  const len=L*2+R(1,L-1);const seq=[];for(let i=0;i<len+1;i++)seq.push(unit[i%L]);const ans=seq.pop();
+  return {q:`What comes next? ${seq.join(' ')} ?`,answer:ans,options:opts(ans,shuffle(SYM.filter(x=>x!==ans)).slice(0,3)),explain:`The pattern repeats every ${L}: ${unit.join(' ')}. So the next one is ${ans}.`,hint:'Find the part that repeats.'};
+};
+CD.robot=(g,d)=>{
+  if(g<=4){let p=R(3,8);const steps=[];let cur=p;for(let i=0;i<R(2,3);i++){const f=Math.random()<0.6;const n=R(1,5);if(!f&&cur-n<0){steps.push(['forward',n]);cur+=n;}else{steps.push([f?'forward':'back',n]);cur+=f?n:-n;}}
+    return {q:`A robot stands on square ${p} of a number line. It moves ${steps.map(([w,n])=>`${w} ${n}`).join(', then ')}. Which square is it on now?`,...nopts(cur,[cur+2,cur-2,p+steps.reduce((a,[w,n])=>a+n,0)]),explain:`Start at ${p}. ${steps.map(([w,n])=>`${w==='forward'?'+':'−'}${n}`).join(' ')} → square ${cur}.`,hint:'Forward adds, back subtracts.'};}
+  let x=R(0,5),y=R(0,5);const sx=x,sy=y;const moves=[];const nm=g>=7?4:3;for(let i=0;i<nm;i++){const dir=pick(['up','down','left','right']);const n=R(1,4);moves.push([dir,n]);if(dir==='up')y+=n;if(dir==='down')y-=n;if(dir==='right')x+=n;if(dir==='left')x-=n;}
+  const ans=`(${x}, ${y})`;const swap=`(${y}, ${x})`;
+  return {q:`A robot starts at (${sx}, ${sy}) on a grid. It moves ${moves.map(([d2,n])=>`${n} ${d2}`).join(', ')}. Where does it end up? (Right/left change x. Up/down change y.)`,answer:ans,options:opts(ans,[swap!==ans?swap:null,`(${x+1}, ${y})`,`(${x}, ${y-1})`,`(${x-1}, ${y+1})`]),explain:`x: ${sx}${moves.filter(m=>m[0]==='left'||m[0]==='right').map(([d2,n])=>d2==='right'?` + ${n}`:` − ${n}`).join('')} = ${x}. y: ${sy}${moves.filter(m=>m[0]==='up'||m[0]==='down').map(([d2,n])=>d2==='up'?` + ${n}`:` − ${n}`).join('')} = ${y}. The robot ends at ${ans}.`,hint:'Track x and y separately.'};
+};
+CD.loops=(g,d)=>{
+  const t=pick(g<=5?['add','add','mul']:g<=6?['add','mul','sum']:['mul','sum','two']);
+  if(t==='add'){const s=R(0,10),k=R(2,6),n=R(3,6);const ans=s+k*n;return {code:`x = ${s}\nrepeat ${n} times:\n    x = x + ${k}\nsay x`,q:'What number does this program say?',...nopts(ans,[s+k*(n-1),s+k*(n+1),k*n]),explain:`x starts at ${s} and gains ${k} each time. After ${n} times: ${s} + ${k} × ${n} = ${ans}.`,hint:'Write down x after each repeat.'};}
+  if(t==='mul'){const s=R(1,3),k=pick([2,3]),n=R(2,g<=5?3:5);const ans=s*k**n;return {code:`x = ${s}\nrepeat ${n} times:\n    x = x × ${k}\nsay x`,q:'What number does this program say?',...nopts(ans,[s*k*n,s*k**(n-1),s*k**(n+1)]),explain:`x is multiplied by ${k} ${n} times: ${s} × ${k}${sup(n)} = ${ans}.`,hint:'Track x after each repeat.'};}
+  if(t==='sum'){const n=R(4,10);const ans=n*(n+1)/2;return {code:`total = 0\nfor i from 1 to ${n}:\n    total = total + i\nsay total`,q:'What does this program say?',...nopts(ans,[n*n,ans-n,ans+n+1]),explain:`It adds 1 + 2 + … + ${n} = ${ans}. Shortcut: ${n} × ${n+1} ÷ 2 = ${ans}.`,hint:'i takes the values 1, 2, 3 … each time round.'};}
+  const a=R(1,4),b=R(1,4),n=R(3,5);let A=a,B=b;for(let i=0;i<n;i++){const t2=A+B;A=B;B=t2;}
+  return {code:`a = ${a}\nb = ${b}\nrepeat ${n} times:\n    c = a + b\n    a = b\n    b = c\nsay b`,q:'What does this program say?',...nopts(B,[A,B+A,B-1]),explain:`Each step, the new b is the sum of the last two values (like Fibonacci). After ${n} steps b = ${B}.`,hint:'Make a small table with a, b and c for each repeat.'};
+};
+CD.ifelse=(g,d)=>{
+  const t=pick(g<=6?['say','num']:['num','mod','and']);
+  if(t==='say'){const n=R(1,20),lim=R(5,15);const big=n>lim;const ans=big?'"big"':'"small"';return {code:`n = ${n}\nif n > ${lim}:\n    say "big"\nelse:\n    say "small"`,q:'What does this program say?',answer:ans,options:opts(ans,['"big"','"small"','nothing','"n"']),explain:`Is ${n} > ${lim}? ${big?'Yes':'No'}, so it says ${ans}.`,hint:'Check the condition with the real number.'};}
+  if(t==='num'){const s=R(5,20),lim=R(8,15),a=R(2,6),b=R(2,6);const ans=s>=lim?s-a:s+b;return {code:`score = ${s}\nif score >= ${lim}:\n    score = score − ${a}\nelse:\n    score = score + ${b}\nsay score`,q:'What does this program say?',...nopts(ans,[s>=lim?s+b:s-a,s,ans+1]),explain:`Is ${s} ≥ ${lim}? ${s>=lim?`Yes, so subtract ${a}`:`No, so add ${b}`}: ${ans}.`,hint:'Only one branch runs.'};}
+  if(t==='mod'){const n=R(10,40);const ans=n%2===0?'"even"':'"odd"';return {code:`n = ${n}\nif n % 2 == 0:\n    say "even"\nelse:\n    say "odd"`,q:'What does this program say? (% gives the remainder after dividing.)',answer:ans,options:opts(ans,['"even"','"odd"','"0"','"2"']),explain:`${n} % 2 = ${n%2} (the remainder of ${n} ÷ 2). ${n%2===0?'It is 0, so it says "even".':'It is not 0, so it says "odd".'}`,hint:'Even numbers divide by 2 with no remainder.'};}
+  const age=R(6,14),h=R(110,160);const ok=age>=8&&h>=120;const ans=ok?'"You can ride!"':'"Sorry, not yet"';
+  return {code:`age = ${age}\nheight = ${h}\nif age >= 8 and height >= 120:\n    say "You can ride!"\nelse:\n    say "Sorry, not yet"`,q:'What does this program say?',answer:ans,options:opts(ans,['"You can ride!"','"Sorry, not yet"','both messages','nothing']),explain:`"and" needs both to be true. age ≥ 8 is ${age>=8}; height ≥ 120 is ${h>=120}. ${ok?'Both true':'Not both true'}, so it says ${ans}.`,hint:'With "and", both parts must be true.'};
+};
+CD.logic=(g,d)=>{
+  const n=g<=5?3:4;const people=shuffle(['Ada','Ben','Cleo','Dev','Eli','Fay','Gus','Hana']).slice(0,n);
+  const attr=pick([['taller','tallest','shortest'],['faster','fastest','slowest'],['older','oldest','youngest']]);
+  const clues=[];for(let i=0;i<n-1;i++)clues.push(`${people[i]} is ${attr[0]} than ${people[i+1]}.`);
+  const top=Math.random()<0.5;const ans=top?people[0]:people[n-1];const word=top?attr[1]:attr[2];
+  return {q:`${shuffle(clues).join(' ')} Who is the ${word}?`,answer:ans,options:opts(ans,shuffle(people.filter(p=>p!==ans)).concat(["Can't tell"])),explain:`Put them in order from most to least: ${people.join(' > ')}. The ${word} is ${ans}.`,hint:'Draw a line and place each person on it.'};
+};
+CD.binary=(g,d)=>{
+  const bits=g<=6?4:R(5,6);const n=R(3,2**bits-1);const b=n.toString(2);
+  if(Math.random()<0.6){const places=b.split('').map((c,i)=>+c*2**(b.length-1-i)).filter(x=>x);return {q:`Computers count in binary (base 2). What is binary ${b} in normal numbers?`,...nopts(n,[parseInt(b,10)<=999?parseInt(b,10):n+8,n+1,n-1]),explain:`Binary place values (right to left) are 1, 2, 4, 8, 16, 32. ${b} = ${places.join(' + ')} = ${n}.`,hint:'Each place is worth double the place to its right.'};}
+  const wrong=[(n+1).toString(2),(n^1).toString(2),b.split('').reverse().join(''),(n*2).toString(2)].filter(x=>x!==b);
+  return {q:`Which binary number equals ${n}?`,answer:b,exact:true,options:opts(b,wrong),explain:`Break ${n} into powers of 2: ${b.split('').map((c,i)=>+c*2**(b.length-1-i)).filter(x=>x).join(' + ')}. Put a 1 in each of those places: ${b}.`,hint:'Start with the biggest power of 2 that fits.'};
+};
+
 /* =============== TOPIC REGISTRY & ENGINE =============== */
 const SUBJECTS={
   maths:{name:'Maths',blurb:'Number, fractions, geometry, algebra and data',topics:[
@@ -1285,6 +1631,20 @@ const SUBJECTS={
     {id:'coding',name:'Coding & decoding',g:[4,8],gen:V.coding},
   ]},
 };
+SUBJECTS.french={name:'French',blurb:'Words, numbers, phrases and verbs',topics:[
+    {id:'fr_vocab',name:'Vocabulary',g:[3,8],gen:FR.vocab},{id:'fr_numbers',name:'Numbers',g:[3,8],gen:FR.numbers},
+    {id:'fr_phrases',name:'Everyday phrases',g:[3,8],gen:FR.phrases},{id:'fr_grammar',name:'Le/la and verbs',g:[5,8],gen:FR.grammar}]};
+SUBJECTS.science={name:'Science',blurb:'Animals, the body, space, matter, forces and Earth',topics:[
+    {id:'sc_life',name:'Living things',g:[3,8],gen:SC.life},{id:'sc_body',name:'Human body',g:[3,8],gen:SC.body},{id:'sc_space',name:'Space',g:[3,8],gen:SC.space},
+    {id:'sc_matter',name:'Matter & materials',g:[3,8],gen:SC.matter},{id:'sc_forces',name:'Forces & energy',g:[3,8],gen:SC.forces},{id:'sc_earth',name:'Earth & weather',g:[3,8],gen:SC.earth}]};
+SUBJECTS.reading={name:'Reading',blurb:'Short stories and information texts with questions',topics:[
+    {id:'rd_fiction',name:'Stories',g:[3,8],gen:RD.fiction},{id:'rd_nonfiction',name:'Information texts',g:[3,8],gen:RD.nonfiction}]};
+SUBJECTS.money={name:'Money skills',blurb:'Canadian coins, change, saving, best buys and interest',topics:[
+    {id:'mo_coins',name:'Counting coins',g:[3,5],gen:MO.coins},{id:'mo_change',name:'Making change',g:[3,6],gen:MO.change},{id:'mo_round',name:'Cash rounding',g:[3,5],gen:MO.cashround},
+    {id:'mo_best',name:'Best buy',g:[4,8],gen:MO.bestbuy},{id:'mo_save',name:'Saving & budgeting',g:[4,8],gen:MO.saving},{id:'mo_pct',name:'Tax, sales & interest',g:[6,8],gen:MO.percent},{id:'mo_words',name:'Money words',g:[3,8],gen:MO.words}]};
+SUBJECTS.coding={name:'Coding & logic',blurb:'Patterns, robots, loops, if/else, logic and binary',topics:[
+    {id:'cd_patterns',name:'Patterns',g:[3,8],gen:CD.patterns},{id:'cd_robot',name:'Robot moves',g:[3,8],gen:CD.robot},{id:'cd_loops',name:'Loops',g:[4,8],gen:CD.loops},
+    {id:'cd_if',name:'If / else',g:[5,8],gen:CD.ifelse},{id:'cd_logic',name:'Logic puzzles',g:[3,8],gen:CD.logic},{id:'cd_binary',name:'Binary numbers',g:[6,8],gen:CD.binary}]};
 function topicsFor(subject,grade){return SUBJECTS[subject].topics.filter(t=>grade>=t.g[0]&&grade<=t.g[1]);}
 function topicName(subject,id){const t=SUBJECTS[subject].topics.find(t=>t.id===id);return t?t.name:id;}
 function validQ(o){
@@ -1381,6 +1741,8 @@ const BADGES=[
  {id:'early',e:'🌅',name:'Early Bird',desc:'Practise before 8 a.m.'},
  {id:'level5',e:'🎓',name:'Academy Graduate',desc:'Reach Level 5'},
  {id:'level10',e:'🥈',name:'Semi-Pro',desc:'Reach Level 10'},
+ {id:'explorer',e:'🗺️',name:'Explorer',desc:'Finish training in 6 different subjects'},
+ {id:'kick10',e:'🥾',name:'Super Striker',desc:'Score 10 goals in one penalty game'},
 ];
 const levelOf=xp=>Math.max(1,Math.floor((1+Math.sqrt(1+(xp||0)/12.5))/2));
 const xpAt=L=>50*L*(L-1);
@@ -1391,7 +1753,7 @@ const KINDS={training:'Training',daily:'Match Day',shootout:'Penalty Shootout',l
 
 /* ---------- local data ---------- */
 const newStudent=name=>({name,history:[],stats:{},days:[],settings:clone(DEF),pin:null,created:Date.now()});
-function ensure(st){const d={history:[],stats:{},days:[],settings:clone(DEF),pin:null,pet:null,xp:0,coins:0,badges:{},bests:{},freezes:{n:1,wk:''},frozen:[],goal:null,daily:{},cups:{},totalRight:0,owned:[],wearing:{}};for(const k in d)if(st[k]==null)st[k]=d[k];return st;}
+function ensure(st){const d={history:[],stats:{},days:[],settings:clone(DEF),pin:null,pet:null,xp:0,coins:0,badges:{},bests:{},freezes:{n:1,wk:''},frozen:[],goal:null,daily:{},cups:{},totalRight:0,owned:[],wearing:{},kicks:0,kickProg:0,kickDay:{d:'',n:0}};for(const k in d)if(st[k]==null)st[k]=d[k];return st;}
 let DB=loadDB();
 let SESSIONS=lsGet(LS_SES,[]);
 function loadDB(){
@@ -1400,7 +1762,7 @@ function loadDB(){
   if(!d||!d.students||!Object.keys(d.students).length){const id=uid('st_');d={ver:2,students:{[id]:newStudent('Student')},current:id};}
   const cur=lsGet(LS_CUR,null);if(cur&&d.students[cur])d.current=cur;
   if(!d.students[d.current])d.current=Object.keys(d.students)[0];
-  d.family=Object.assign({goal:null,parentPin:null},d.family||{});
+  d.family=Object.assign({goal:null,parentPin:null,miniGame:true,gamesPerDay:4},d.family||{});
   Object.values(d.students).forEach(ensure);
   return d;
 }
@@ -1464,7 +1826,7 @@ async function onUser(u){
 async function bootstrap(u){
   const base=userRef();
   const udoc=await base.get();const ud=udoc.exists?udoc.data():{};
-  if(ud.family)DB.family=Object.assign({goal:null,parentPin:null},ud.family);
+  if(ud.family)DB.family=Object.assign({goal:null,parentPin:null,miniGame:true,gamesPerDay:4},ud.family);
   await base.set({email:u.email||null,name:u.displayName||null,lastSeen:Date.now(),family:clone(DB.family)},{merge:true});
   const snap=await base.collection('students').get();
   const cloud={};snap.forEach(d=>{cloud[d.id]=ensure(d.data());});
@@ -1476,7 +1838,7 @@ async function bootstrap(u){
   if(!DB.current){const id=uid('st_');DB.students[id]=ensure(newStudent('Student'));DB.current=id;ups.push(base.collection('students').doc(id).set(clone(DB.students[id])));}
   for(const s of SESSIONS.filter(s=>!s.synced&&DB.students[s.studentId]))ups.push(pushSession(s));
   await Promise.all(ups);saveLocal();
-  try{CLOUD.unsub.push(base.onSnapshot(d=>{const x=d.exists?d.data():{};if(x.family){DB.family=Object.assign({goal:null,parentPin:null},x.family);saveLocal();softRefresh();}},()=>{}));}catch(e){}
+  try{CLOUD.unsub.push(base.onSnapshot(d=>{const x=d.exists?d.data():{};if(x.family){DB.family=Object.assign({goal:null,parentPin:null,miniGame:true,gamesPerDay:4},x.family);saveLocal();softRefresh();}},()=>{}));}catch(e){}
   CLOUD.unsub.push(base.collection('students').onSnapshot(qs=>{
     const next={};qs.forEach(d=>{next[d.id]=ensure(d.data());});
     if(!Object.keys(next).length)return;
@@ -1509,22 +1871,22 @@ async function signOut(){if(!await parentOk())return;const ok=await ask('Sign ou
 /* ---------- settings helpers ---------- */
 function availTopics(s){return topicsFor(s.subject,s.grade);}
 function chosenTopics(s){const all=availTopics(s).map(t=>t.id);const k=s.subject+'-'+s.grade;const c=s.topicsBy[k];if(!c)return all;return c.filter(id=>all.includes(id));}
-function perQ(s){const b={relaxed:90,standard:60,speed:30}[s.timer]||60;const f=s.subject==='verbal'?0.6:1;return Math.max(15,Math.round(b*f/5)*5);}
+function perQ(s){const b={relaxed:90,standard:60,speed:30}[s.timer]||60;const f={verbal:.6,french:.6,science:.8,reading:1.5}[s.subject]||1;return Math.max(15,Math.round(b*f/5)*5);}
 function limitOf(s){if(s.kind==='shootout')return {whole:60};if(s.kind&&s.kind!=='training')return {};if(s.timer==='off')return {};if(s.timer==='custom')return s.timerStyle==='whole'?{whole:clamp(+s.custom||10,1,240)*60}:{per:clamp(+s.custom||60,5,900)};const p=perQ(s);return s.timerStyle==='whole'?{whole:p*s.count}:{per:p};}
 function timerTxt(s){const L=limitOf(s);if(L.whole)return `${mmss(L.whole)} for the test`;if(L.per)return `${L.per} s per question`;return 'No time limit';}
 const subjName=k=>k==='mixed'?'Mixed subjects':(SUBJECTS[k]||{name:k}).name;
 const tName=(sub,id)=>SUBJECTS[sub]?topicName(sub,id):id;
 const diffName={easy:'Easy',standard:'Standard',challenge:'Challenge',mixed:'Mixed',adaptive:'Adaptive'};
-const typeAllowed=s=>s.subject!=='verbal';
+const typeAllowed=s=>['maths','quant','money','coding'].includes(s.subject);
 
 /* ---------- routing ---------- */
 let VIEW='setup';
-const VIEWS=['auth','setup','quiz','results','progress','session','pet','shop','trophies'];
+const VIEWS=['auth','setup','quiz','results','progress','session','pet','shop','trophies','game'];
 function show(v){VIEW=v;for(const k of VIEWS)$('#v-'+k).hidden=k!==v;
-  $('#nav-setup').setAttribute('aria-current',['setup','quiz','results','pet','shop','trophies'].includes(v)?'page':'false');$('#nav-progress').setAttribute('aria-current',['progress','session'].includes(v)?'page':'false');
+  $('#nav-setup').setAttribute('aria-current',['setup','quiz','results','pet','shop','trophies','game'].includes(v)?'page':'false');$('#nav-progress').setAttribute('aria-current',['progress','session'].includes(v)?'page':'false');
   $('.nav').hidden=v==='auth';$('.who').hidden=v==='auth'||v==='pet';$('#who-sel').disabled=v==='quiz';
   $('#startbar').hidden=v!=='setup';document.body.classList.toggle('has-startbar',v==='setup');
-  if(v!=='quiz'){stopTick();try{window.speechSynthesis&&speechSynthesis.cancel();}catch(e){}}
+  if(v!=='game'&&GAME){cancelAnimationFrame(GAME.raf);GAME=null;}if(v!=='quiz'){stopTick();try{window.speechSynthesis&&speechSynthesis.cancel();}catch(e){}}
   window.scrollTo(0,0);renderAccount();}
 function home(){const st=ST();if(!st.pet){show('pet');renderPet(true);return;}show('setup');renderSetup();}
 function renderWho(){const sel=$('#who-sel');sel.innerHTML=Object.entries(DB.students).sort((a,b)=>(a[1].created||0)-(b[1].created||0)).map(([id,st])=>`<option value="${esc(id)}" ${id===DB.current?'selected':''}>${st.pet?animalOf(st)[1]+' ':''}${esc(st.name)}${st.pin?' 🔒':''}</option>`).join('')+'<option value="__add">+ Add a player…</option>';sel.disabled=VIEW==='quiz'&&!!QZ&&!QZ.fin;}
@@ -1595,7 +1957,7 @@ function modesCard(st){
   const s=S();const dd=st.daily[today()];const b=st.bests||{};
   const ct=availTopics(s);if(!CUPTOPIC||!ct.find(t=>t.id===CUPTOPIC))CUPTOPIC=ct[0]&&ct[0].id;const won=st.cups||{};
   return `<h2 class="sec-h">Game modes <span>Grade ${s.grade} · ${subjName(s.subject)}</span></h2><div class="modes">
-    <div class="mode sheet m-daily"><span class="m-ic" aria-hidden="true">📅</span><h3>Match Day</h3><p>10 mixed questions, new every day. Keep your streak alive.</p>${dd?`<p class="m-done">Done today: ${dd.right}/${dd.n} ✓</p>`:'<p class="m-note">+25 bonus points</p>'}<button class="btn ${dd?'':'btn-go'}" data-act="mode" data-k="daily">${dd?'Play again for fun':'Play Match Day'}</button></div>
+    <div class="mode sheet m-daily"><span class="m-ic" aria-hidden="true">📅</span><h3>Match Day</h3><p>10 questions from every subject, new every day. Keep your streak alive.</p>${dd?`<p class="m-done">Done today: ${dd.right}/${dd.n} ✓</p>`:'<p class="m-note">+25 bonus points</p>'}<button class="btn ${dd?'':'btn-go'}" data-act="mode" data-k="daily">${dd?'Play again for fun':'Play Match Day'}</button></div>
     <div class="mode sheet m-shoot"><span class="m-ic" aria-hidden="true">🥅</span><h3>Penalty Shootout</h3><p>60 seconds. Score as many as you can. A miss costs 3 seconds.</p><p class="m-note">Your best: ${b.shootout||0}</p><button class="btn" data-act="mode" data-k="shootout">Take penalties</button></div>
     <div class="mode sheet m-lives"><span class="m-ic" aria-hidden="true">🟨</span><h3>Three Cards</h3><p>Keep going until you get 3 wrong. It gets harder as you go.</p><p class="m-note">Your best: ${b.lives||0}</p><button class="btn" data-act="mode" data-k="lives">Start the match</button></div>
     <div class="mode sheet m-cup"><span class="m-ic" aria-hidden="true">🏆</span><h3>Cup Final</h3><p>5 hard questions on one topic. Win 5/5 to lift the cup.</p><select id="cup-topic" class="m-sel" aria-label="Cup Final topic">${ct.map(t=>`<option value="${t.id}" ${t.id===CUPTOPIC?'selected':''}>${won[s.subject+':'+t.id]?'🏆 ':''}${esc(t.name)}</option>`).join('')}</select><button class="btn" data-act="mode" data-k="cup">Play the final</button></div>
@@ -1604,7 +1966,7 @@ function modesCard(st){
 function renderSetup(){
   const st=ST();const s=S();const at=availTopics(s);const ch=chosenTopics(s);
   const focusId=document.activeElement&&document.activeElement.id;const sp=s.mode==='practice';
-  $('#v-setup').innerHTML=`<div class="homegrid">${playerCard(st)}${goalsCard(st)}</div>${modesCard(st)}
+  $('#v-setup').innerHTML=`<div class="homegrid">${playerCard(st)}${goalsCard(st)}</div>${gameStrip(st)}${modesCard(st)}
   <h2 class="sec-h" id="training">Training <span>Choose exactly what to practise. Grade and subject here also set the game modes.</span></h2>
   <div class="setup"><div><div class="form">
       <div class="group sheet"><div class="g-label"><h2>Grade</h2></div><div class="chips grades" role="radiogroup" aria-label="Grade">${[3,4,5,6,7,8].map(g=>chipR('grade',g,g,s.grade===g)).join('')}</div></div>
@@ -1618,7 +1980,7 @@ function renderSetup(){
       <div class="group sheet"><div class="g-label"><h2>Timer</h2><span class="aside">${timerTxt(s)}</span></div>
         <div class="chips">${[['off','Off'],['relaxed','Relaxed'],['standard','Standard'],['speed','Speed'],['custom','Custom']].map(([v,l])=>chipR('timer',v,l,s.timer===v)).join('')}</div>
         ${s.timer!=='off'?`<div class="row2"><div class="chips">${chipR('tstyle','whole','Whole test',s.timerStyle==='whole')}${chipR('tstyle','per','Each question',s.timerStyle==='per')}</div>
-        ${s.timer==='custom'?`<label class="inline-field" for="custom-in"><input type="number" id="custom-in" min="${s.timerStyle==='whole'?1:5}" max="${s.timerStyle==='whole'?240:900}" value="${esc(s.custom)}" inputmode="numeric"> ${s.timerStyle==='whole'?'minutes in total':'seconds each'}</label>`:`<span class="inline-field">${perQ(s)} s a question${s.subject==='verbal'?' (word questions are quicker)':''}</span>`}</div>`:''}</div>
+        ${s.timer==='custom'?`<label class="inline-field" for="custom-in"><input type="number" id="custom-in" min="${s.timerStyle==='whole'?1:5}" max="${s.timerStyle==='whole'?240:900}" value="${esc(s.custom)}" inputmode="numeric"> ${s.timerStyle==='whole'?'minutes in total':'seconds each'}</label>`:`<span class="inline-field">${perQ(s)} s a question${s.subject==='reading'?' (extra time to read the passage)':['verbal','french'].includes(s.subject)?' (word questions are quicker)':''}</span>`}</div>`:''}</div>
       <div class="group sheet"><div class="g-label"><h2>Difficulty</h2><span class="aside">${s.difficulty==='adaptive'?'Gets harder after right answers, easier after mistakes':s.difficulty==='mixed'?'A blend of easy, standard and challenge':'Harder questions earn more points'}</span></div>
         <div class="chips">${['easy','standard','challenge','mixed','adaptive'].map(v=>chipR('difficulty',v,diffName[v],s.difficulty===v,v==='adaptive'&&!sp?'disabled':'')).join('')}</div>${!sp&&s.difficulty==='adaptive'?'<p class="warn">Adaptive works in Practice only. Tests use Standard.</p>':''}</div>
       ${typeAllowed(s)?`<div class="group sheet"><div class="g-label"><h2>Answer style</h2><span class="aside">${s.answerStyle==='type'?'Type the answer when it is a number or fraction':''}</span></div><div class="chips">${chipR('astyle','choose','Multiple choice',s.answerStyle!=='type')}${chipR('astyle','type','Type the answer',s.answerStyle==='type')}</div></div>`:''}
@@ -1698,7 +2060,7 @@ function withSeed(seed,fn){const o=Math.random;Math.random=seeded(seed);try{retu
 function startMode(kind){
   const s=S();const g=s.grade;const base={kind,grade:g,mode:'practice',difficulty:'standard',answerStyle:'choose'};
   if(kind==='daily'){
-    const qs=withSeed(strHash(DB.current+'|'+today()+'|'+g),()=>{let q=[];for(const [sub,n] of [['maths',4],['quant',3],['verbal',3]])q=q.concat(buildQuiz({subject:sub,grade:g,topics:topicsFor(sub,g).map(t=>t.id),count:n,difficulty:'standard'}));return shuffle(q);});
+    const qs=withSeed(strHash(DB.current+'|'+today()+'|'+g),()=>{let q=[];for(const [sub,n] of [['maths',3],['quant',1],['verbal',1],['french',1],['science',1],['reading',1],['money',1],['coding',1]])q=q.concat(buildQuiz({subject:sub,grade:g,topics:topicsFor(sub,g).map(t=>t.id),count:n,difficulty:'standard'}));return shuffle(q);});
     beginQuiz(Object.assign(base,{subject:'mixed',count:qs.length,topics:[]}),qs);return;}
   const topics=availTopics(s).map(t=>t.id);
   if(kind==='shootout'){beginQuiz(Object.assign(base,{subject:s.subject,count:0,topics}),buildQuiz({subject:s.subject,grade:g,topics,count:3,difficulty:'standard'}));return;}
@@ -1732,7 +2094,7 @@ function renderQuiz(){
   else actions=`${per?'':`<button class="btn" data-act="prev" ${QZ.i===0?'disabled':''}>Back</button>`}<button class="btn btn-quiet" data-act="flag">${QZ.flags.has(QZ.i)?'Unflag':'Flag for review'}</button><span class="spacer"></span>${last?`<button class="btn btn-go" data-act="submit" id="next-btn">Finish test</button>`:`<button class="btn btn-go" data-act="next" id="next-btn">${answered(a)?'Next':'Skip'}</button>`}`;
   const pips=`<span class="pips" title="Difficulty ${q.d} of 3" aria-label="Difficulty ${q.d} of 3">${[1,2,3].map(x=>`<i class="${x<=q.d?'on':''}"></i>`).join('')}</span>`;
   const right=QZ.ans.filter(x=>x.locked&&x.correct).length,checked=QZ.ans.filter(x=>x.locked).length;
-  const cards=kind==='lives'?`<span class="cards" aria-label="${QZ.cards} of 3 cards">${[0,1,2].map(i=>`<i class="${i<QZ.cards?'on':''}"></i>`).join('')}</span>`:'';
+  const cards=kind==='lives'?`<span class="ycards" aria-label="${QZ.cards} of 3 cards">${[0,1,2].map(i=>`<i class="${i<QZ.cards?'on':''}"></i>`).join('')}</span>`:'';
   let side;
   if(kind==='shootout')side=`<div class="side-card sheet board"><h3>Scoreboard</h3><p class="big-score">⚽ ${right}</p><p class="empty">${checked-right} saved · best ${ST().bests.shootout||0}</p></div>`;
   else if(kind==='lives')side=`<div class="side-card sheet board"><h3>Match</h3><p class="big-score">${right}</p><p class="empty">right so far · best ${ST().bests.lives||0}</p>${cards}<p class="empty" style="margin-top:8px">Level: ${['','Easy','Standard','Challenge'][Math.min(3,1+Math.floor(right/6))]}</p></div>`;
@@ -1744,7 +2106,7 @@ function renderQuiz(){
   const speakBtn=window.speechSynthesis?`<button class="btn btn-sm btn-quiet say" data-act="say" aria-label="Read the question aloud">🔈 Read</button>`:'';
   $('#v-quiz').innerHTML=`<div class="qbar"><button class="btn btn-sm btn-quiet" data-act="leave">← Leave</button><span class="ctx">${esc(NAME(QZ.student))} · ${esc(label)}</span><div class="track ${kind==='shootout'?'shot':''}" role="progressbar" aria-label="Progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.round(prog)}"><i id="trk" style="width:${prog}%"></i></div>${cards}${QZ.L.whole||QZ.L.per?`<span class="timer" id="timer"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8 9V6M6 1.5h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg><span id="timer-t">--:--</span></span>`:''}</div>
     <div class="qgrid"><article class="qcard sheet ${kind!=='training'?'k-'+kind:''}"><div class="qmeta"><span class="qn">${qn}</span><span class="tag">${esc(tName(q.subject||c.subject,q.topic))}</span>${pips}${QZ.flags.has(QZ.i)?'<span class="flagged">Flagged</span>':''}${speakBtn}</div>
-      <h2 class="qtext" id="qtext" tabindex="-1">${esc(q.q)}</h2>${body}${hint}${fb}<div class="qact">${actions}</div></article><aside class="qside">${side}</aside></div>`;
+      ${q.passage?`<div class="passage"><p class="p-title">${esc(q.passage.t)}</p><p>${esc(q.passage.x)}</p></div>`:''}<h2 class="qtext" id="qtext" tabindex="-1">${esc(q.q)}</h2>${q.code?`<pre class="code">${esc(q.code)}</pre>`:''}${body}${hint}${fb}<div class="qact">${actions}</div></article><aside class="qside">${side}</aside></div>`;
   tick();
   const tf=$('#typed-form');if(tf)tf.addEventListener('submit',ev=>{ev.preventDefault();if(P)lockTyped();else go(1);});
   const ti=$('#typed-in');if(ti)ti.addEventListener('input',()=>{QZ.ans[QZ.i].typed=ti.value;if(!P)refreshNavOnly();});
@@ -1804,7 +2166,7 @@ function checkBadges(st,ctx){
   if(n>=10&&right===n)give('clean');if(cfg.kind==='daily'&&n)give('matchday');
   const sk=streakDays(st);if(sk>=7)give('week');if(sk>=30)give('month');
   if(st.totalRight>=100)give('c100');if(st.totalRight>=500)give('c500');if(st.totalRight>=1000)give('c1000');
-  const subs=new Set(st.history.filter(h=>(h.kind||'training')==='training').map(h=>h.subject));if(['maths','quant','verbal'].every(x=>subs.has(x)))give('allround');
+  const subs=new Set(st.history.filter(h=>(h.kind||'training')==='training').map(h=>h.subject));if(['maths','quant','verbal'].every(x=>subs.has(x)))give('allround');if(subs.size>=6)give('explorer');
   if(cfg.kind==='shootout'&&right>=15)give('striker');if(cfg.kind==='lives'&&right>=20)give('survivor');if(cfg.kind==='cup'&&n&&right===n)give('cup');
   for(const sub of Object.values(st.stats||{}))for(const r of Object.values(sub))if(r.n>=5&&r.c/r.n>=0.85)give('strong');
   if(cfg.retry&&n&&right===n)give('comeback');if(n>=10&&right/n>=0.9&&hints===0)give('nohint');
@@ -1822,7 +2184,7 @@ function finish(timeUp){
     const key=(q.subject||QZ.cfg.subject)+'|'+q.topic;const b=by[key]||(by[key]={c:0,n:0,att:0});b.n++;if(a.correct)b.c++;if(!a.skipped)b.att++;});
   const total=qs.length;const secs=Math.round((Date.now()-QZ.t0)/1000);const pct=total?Math.round(right/total*100):0;
   const stId=QZ.student;const st=ensure(DB.students[stId]||ST());const cfg=QZ.cfg;
-  const items=qs.map((q,k)=>{const a=ans[k];const typed=isTyping(q);return {q:q.q,subject:q.subject||cfg.subject,topic:q.topic,d:q.d,answer:q.answer,options:typed?null:q.options,given:a.skipped?null:(typed?(a.typed||'').trim():a.sel),correct:!!a.correct,skipped:!!a.skipped,timedOut:!!a.timedOut,hint:!!a.hint,flagged:QZ.flags.has(idxs[k]),ms:Math.round(a.ms),explain:q.explain};});
+  const items=qs.map((q,k)=>{const a=ans[k];const typed=isTyping(q);return {q:q.q,subject:q.subject||cfg.subject,topic:q.topic,d:q.d,answer:q.answer,options:typed?null:q.options,given:a.skipped?null:(typed?(a.typed||'').trim():a.sel),correct:!!a.correct,skipped:!!a.skipped,timedOut:!!a.timedOut,hint:!!a.hint,flagged:QZ.flags.has(idxs[k]),ms:Math.round(a.ms),explain:q.explain,ptitle:q.passage?q.passage.t:null,code:q.code||null};});
   const lvBefore=levelOf(st.xp);const {pts,extra}=pointsFor(items,cfg,st);
   st.xp+=pts;st.coins+=pts;st.totalRight+=right;
   let newBest=false;if(cfg.kind==='shootout'||cfg.kind==='lives'){if(right>(st.bests[cfg.kind]||0)){st.bests[cfg.kind]=right;newBest=true;}}
@@ -1833,10 +2195,11 @@ function finish(timeUp){
   if(total){st.history.push(h);if(st.history.length>300)st.history=st.history.slice(-300);}
   for(const [key,b] of Object.entries(by)){if(!b.att)continue;const [sub,tid]=key.split('|');const so=st.stats[sub]||(st.stats[sub]={});const r=so[tid]||(so[tid]={c:0,n:0});r.c+=items.filter(i=>i.subject===sub&&i.topic===tid&&!i.skipped&&i.correct).length;r.n+=b.att;r.last=Date.now();}
   const d=today();if(total&&!st.days.includes(d)){st.days.push(d);if(st.days.length>400)st.days=st.days.slice(-400);}
+  let kicksEarned=0;if(gameOn()&&right){st.kickProg+=right;const e=Math.floor(st.kickProg/5);st.kickProg%=5;const b0=st.kicks;st.kicks=Math.min(3,st.kicks+e);kicksEarned=st.kicks-b0;if(st.kicks>=3)st.kickProg=Math.min(st.kickProg,4);}
   const badges=checkBadges(st,{items,cfg});const lvAfter=levelOf(st.xp);
   const ses=Object.assign({id:sid,studentId:stId,studentName:st.name,timeUp:!!timeUp,answerStyle:cfg.answerStyle,topics:cfg.topics,cupTopic:cfg.cupTopic||null},h,{items,synced:false});
   if(total){SESSIONS.push(ses);saveSessionsLocal();}save(stId);if(CLOUD.user&&total)pushSession(ses);
-  LAST={cfg,qs,ans,by,right,skipped,hints,secs,pct,timeUp,total,pts,extra,badges,lvBefore,lvAfter,newBest,stId};
+  LAST={cfg,qs,ans,by,right,skipped,hints,secs,pct,timeUp,total,pts,extra,badges,lvBefore,lvAfter,newBest,stId,kicksEarned};
   renderWho();show('results');renderResults('all');
   const big=badges.length||lvAfter>lvBefore||(total>=5&&right===total)||newBest;
   if(big){setTimeout(()=>{confetti();sfx.win();},250);}else if(cfg.kind!=='training')sfx.whistle();
@@ -1866,10 +2229,11 @@ function renderResults(filter){
       ${R_.lvAfter>R_.lvBefore?`<p class="levelup">⬆️ Level up! ${esc(st.name)} is now Level ${R_.lvAfter}: ${leagueOf(R_.lvAfter)} ${esc(animalOf(st)[2])}</p>`:''}
       <div class="xpbar"><i style="width:${pct}%"></i></div><p class="pl-next">Level ${L} · ${nf(hi-st.xp)} points to Level ${L+1}</p></div>
       ${R_.badges.length?`<div class="rw-badges">${R_.badges.map(id=>{const b=BADGES.find(x=>x.id===id);return `<div class="nb"><span aria-hidden="true">${b.e}</span><b>New trophy: ${esc(b.name)}</b><small>${esc(b.desc)}</small></div>`;}).join('')}</div>`:''}</div>
+    ${R_.kicksEarned?`<div class="kick sheet earned"><span class="kick-ic" aria-hidden="true">🥅</span><div class="kick-main"><b>You earned ${R_.kicksEarned>1?R_.kicksEarned+' penalty games':'a 60-second penalty game'}!</b><span class="kick-sub">Every 5 right answers earns one.</span></div><button class="btn btn-go" data-act="play-game" ${canPlay(st)?'':'disabled'}>${canPlay(st)?'Play now':'Daily limit reached'}</button></div>`:gameOn()&&R_.right?`<div class="kick sheet"><span class="kick-ic" aria-hidden="true">🥅</span><div class="kick-main"><b>Penalty game: ${st.kicks} ready</b><span class="kick-sub">${5-st.kickProg} more right answers to earn the next one.</span></div>${canPlay(st)?'<button class="btn" data-act="play-game">Play 60 s</button>':''}</div>`:''}
     ${topics.length?`<div class="block sheet"><h2>By topic</h2><p class="note">${weak.length?`Focus next on: ${weak.map(t=>esc(tName(t.sub,t.id))).join(', ')}.`:'No weak spots this time.'}</p>${topics.map(t=>`<div class="trow"><span>${esc(tName(t.sub,t.id))}</span><span class="bar"><i class="${t.p>=80?'hi':t.p>=60?'mid':'lo'}" style="width:${Math.max(3,t.p)}%"></i></span><span class="v">${t.c}/${t.n}</span></div>`).join('')}</div>`:''}
     ${n?`<div class="block sheet" id="review"><h2>Review answers</h2><p class="note">Every question with the correct answer and how to solve it.</p>
       <div class="filters tabs" role="tablist"><button role="tab" aria-selected="${filter==='all'}" data-act="rf" data-f="all">All (${n})</button><button role="tab" aria-selected="${filter!=='all'}" data-act="rf" data-f="wrong">Mistakes (${mistakes.length})</button></div>
-      ${items.length?items.map(({q,a,k})=>`<div class="rv"><span class="rv-n ${a.correct?'ok':'no'}">${a.correct?'✓':'✗'}</span><div><p class="rv-t">Question ${k+1} · ${esc(tName(q.subject||R_.cfg.subject,q.topic))}</p><p class="rv-q">${esc(q.q)}</p><div class="rv-a"><span>Your answer: <span class="yours ${a.correct?'good':'bad'}">${esc(yours(q,a))}</span></span>${a.correct?'':`<span class="corr">Correct: ${esc(q.answer)}</span>`}</div><p class="rv-e">${esc(q.explain)}</p></div></div>`).join(''):'<p class="empty">No mistakes to review. Every answer was right.</p>'}</div>`:''}</div>`;
+      ${items.length?items.map(({q,a,k})=>`<div class="rv"><span class="rv-n ${a.correct?'ok':'no'}">${a.correct?'✓':'✗'}</span><div><p class="rv-t">Question ${k+1} · ${esc(tName(q.subject||R_.cfg.subject,q.topic))}</p><p class="rv-q">${q.passage?`<span class="rv-pt">From “${esc(q.passage.t)}”: </span>`:''}${esc(q.q)}</p>${q.code?`<pre class="code sm">${esc(q.code)}</pre>`:''}<div class="rv-a"><span>Your answer: <span class="yours ${a.correct?'good':'bad'}">${esc(yours(q,a))}</span></span>${a.correct?'':`<span class="corr">Correct: ${esc(q.answer)}</span>`}</div><p class="rv-e">${esc(q.explain)}</p></div></div>`).join(''):'<p class="empty">No mistakes to review. Every answer was right.</p>'}</div>`:''}</div>`;
 }
 function retryMistakes(){const R_=LAST;const qs=R_.qs.filter((q,k)=>!R_.ans[k].correct).map(q=>Object.assign({},q,{options:shuffle(q.options)}));const sub=R_.cfg.subject==='mixed'?(qs[0].subject||'maths'):R_.cfg.subject;beginQuiz(Object.assign({},R_.cfg,{kind:'training',mode:'practice',timer:'off',count:qs.length,retry:true,subject:sub,topics:[...new Set(qs.map(q=>q.topic))]}),qs);}
 function practiseWeak(){const R_=LAST;const weak=Object.entries(R_.by).filter(([k,b])=>b.c/b.n<0.7).map(([k])=>k.split('|')[1]);const cfg=Object.assign({},R_.cfg,{topics:weak,retry:false});beginQuiz(cfg,buildQuiz({subject:cfg.subject,grade:cfg.grade,topics:weak,count:cfg.count,difficulty:cfg.difficulty==='adaptive'?'standard':cfg.difficulty}));}
@@ -1903,7 +2267,8 @@ function renderProgress(msg){
     <div class="block sheet"><h2>Weekly rewards</h2><p class="note">Points reset every Monday. Rewards show on each child's home screen with a progress bar.${DB.family.parentPin?' Changes need the parent PIN.':''}</p>
       <div class="manage"><div><h3 class="mini-h">${esc(st.name)}'s own goal</h3><div class="pin-row"><div class="field" style="flex:0 0 120px"><label for="g-pts">Points</label><input id="g-pts" type="number" min="50" step="50" value="${esc(g.pts||'')}" placeholder="500" inputmode="numeric"></div><div class="field" style="flex:1 1 180px"><label for="g-rw">Reward</label><input id="g-rw" maxlength="40" value="${esc(g.reward||'')}" placeholder="Movie night"></div></div><p class="empty">This week: ${nf(ptsWeek(st))} points.</p></div>
       <div><h3 class="mini-h">Family Cup (everyone together)</h3><div class="pin-row"><div class="field" style="flex:0 0 120px"><label for="f-pts">Points</label><input id="f-pts" type="number" min="100" step="100" value="${esc(fg.pts||'')}" placeholder="2000" inputmode="numeric"></div><div class="field" style="flex:1 1 180px"><label for="f-rw">Reward</label><input id="f-rw" maxlength="40" value="${esc(fg.reward||'')}" placeholder="Pizza Friday"></div></div><p class="empty">This week together: ${nf(Object.values(DB.students).reduce((a,s)=>a+ptsWeek(s),0))} points.</p></div></div>
-      <div class="btns"><button class="btn btn-sm btn-go" data-act="save-goals">Save rewards</button><button class="btn btn-sm btn-quiet" data-act="clear-goals">Remove rewards</button></div>
+      <h3 class="mini-h" style="margin-top:6px">Penalty mini-game</h3><div class="pin-row"><label class="chk"><input type="checkbox" id="mg-on" ${gameOn()?'checked':''}> Allow the 60-second game (1 per 5 right answers)</label><div class="field" style="flex:0 0 150px"><label for="mg-n">Games per day</label><input id="mg-n" type="number" min="1" max="10" value="${DB.family.gamesPerDay||4}" inputmode="numeric"></div></div>
+      <div class="btns" style="margin-top:10px"><button class="btn btn-sm btn-go" data-act="save-goals">Save rewards</button><button class="btn btn-sm btn-quiet" data-act="clear-goals">Remove rewards</button></div>
       <p class="empty" style="margin-top:10px">A typical 10-question session earns about 100 points.</p></div>
     <div class="manage"><div class="block sheet"><h2>Players</h2><p class="note">A player PIN stops siblings switching into each other's profile. The parent PIN protects rewards and deleting.</p>
         <div class="field"><label for="rename-in">Name</label><input id="rename-in" maxlength="24" value="${esc(st.name)}"></div>
@@ -1931,15 +2296,90 @@ function renderSession(sid,filter){
       <div>${Object.entries(by).sort((a,b)=>a[1].c/a[1].n-b[1].c/b[1].n).map(([k,b])=>{const [sub,t]=k.split('|');return `<span class="tag" style="display:inline-block;margin:0 6px 6px 0">${esc(tName(sub,t))}: ${b.c}/${b.n}</span>`;}).join('')}</div></div></div>
     <div class="block sheet"><h2>Every question</h2><p class="note">Time is how long ${esc(s.studentName||'they')} spent on each question. Slow ones are marked so you can see where they got stuck.</p>
       <div class="filters tabs" role="tablist"><button role="tab" aria-selected="${filter==='all'}" data-act="sf" data-f="all" data-k="${esc(sid)}">All (${n})</button><button role="tab" aria-selected="${filter==='wrong'}" data-act="sf" data-f="wrong" data-k="${esc(sid)}">Mistakes (${nWrong})</button><button role="tab" aria-selected="${filter==='slow'}" data-act="sf" data-f="slow" data-k="${esc(sid)}">Slow (${nSlow})</button>${nHint?`<button role="tab" aria-selected="${filter==='hint'}" data-act="sf" data-f="hint" data-k="${esc(sid)}">Used a hint (${nHint})</button>`:''}</div>
-      ${list.length?list.map(({it,k})=>`<div class="rv"><span class="rv-n ${it.correct?'ok':'no'}">${it.correct?'✓':'✗'}</span><div><p class="rv-t">Question ${k+1} · ${esc(tName(it.subject||s.subject,it.topic))} · <span class="tm ${(it.ms||0)>=slowCut?'slow':''}">${secTxt(it.ms)}</span>${it.hint?' <span class="tm h">hint</span>':''}${it.flagged?' <span class="tm">flagged</span>':''}</p><p class="rv-q">${esc(it.q)}</p>
+      ${list.length?list.map(({it,k})=>`<div class="rv"><span class="rv-n ${it.correct?'ok':'no'}">${it.correct?'✓':'✗'}</span><div><p class="rv-t">Question ${k+1} · ${esc(tName(it.subject||s.subject,it.topic))} · <span class="tm ${(it.ms||0)>=slowCut?'slow':''}">${secTxt(it.ms)}</span>${it.hint?' <span class="tm h">hint</span>':''}${it.flagged?' <span class="tm">flagged</span>':''}</p><p class="rv-q">${it.ptitle?`<span class="rv-pt">From “${esc(it.ptitle)}”: </span>`:''}${esc(it.q)}</p>${it.code?`<pre class="code sm">${esc(it.code)}</pre>`:''}
         <div class="rv-a"><span>Answered: <span class="yours ${it.correct?'good':'bad'}">${it.skipped?(it.timedOut?'Ran out of time':'Not answered'):esc(it.given||'—')}</span></span>${it.correct?'':`<span class="corr">Correct: ${esc(it.answer)}</span>`}</div>${it.options&&!it.correct?`<p class="rv-t">Choices: ${it.options.map(esc).join(' · ')}</p>`:''}<p class="rv-e">${esc(it.explain)}</p></div></div>`).join(''):'<p class="empty">Nothing in this filter.</p>'}</div></div>`;
 }
+
+/* ---------- PENALTY MINI-GAME ---------- */
+let GAME=null;
+const gamesToday=st=>(st.kickDay&&st.kickDay.d===today())?st.kickDay.n:0;
+const gameOn=()=>DB.family.miniGame!==false;
+function canPlay(st){return gameOn()&&st.kicks>0&&gamesToday(st)<(DB.family.gamesPerDay||4);}
+function gameStrip(st){
+  if(!gameOn())return '';const lim=DB.family.gamesPerDay||4;const left=Math.max(0,lim-gamesToday(st));
+  const pips=[0,1,2,3,4].map(i=>`<i class="${i<st.kickProg?'on':''}"></i>`).join('');
+  return `<div class="kick sheet"><span class="kick-ic" aria-hidden="true">🥅</span><div class="kick-main"><b>Penalty game: ${st.kicks} ready</b><span class="kick-sub">${st.kicks>=3?'Your bank is full. Play one to keep earning.':`${5-st.kickProg} more right answer${5-st.kickProg===1?'':'s'} to earn the next one`} <span class="kpips" aria-hidden="true">${pips}</span></span>${left===0?'<span class="kick-sub">Daily limit reached. More tomorrow!</span>':''}</div><button class="btn ${canPlay(st)?'btn-go':''}" data-act="play-game" ${canPlay(st)?'':'disabled'}>Play 60 s</button></div>`;
+}
+function startGame(){const st=ST();if(!canPlay(st))return;st.kicks--;st.kickDay={d:today(),n:gamesToday(st)+1};save();show('game');renderGame();}
+function renderGame(){
+  const st=ST();
+  $('#v-game').innerHTML=`<div class="game"><div class="g-bar"><button class="btn btn-sm btn-quiet" data-act="game-quit">← Leave</button><span class="g-stat">⚽ <b id="g-goals">0</b> goals</span><span class="g-stat">Shots <b id="g-shots">0</b></span><span class="timer" id="g-timer">1:00</span></div>
+    <div class="pitch-wrap"><canvas id="pitch" role="img" aria-label="Penalty game. Tap or press Space to shoot."></canvas><div class="g-over" id="g-over" hidden></div></div>
+    <p class="g-help">The yellow target slides across the goal. Tap the pitch, click, or press <kbd>Space</kbd> to shoot where it is. Beat the keeper! Your best: ${st.bests.kick||0}</p></div>`;
+  const cv=$('#pitch');const dpr=Math.min(2,window.devicePixelRatio||1);const W=400,H=480;cv.width=W*dpr;cv.height=H*dpr;const ctx=cv.getContext('2d');ctx.scale(dpr,dpr);
+  const pet=animalOf(st)[1];const kit=kitOf(st)[1];
+  GAME={ctx,W,H,t:0,last:performance.now(),left:60,goals:0,shots:0,phase:'aim',aimT:Math.random()*6,aimX:200,kx:200,ktx:200,kNext:0,ball:null,res:'',resT:0,over:false,raf:0,pet,kit,paused:false};
+  cv.addEventListener('pointerdown',e=>{e.preventDefault();shoot();});
+  GAME.raf=requestAnimationFrame(gameLoop);
+}
+const GX0=78,GX1=322,GY=96;
+function shoot(){const G=GAME;if(!G||G.over||G.phase!=='aim')return;G.phase='flight';G.shots++;G.ball={x0:200,y0:420,x1:G.aimX,y1:GY+6,t:0};tone([[180,.06,'square',.08]]);const s=$('#g-shots');if(s)s.textContent=G.shots;}
+function gameLoop(now){
+  const G=GAME;if(!G||VIEW!=='game')return;let dt=Math.min(0.05,(now-G.last)/1000);G.last=now;if(document.hidden)dt=0;
+  if(!G.over){G.left-=dt;const tm=$('#g-timer');if(tm){tm.textContent=mmss(Math.ceil(Math.max(0,G.left)));tm.classList.toggle('low',G.left<=10);}}
+  const lvl=G.goals;
+  // aim sweep (slightly past the posts so aiming matters)
+  if(G.phase==='aim'){G.aimT+=dt*(2.0+lvl*0.12);G.aimX=200+Math.sin(G.aimT)*((GX1-GX0)/2+10);}
+  // keeper wanders, then reacts to the shot
+  const half=26+Math.min(12,Math.floor(lvl/3)*2);
+  if(G.phase==='flight'){const sp=80+lvl*9;const tgt=G.ball.x1;const r=G.ball.t>0.4?sp:0;G.kx+=Math.sign(tgt-G.kx)*Math.min(Math.abs(tgt-G.kx),r*dt);}
+  else{G.kNext-=dt;if(G.kNext<=0){G.ktx=GX0+half+Math.random()*(GX1-GX0-2*half);G.kNext=0.5+Math.random()*0.9;}const sp=60+lvl*6;G.kx+=Math.sign(G.ktx-G.kx)*Math.min(Math.abs(G.ktx-G.kx),sp*dt);}
+  if(G.phase==='flight'){const b=G.ball;b.t+=dt/0.45;if(b.t>=1){b.t=1;let res;if(b.x1<GX0+6||b.x1>GX1-6)res='wide';else if(Math.abs(b.x1-G.kx)<half+9)res='saved';else res='goal';
+      G.res=res;G.resT=0.85;G.phase='result';if(res==='goal'){G.goals++;const e=$('#g-goals');if(e)e.textContent=G.goals;tone([[784,.08],[988,.08],[1319,.18]]);}else tone([[160,.18,'triangle',.1]]);}}
+  else if(G.phase==='result'){G.resT-=dt;if(G.resT<=0){G.phase='aim';G.ball=null;G.res='';}}
+  drawPitch(half);
+  if(!G.over&&G.left<=0&&G.phase!=='flight'){endGame();return;}
+  G.raf=requestAnimationFrame(gameLoop);
+}
+function drawPitch(half){
+  const G=GAME,c=G.ctx,W=G.W,H=G.H;
+  for(let i=0;i<8;i++){c.fillStyle=i%2?'#3E9B4F':'#46A957';c.fillRect(0,i*H/8,W,H/8);}
+  c.strokeStyle='rgba(255,255,255,.85)';c.lineWidth=3;c.strokeRect(40,GY+50,W-80,170);c.strokeRect(120,GY+50,W-240,60);
+  c.beginPath();c.arc(200,420,4,0,7);c.fillStyle='#fff';c.fill();
+  // net + frame
+  c.fillStyle='rgba(255,255,255,.12)';c.fillRect(GX0,GY-56,GX1-GX0,56);
+  c.strokeStyle='rgba(255,255,255,.35)';c.lineWidth=1;for(let x=GX0;x<=GX1;x+=12){c.beginPath();c.moveTo(x,GY-56);c.lineTo(x,GY);c.stroke();}for(let y=GY-56;y<=GY;y+=10){c.beginPath();c.moveTo(GX0,y);c.lineTo(GX1,y);c.stroke();}
+  c.strokeStyle='#fff';c.lineWidth=6;c.beginPath();c.moveTo(GX0,GY+50);c.lineTo(GX0,GY-56);c.lineTo(GX1,GY-56);c.lineTo(GX1,GY+50);c.stroke();
+  c.lineWidth=3;c.beginPath();c.moveTo(20,GY+50);c.lineTo(W-20,GY+50);c.stroke();
+  // keeper
+  const kx=G.kx,ky=GY+22;c.fillStyle='#FF8A00';c.fillRect(kx-14,ky-16,28,34);c.fillRect(kx-half,ky-14,half-14,9);c.fillRect(kx+14,ky-14,half-14,9);
+  c.fillStyle='#222';c.fillRect(kx-12,ky+18,9,16);c.fillRect(kx+3,ky+18,9,16);
+  c.fillStyle='#F2C9A0';c.beginPath();c.arc(kx,ky-26,11,0,7);c.fill();c.fillStyle='#fff';c.fillRect(kx-half-6,ky-17,10,14);c.fillRect(kx+half-4,ky-17,10,14);
+  // aim target
+  if(G.phase==='aim'){c.strokeStyle='#FFD400';c.lineWidth=3;c.beginPath();c.arc(G.aimX,GY-14,13,0,7);c.stroke();c.beginPath();c.moveTo(G.aimX-19,GY-14);c.lineTo(G.aimX+19,GY-14);c.moveTo(G.aimX,GY-33);c.lineTo(G.aimX,GY+5);c.stroke();
+    c.setLineDash([6,8]);c.strokeStyle='rgba(255,212,0,.6)';c.beginPath();c.moveTo(200,412);c.lineTo(G.aimX,GY);c.stroke();c.setLineDash([]);}
+  // kicker mascot
+  c.font='44px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(G.pet,150,440);
+  // ball
+  let bx=200,by=420,br=11;if(G.ball){const b=G.ball,t=b.t;bx=b.x0+(b.x1-b.x0)*t;by=b.y0+(b.y1-b.y0)*t-Math.sin(t*Math.PI)*40;br=11-4*t;if(G.res==='saved'){by+=24;}if(G.res==='wide'){bx+=b.x1<200?-14:14;}}
+  c.fillStyle='#fff';c.beginPath();c.arc(bx,by,br,0,7);c.fill();c.fillStyle='#222';c.beginPath();c.arc(bx,by,br*0.38,0,7);c.fill();c.strokeStyle='#222';c.lineWidth=1;c.beginPath();c.arc(bx,by,br,0,7);c.stroke();
+  if(G.res){const txt=G.res==='goal'?'GOAL!':G.res==='saved'?'SAVED!':'WIDE!';c.font='800 54px "Baloo 2","Trebuchet MS",sans-serif';c.lineWidth=7;c.strokeStyle='rgba(0,0,0,.45)';c.strokeText(txt,200,280);c.fillStyle=G.res==='goal'?'#FFD400':'#fff';c.fillText(txt,200,280);}
+}
+function endGame(){
+  const G=GAME;G.over=true;cancelAnimationFrame(G.raf);const st=ST();
+  const coins=Math.min(15,G.goals);st.coins+=coins;const best=G.goals>(st.bests.kick||0);if(best)st.bests.kick=G.goals;
+  const nb=[];if(G.goals>=10&&!st.badges.kick10){st.badges.kick10=Date.now();nb.push('kick10');}
+  save();const o=$('#g-over');
+  o.innerHTML=`<div class="g-card"><p class="res-kind">Full time</p><p class="g-big">${G.goals} goal${G.goals===1?'':'s'}</p><p>from ${G.shots} shot${G.shots===1?'':'s'} · 🪙 +${coins} coins${best&&G.goals?' · New best!':''}</p>${nb.length?'<p class="levelup">🥾 New trophy: Super Striker!</p>':''}<div class="btns" style="justify-content:center"><button class="btn btn-go" data-act="game-done">Back to questions</button>${canPlay(st)?'<button class="btn" data-act="play-game">Play another</button>':''}</div></div>`;
+  o.hidden=false;if(best||nb.length){confetti();sfx.win();}else sfx.whistle();
+}
+async function quitGame(){if(GAME&&!GAME.over){const ok=await ask('Leave the game?','This game will end and the turn is used.',{ok:'Leave',cancel:'Keep playing'});if(!ok)return;cancelAnimationFrame(GAME.raf);}GAME=null;home();}
 
 /* ---------- events ---------- */
 document.addEventListener('click',async e=>{
   const b=e.target.closest('[data-act]');if(!b)return;const act=b.dataset.act;
   switch(act){
-    case 'go-setup': if(VIEW==='auth')return; if(VIEW==='quiz'&&QZ&&!QZ.fin){leave();return;} home();break;
+    case 'go-setup': if(VIEW==='auth')return; if(VIEW==='game'&&GAME&&!GAME.over){quitGame();return;} if(VIEW==='quiz'&&QZ&&!QZ.fin){leave();return;} home();break;
     case 'go-progress': if(VIEW==='quiz'&&QZ&&!QZ.fin){if(!await leave())return;} show('progress');renderProgress();break;
     case 'snd': SND.on=!SND.on;lsSet(LS_SND,SND.on);renderSound();if(SND.on)sfx.right();break;
     case 'account': if(!CLOUD.enabled)return; if(CLOUD.user){if(VIEW==='quiz'&&QZ&&!QZ.fin)return;show('progress');renderProgress();const so=document.querySelector('[data-act=sign-out]');if(so)so.scrollIntoView({block:'center'});}else{if(VIEW==='quiz'&&QZ&&!QZ.fin&&!await leave())return;CLOUD.err=CLOUD.failed?CLOUD.err:'';show('auth');renderAuth();}break;
@@ -1957,7 +2397,10 @@ document.addEventListener('click',async e=>{
     case 'buy':{const st=ST();const it=ITEMS.find(i=>i.id===b.dataset.k);if(!it||st.owned.includes(it.id))return;if(st.coins<it.cost){renderShop({t:`You need ${it.cost-st.coins} more coins.`,err:true});return;}st.coins-=it.cost;st.owned.push(it.id);st.wearing[it.slot]=it.id;save();sfx.buy();renderShop({t:`${it.name} bought and equipped!`});break;}
     case 'wear':{const st=ST();const it=ITEMS.find(i=>i.id===b.dataset.k);if(!it)return;st.wearing[it.slot]=st.wearing[it.slot]===it.id?null:it.id;save();renderShop();break;}
     case 'mode': startMode(b.dataset.k);break;
-    case 'say': if(QZ){const q=QZ.qs[QZ.i];speak(q.q+'. '+(isTyping(q)?'':q.options.map((o,i)=>'ABCD'[i]+', '+o).join('. ')));}break;
+    case 'play-game': startGame();break;
+    case 'game-quit': quitGame();break;
+    case 'game-done': GAME=null;home();break;
+    case 'say': if(QZ){const q=QZ.qs[QZ.i];speak((q.passage?q.passage.t+'. '+q.passage.x+' ':'')+q.q+'. '+(q.code?q.code.replace(/\n/g,'. ')+'. ':'')+(isTyping(q)?'':q.options.map((o,i)=>'ABCD'[i]+', '+o).join('. ')));}break;
     case 'topics-all':{const s=S();s.topicsBy[s.subject+'-'+s.grade]=availTopics(s).map(t=>t.id);save();renderSetup();break;}
     case 'topics-none':{const s=S();s.topicsBy[s.subject+'-'+s.grade]=[];save();renderSetup();break;}
     case 'start': startFromSettings();break;
@@ -1978,7 +2421,7 @@ document.addEventListener('click',async e=>{
     case 'open-ses': show('session');renderSession(b.dataset.k,'all');break;
     case 'sf': renderSession(b.dataset.k,b.dataset.f);break;
     case 'add-student': if(await addStudent()){renderWho();PETDRAFT=null;show('pet');renderPet(true);}break;
-    case 'save-goals':{const gp=Math.round(+$('#g-pts').value||0),gr=$('#g-rw').value.trim(),fp=Math.round(+$('#f-pts').value||0),fr=$('#f-rw').value.trim();if(!await parentOk())return;const st=ST();st.goal=gp>0?{pts:gp,reward:gr}:null;DB.family.goal=fp>0?{pts:fp,reward:fr}:null;save();saveFamily();renderProgress({t:'Rewards saved. They show on the home screen.'});break;}
+    case 'save-goals':{const _mg=1,gp=Math.round(+$('#g-pts').value||0),gr=$('#g-rw').value.trim(),fp=Math.round(+$('#f-pts').value||0),fr=$('#f-rw').value.trim();if(!await parentOk())return;const st=ST();st.goal=gp>0?{pts:gp,reward:gr}:null;DB.family.goal=fp>0?{pts:fp,reward:fr}:null;DB.family.miniGame=$('#mg-on').checked;DB.family.gamesPerDay=clamp(Math.round(+$('#mg-n').value||4),1,10);save();saveFamily();renderProgress({t:'Rewards saved. They show on the home screen.'});break;}
     case 'clear-goals':{if(!await parentOk())return;ST().goal=null;DB.family.goal=null;save();saveFamily();renderProgress({t:'Rewards removed.'});break;}
     case 'rename':{const v=($('#rename-in').value||'').trim().slice(0,24);const st=ST();if(!v||v===st.name)return;if(Object.entries(DB.students).some(([id,s])=>id!==DB.current&&s.name.toLowerCase()===v.toLowerCase())){renderProgress({t:'That name is already used.',err:true});return;}st.name=v;setPlayerName(v);save();renderWho();renderProgress({t:'Name saved.'});break;}
     case 'set-pin':{const v=($('#pin-in').value||'').trim();if(!/^\d{4,8}$/.test(v)){renderProgress({t:'Use 4 to 8 digits for the PIN.',err:true});return;}ST().pin=hashPin(v);save();renderWho();renderProgress({t:`Player PIN set for ${NAME()}.`});break;}
@@ -1996,6 +2439,7 @@ document.addEventListener('click',async e=>{
   }
 });
 document.addEventListener('keydown',e=>{
+  if(VIEW==='game'&&GAME&&!GAME.over&&(e.key===' '||e.key==='Enter')&&e.target.tagName!=='BUTTON'){e.preventDefault();shoot();return;}
   if(VIEW!=='quiz'||!QZ||QZ.fin||!$('#modal').hidden)return;
   if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA')return;
   if(e.metaKey||e.ctrlKey||e.altKey)return;
@@ -2007,7 +2451,7 @@ document.addEventListener('keydown',e=>{
   if(k==='arrowright'&&!practice()&&!QZ.L.per)go(1);if(k==='arrowleft'&&!practice()&&!QZ.L.per)go(-1);
 });
 document.addEventListener('visibilitychange',()=>{if(!QZ||QZ.fin||VIEW!=='quiz')return;if(document.hidden)clockOut();else if(!QZ.ans[QZ.i].locked)clockIn();});
-window.__sharpen={get DB(){return DB;},get QZ(){return QZ;}};
+window.__sharpen={get DB(){return DB;},get QZ(){return QZ;},get GAME(){return GAME;}};
 
 saveLocal();onStudentReady();renderWho();renderSound();
 if(CLOUD.enabled&&!lsGet(LS_LOCAL,false)&&!lsGet(LS_IN,false)){show('auth');renderAuth();}else home();
